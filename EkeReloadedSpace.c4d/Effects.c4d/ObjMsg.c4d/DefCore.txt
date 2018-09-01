@@ -1,0 +1,9 @@
+[DefCore]
+id=_MSG
+Name=ObjectMessage
+Version=4,9,5
+Category=C4D_Vehicle|C4D_MouseIgnore
+Value=1
+
+[Physical]
+Float=100

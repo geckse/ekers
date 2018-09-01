@@ -1,0 +1,15 @@
+[Action]
+Name=Fly
+Delay=1
+Length=1
+FacetBase=1
+NextAction=Fly
+StartCall=FlyingFX
+
+[Action]
+Name=FadeOut
+Delay=1
+Length=1
+FacetBase=1
+NextAction=FadeOut
+StartCall=FadeOut

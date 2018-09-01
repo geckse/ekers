@@ -1,0 +1,12 @@
+CtrlInventoryDesc=Inventar auswählen
+CtxDeconstructDesc=Rückbau
+DeconstructNotFound=Kein rückbaubares Gebäude gefunden.
+DeconstructMustWalk=Clonk muss für den Rückbau stehen.
+CtxSplitter=Radius anzeigen
+CtxHomeDesc=Zurück zur Basis
+CtxRepair=Reparieren
+CtxSetResolution=Auflösung angeben
+NothingtoRepair=Nichts reparierbares gefunden!
+Standing=Clonk muss zum Reparieren stehen!
+NeededMaterials=Benötigte Materialien:
+NoEnergy=Nicht genügend Energie vorhanden!

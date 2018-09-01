@@ -1,0 +1,15 @@
+Student
+Lieferjunge
+Mechaniker
+Ingenieur
+Techniker
+Physiker
+Astronom
+Leutnant
+Astronaut
+Kommandeur
+Armstrong
+Phillip J. Fry
+Rhodan
+Superintelligenz
+Master of the Universe

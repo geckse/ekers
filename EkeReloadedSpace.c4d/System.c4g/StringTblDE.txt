@@ -1,0 +1,7 @@
+MsgItem1=%s {{%i}} %s
+MsgSelf1=%s {{%i}}
+CtrlInventoryDesc=Inventar wechseln
+CtrlActivateDesc=Aktivieren
+CtrlInventoryDrop=Alle {{ROCK}} ablegen
+CtrlInventoryDropExpect=Alles ablegen auﬂer {{ROCK}}
+DescGetOut=Rauszaubern

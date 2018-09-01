@@ -1,0 +1,8 @@
+[DefCore]
+id=_LOG
+Name=ExtraLog
+Version=4,9,5
+Category=52428801
+Width=8
+Height=31
+Picture=0,0,8,31

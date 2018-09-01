@@ -1,0 +1,15 @@
+[Action]
+Name=Up
+Procedure=FLOAT
+FacetBase=1
+Length=1
+Delay=1
+NextAction=Up
+
+[Action]
+Name=Down
+Procedure=FLIGHT
+FacetBase=1
+Length=1
+Delay=1
+NextAction=Down

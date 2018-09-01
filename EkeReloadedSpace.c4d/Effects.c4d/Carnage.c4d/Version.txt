@@ -1,0 +1,14 @@
+1.03
+
+1.02
+* Version.txt angepasst
+* Funktion "HurlObject()" nach Global.c ausgelagert
+1.01
++ Es fliegt nun auch ein Knochen raus :)
+* Kopf, Arm und Bein sind nicht mehr sammelbar
+* Fliesch ist sammelbar und kann gegessen werden *bäh wie makaber*
+* Der abgetrennte Kopf schaut in die richtige Richtung
+! Viele kleinere Verbesserungen
+1.00
+
++ hinzugefügt | - entfernt | * verändert | ! Bugfix

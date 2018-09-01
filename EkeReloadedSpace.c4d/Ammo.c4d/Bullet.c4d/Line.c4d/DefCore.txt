@@ -1,0 +1,15 @@
+[DefCore]
+
+id=LI1C
+
+Name=Line
+
+Category=C4D_Object|C4D_StaticBack
+
+Width=2
+Height=8
+
+Offset=-1,-4
+
+NoStabilize=1
+ColorByOwner=1

@@ -1,0 +1,1 @@
+Burns all inflammable objects and melts Ice and Snow. Needs Gasoline. Refill will [Dig Double], fire on/off with [Throw].

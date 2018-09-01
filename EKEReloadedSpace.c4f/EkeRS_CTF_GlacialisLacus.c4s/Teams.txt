@@ -1,0 +1,13 @@
+[Teams]
+LastTeamID=2
+TeamColors=true
+
+  [Team]
+  id=1
+  Name=Team Rot
+  Color=16711680
+
+  [Team]
+  id=2
+  Name=Team Blau
+  Color=255

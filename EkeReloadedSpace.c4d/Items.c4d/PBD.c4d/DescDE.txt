@@ -1,0 +1,2 @@
+Das Portable Building Device bietet die Möglichkeit Gebäude zu erstellen.
+Der Benutzer kann hiermit Gebäudepläne platzieren, die dann von Drohnen erstellen werden.

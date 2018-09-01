@@ -1,0 +1,1 @@
+Der Tank entleert sich im Flug sehr schnell, allerdings lädt er von alleine auf, sobald der Clonk wieder auf festen Boden steht.

@@ -1,0 +1,2 @@
+DE:Sauerstoff
+US:O2

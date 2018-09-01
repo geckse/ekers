@@ -1,0 +1,1 @@
+Friert Objekte ein und löscht Feuer. Benötigt Wasser. Nachladen mit [Doppelt Graben], Strahl an/aus mit [Werfen].

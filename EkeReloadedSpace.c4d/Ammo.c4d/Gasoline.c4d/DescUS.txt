@@ -1,0 +1,1 @@
+Contains fuel for the Flamethrower and the Jetpack. Convert it to Molotovs with [Double Dig]. The can explodes under pressure.

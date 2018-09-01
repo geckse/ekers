@@ -1,0 +1,17 @@
+[DefCore]
+id=CARM
+Name=ClonkArm
+Version=4,9,5
+Category=C4D_Object
+Width=10
+Height=4
+Offset=-5,-2
+Value=3
+Mass=10
+Picture=0,0,10,4
+Vertices=2
+VertexX=4,-5
+VertexY=-0,-1
+VertexFriction=100,100
+Rotate=1
+ColorByOwner=1

@@ -1,0 +1,3 @@
+[Script]
+GlobalNamed=13;lgt_enlightment=A0,lgt_last_lgt_frame=A0,miffelCount=A0,stippelCount=A0,theEvil=A0,aRel=a[0;],scoreleft=A0,scoreright=A0,killleft=A0,killright=A0,capturelimit=i3,stateleft=A0,stateright=A0
+Go=true

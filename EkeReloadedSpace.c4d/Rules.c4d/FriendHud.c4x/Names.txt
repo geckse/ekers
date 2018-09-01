@@ -1,0 +1,2 @@
+DE:Freundes Hud
+US:Friend Hud

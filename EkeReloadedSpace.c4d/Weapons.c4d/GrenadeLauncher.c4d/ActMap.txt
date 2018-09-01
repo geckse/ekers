@@ -1,0 +1,11 @@
+[Action]
+Name=Shoot
+Delay=4
+NextAction=Shoot
+StartCall=Shooting
+Sound=AR_Shoot
+
+[Action]
+Name=Stop
+Delay=14
+FacetBase=1

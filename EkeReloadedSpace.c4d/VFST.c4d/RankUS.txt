@@ -1,0 +1,15 @@
+Student
+Deliverboy
+Mechanic
+Repairperson
+Engeneer
+Physicist
+Astronomer
+Lieutenant
+Astronaut
+Commander
+Armstrong
+Phillip J. Fry
+Rhodan
+Superintelligence
+Master of the Universe

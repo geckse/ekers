@@ -1,0 +1,17 @@
+[DefCore]
+id=GL5B
+Name=Grenade Launcher
+Version=4,9,5
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=3
+Width=25
+Height=12
+Offset=-12,-6
+Value=100
+Mass=10
+Picture=25,0,35,35
+Vertices=1
+VertexY=4
+VertexFriction=100
+Rebuy=1
+Collectible=1

@@ -1,0 +1,17 @@
+[DefCore]
+id=IT5B
+Name=Flamethrower
+Version=4,9,5
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=3
+Width=18
+Height=16
+Offset=-9,-8
+Value=50
+Mass=25
+Picture=18,0,35,35
+Vertices=1
+VertexY=7
+VertexFriction=100
+Rebuy=1
+Collectible=1

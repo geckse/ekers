@@ -1,0 +1,7 @@
+MsgItem1=%s {{%i}} %s
+MsgSelf1=%s {{%i}}
+CtrlInventoryDesc=Switch Inventory
+CtrlActivateDesc=Activate
+CtrlInventoryDrop=Drop all {{ROCK}}
+CtrlInventoryDropExpect=Drop all except {{ROCK}}
+DescGetOut=Get Out

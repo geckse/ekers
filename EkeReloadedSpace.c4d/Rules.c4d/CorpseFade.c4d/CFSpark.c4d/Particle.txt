@@ -1,0 +1,16 @@
+[Particle]
+Name=CFSpark
+MaxCount=2000
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,12,12,-6,-6
+Delay=0
+Repeats=1
+GravityAcc=-40
+AlphaFade=3
+Additive=1
+Attach=1
+VertexCount=1
+VertexY=1
+CollisionFn=Die
