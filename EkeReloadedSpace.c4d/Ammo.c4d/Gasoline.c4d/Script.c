@@ -27,6 +27,7 @@ func Activate(object clonk)
 
         // set filling level
         var iFuelMultiplier = (iFuel*15)/MaxFuel();
+
         iFuelMultiplier = 26*(15-iFuelMultiplier);
         SetPicture(15 + iFuelMultiplier, 0, 26, 35);
     }
