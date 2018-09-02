@@ -25,6 +25,11 @@ func Initialize() {
   SetSkyParallax(0, 50,50, 1,0);
   CreateObject(COFA);
   CreateObject(MEST);
+
+  CreateObject(HEFR);
+  CreateObject(HEFR);
+  CreateObject(HEFR);
+  
   return(ScriptGo(1));
 }
 
@@ -199,7 +204,7 @@ global func Team2Lose()
   if (CheckTeam(GetPlayerByIndex(i)) != winnerTeam)
   EliminatePlayer(GetPlayerByIndex(i));
   var iPlr = GetPlayerByIndex(i);
-  if(!aPlrEvaluated[iPlr]) AddEvaluationData(EvaDataPlr(iPlr),GetPlayerID(iPlr));  
+  if(!aPlrEvaluated[iPlr]) AddEvaluationData(EvaDataPlr(iPlr),GetPlayerID(iPlr));
    }
 }
 

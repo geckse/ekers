@@ -15,7 +15,7 @@ Definition3=EkeReloadedSpace.c4d
 [Game]
 StructNeedEnergy=0
 Goals=MELE=1
-Rules=CM5B=1;META=1;SW5B=1
+Rules=CM5B=1;META=1;SW5B=1;HEFR=3;
 FoWColor=656912
 
 [Player1]
