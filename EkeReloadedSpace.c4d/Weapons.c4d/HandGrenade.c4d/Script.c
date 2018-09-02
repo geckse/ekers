@@ -4,7 +4,7 @@
 
 protected func Initialize()
 {
-	// Granaten idlen jetzt standardmäßig damit sie im nach Aktvierung und anschließender Deaktivierung wieder mit den anderen im Inventar stacken
+	// stanrdadmäßig idlen um im inventar zu stacken nach stoppen des zünders
 	SetAction("Idle");
 	SetPicture(5, 0, 35, 35);
 }
