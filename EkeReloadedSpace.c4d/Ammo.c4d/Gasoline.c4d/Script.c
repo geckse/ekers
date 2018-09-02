@@ -24,9 +24,9 @@ func Activate(object clonk)
         CastMsg(Format("+%d{{GSIC}}",need), clonk, 0, 0, true);
         
         // set filling level
-        var iFuelMultiplier = (iFuel/6666)*15;
-        //SetPicture(15 + (26 * iFuelMultiplier), 0, 26, 35);
-        SetPicture(15 + (26 * 8), 0, 26, 35);
+        var iFuelMultiplier = (iFuel*15)/6666;
+        iFuelMultiplier = (26*15)-(26*iFuelMultiplier);
+        SetPicture(15 + iFuelMultiplier, 0, 26, 35);
     }
   } else {
     clonk->~DoFuel(iFuel);
