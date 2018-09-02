@@ -18,10 +18,15 @@ func Activate(object clonk)
 
   if(need <= iFuel){
     if(need > 0){
-    clonk->~DoFuel(need);
-    iFuel -= need;
+        clonk->~DoFuel(need);
+        iFuel -= need;
 
-    CastMsg(Format("+%d{{GSIC}}",need), clonk, 0, 0, true);
+        CastMsg(Format("+%d{{GSIC}}",need), clonk, 0, 0, true);
+        
+        // set filling level
+        var iFuelMultiplier = (iFuel/6666)*15;
+        //SetPicture(15 + (26 * iFuelMultiplier), 0, 26, 35);
+        SetPicture(15 + (26 * 8), 0, 26, 35);
     }
   } else {
     clonk->~DoFuel(iFuel);
