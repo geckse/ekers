@@ -34,4 +34,3 @@ if(!GetCrew(GetOwner())) return;
        if(GetAction() ne "Noe")  SetAction("Noe");
      }
   }
-}
