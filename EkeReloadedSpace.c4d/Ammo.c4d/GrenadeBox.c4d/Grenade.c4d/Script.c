@@ -26,6 +26,8 @@ func Flying()
   lastX = GetX();
   lastY = GetY();
   
+  CreateParticle("PSpark",0,0,0,0,40,RGBa(255,255,255,120));
+	
   stop++;
 }
 
