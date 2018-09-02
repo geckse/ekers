@@ -1,2 +1,2 @@
-DE:Eke Reloaded Space 2
-US:Eke Reloaded Space 2
+DE:Eke Reloaded Space
+US:Eke Reloaded Space
