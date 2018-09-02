@@ -5,6 +5,8 @@
 local iFuel;
 local iLeck;
 
+public func MaxFuel(){ return(6666); }
+
 func Initialize(){
      iFuel = 6666;
 }
@@ -18,10 +20,15 @@ func Activate(object clonk)
 
   if(need <= iFuel){
     if(need > 0){
-    clonk->~DoFuel(need);
-    iFuel -= need;
+        clonk->~DoFuel(need);
+        iFuel -= need;
 
-    CastMsg(Format("+%d{{GSIC}}",need), clonk, 0, 0, true);
+        CastMsg(Format("+%d{{GSIC}}",need), clonk, 0, 0, true);
+
+        // set filling level
+        var iFuelMultiplier = (iFuel*15)/MaxFuel();
+        iFuelMultiplier = 26*(15-iFuelMultiplier);
+        SetPicture(15 + iFuelMultiplier, 0, 26, 35);
     }
   } else {
     clonk->~DoFuel(iFuel);
