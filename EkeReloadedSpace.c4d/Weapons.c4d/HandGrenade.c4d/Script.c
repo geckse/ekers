@@ -2,15 +2,28 @@
 
 #strict
 
+protected func Initialize()
+{
+	// Granaten idlen jetzt standardmäßig damit sie im nach Aktvierung und anschließender Deaktivierung wieder mit den anderen im Inventar stacken
+	SetAction("Idle");
+	SetPicture(5, 0, 35, 35);
+}
+
 func Activate(object clonk)
 {
-  // Zeitzünder kann nicht verzögert werden
-  if (GetAction() eq "Activated") return(1);
-
-  SetAction("Activated");
-  SetPicture(40, 0, 35, 35);
-  Sound("HG_PullPin");
-  return(1);
+  // Zeitzünder starten oder stoppen
+  if (GetAction() eq "Activated") {
+	  SetAction("Idle");
+	  SetPicture(5, 0, 35, 35);
+	  Sound("AB_Empty");
+	  return(1);
+  }
+  else {
+	  SetAction("Activated");
+	  SetPicture(40, 0, 35, 35);
+	  Sound("HG_PullPin");
+	  return(1);
+  }
 }
 
 func BlowUp()
