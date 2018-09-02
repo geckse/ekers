@@ -1,0 +1,6 @@
+[Action]
+Name=Fly
+NextAction=Fly
+Delay=1
+FacetBase=1
+StartCall=Flying
