@@ -29,7 +29,7 @@ func Flying()
     if (BurnInflammable(victim)) return(0);
     //if (MeltIce(victim))   return(0);
   }
-  // Feuer-FX hinzufügen
+  // Feuer-FX hinzufï¿½gen
   for (var i = 0; i < 8; i++)
   {
     var x = direction * i * 2;
@@ -70,7 +70,10 @@ func BurnLiving(victim)
 
   if (GetOCF(victim) & OCF_Alive())
   {
-    if(!Random(2)) Freeze(victim,GetCrew(GetController()));
+    victim->~DoTemperature(-RandomX(1,5));
+    if(!Random(3)){
+      if(victim->~GetTemperature() < 13) Freeze(victim,GetCrew(GetController()));
+    }
   }
   DoEnergy(-1, victim);
   if (GetMass(victim) < 500) Fling(victim, direction * 2, -1);

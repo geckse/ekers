@@ -1,0 +1,4 @@
+Unvorsichtige Clonks, die so hoch fliegen, riskieren einzufrieren.
+Beschränkt den oberen Spielrand, durch eine Frostbarriere, bei denen VFST riskieren einzufrieren.
+
+Platzierungsfaktor * 100 Pixel = Frostschicht.

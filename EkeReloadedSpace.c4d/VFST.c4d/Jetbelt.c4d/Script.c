@@ -7,7 +7,7 @@ local jGrab;
 
 protected func Initialize() {
   effectnum = AddEffect("Jetbelt", this, 100, 0, this);
-  // Treibstoff füllen
+  // Treibstoff fï¿½llen
   fuel = MaxFuel();
   // HUD-Update
   //this -> UpdateHUDValue(HUD_Fuel, GetFuel() * 100 / MaxFuel());
@@ -146,6 +146,7 @@ private func RefillFuel() // hier evtl. Batterien aus dem Inventar umladen
 protected func FxJetbeltTimer()
 {
   if(!IsReady()) return(Stop());
+  if(Frozen(this())) return(Stop());
   if(GetAction() == "Tumble") return(Stop());
 
   //UpdateTimer();
@@ -174,7 +175,7 @@ protected func FxJetbeltTimer()
   var ydir = BoundBy(GetYDir()*100-Cos(r,MaxAccel()),-ymax*100,+ymax*100);
 
   SetXDir(xdir,0,1000);
-  SetYDir(ydir-GetGravityAccel4K(1000),0,1000);//4K-Lib sorgt für Pseudo-Schwerelosigkeit. ;D
+  SetYDir(ydir-GetGravityAccel4K(1000),0,1000);//4K-Lib sorgt fï¿½r Pseudo-Schwerelosigkeit. ;D
 
   if(jGrab) {
     if(ObjectDistance(jGrab) > Distance(GetDefWidth(jGrab -> GetID()), GetDefHeight(jGrab -> GetID()))) {

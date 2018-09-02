@@ -5,6 +5,7 @@
 #include JB4K
 
 local iO2;
+local iTemp:
 
 func MaxO2(){ return(100); }
 
@@ -22,6 +23,7 @@ protected func ContactBottom()
   return(1);
   }
 
+/* -- luft -- */
 
 func DoO2(val){
    iO2 += val;
@@ -39,12 +41,56 @@ func GetO2(){
    return iO2;
 }
 
+/* -- temperatur -- */
+
+func GetTemperature(){
+   return iTemp;
+}
+func DoTemperature(val){
+   iTemp += val;
+   if(iTemp >= 100) iTemp = 100;
+   if(iTemp < -100) iTemp = -100;
+   return iTemp;
+}
+func SetTemperature(val){
+   iTemp = val;
+   if(iTemp >= 100) iTemp = 100;
+   if(iTemp < -100) iTemp = -100;
+   return iTemp;
+}
+
 /*Essen und Schlafen*/
 func FxLifeTimer()
 {
   if(!GetAlive()) return(-1);
 
-  AddEffect("Life", this(), 1, 35);//wiederholen
+  AddEffect("Life", this(), 1, 35); //wiederholen
+
+  // Lebensysteme KÃ¼hlung bekÃ¤mpfen
+  if(iTemp < 37) DoTemperature(+1);
+  if(iTemp < 18) DoTemperature(+1);
+  if(iTemp < -20) DoTemperature(+2);
+  if(iTemp < -40 && !Frozen(this()) ) AddEffect("Freeze", this(), 111, 5, 0, FREZ, GetController(this()));
+
+  // und Hitze
+  if(iTemp > 39) DoTemperature(-1);
+  if(iTemp > 60) DoTemperature(-1);
+  if(iTemp > 80) DoTemperature(-2);
+
+  if(OnFire(this())) DoTemperature(+10);
+
+  if(FindObject(HEFR)){
+    if(GetY() < ObjectCount(HEFR)*100){
+      DoTemperature(-RandomX(12,19));
+      CreateParticle("Freeze",0,0,0,0,14*5+20,RGB(0,40,80),this());
+      CreateParticle("Freeze",0,0,0,0,3*5+20,RGB(0,40,80),this());
+
+      for(var i = 0; i < 5; i++){
+        CreateParticle("NoGravSpark",RandomX(-24/2, 24/2),RandomX(-24/2, 24/2),0,RandomX(-2, -4),RandomX(18,28),RGB(10,120,210), this());
+      }
+
+    }
+  }
 
   if(FindObject(NDO2)){
    DoO2(-1);
@@ -75,10 +121,10 @@ protected func Collection2(stuff)
 {
   if (ContentsCount(GetID(stuff)) == 1)
   {
-    // hinten an die Inventarliste hängen
+    // hinten an die Inventarliste hï¿½ngen
     if (GetID(stuff) != PT5B) ShiftContents();
   }
-  // Bewaffnung prüfen
+  // Bewaffnung prï¿½fen
   CheckArmed();
   return(1);
 }

@@ -4,7 +4,7 @@
 
 global func Freeze(object pObject, object pFrom)
 {
-  // Erstmal dafür sorgen, dass das Objekt passt
+  // Erstmal dafï¿½r sorgen, dass das Objekt passt
   if(!pObject) pObject = this();
   if(!pObject) return(0);
   if(!GetAlive(pObject)) return(0);
@@ -12,8 +12,11 @@ global func Freeze(object pObject, object pFrom)
   // Wer will denn den Schaden verursachen?
   if(!pFrom) pFrom = this();
 
-  // Löschen
+  // Lï¿½schen
   Extinguish(pObject);
+
+  // KÃ¤lte setzen
+  if(pObject->~GetTemperature() > -20) pObject->~SetTemperature(-20);
 
   // Kraftfelder sollen nicht eingefroren werden
   if(GetAction(pObject)S="Field") return(0);
@@ -60,7 +63,7 @@ global func FxFreezeStart(pTarget, iEffectNumber, iTemp, iFromController)
   SetPhysical("Scale" , GetPhysical("Scale" , 0, pTarget)*3/4, PHYS_StackTemporary, pTarget);
   SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)*3/4, PHYS_StackTemporary, pTarget);
   SetPhysical("Float" , GetPhysical("Float" , 0, pTarget)*3/4, PHYS_StackTemporary, pTarget);
-  // Bei einer temporären Änderung aufhöhren
+  // Bei einer temporï¿½ren ï¿½nderung aufhï¿½hren
   if(iTemp) return();
   // Toller Sound
   Sound("Crystal2", 0, pTarget);
@@ -77,16 +80,22 @@ global func FxFreezeStart(pTarget, iEffectNumber, iTemp, iFromController)
 
 global func FxFreezeTimer(pTarget, iEffectNumber, iEffectTime)
 {
-  // In Lava schwimmend? Dann schnell auftauen (nur für Monster und andere nicht brennbare Lebewesen wichtig)
+  // In Lava schwimmend? Dann schnell auftauen (nur fï¿½r Monster und andere nicht brennbare Lebewesen wichtig)
   if(GetMaterialVal("Incindiary", "Material", pTarget->GetMaterial()))
     return -1;
-  // Partikeleffekte für den betroffenen
+  // Partikeleffekte fï¿½r den betroffenen
   var id = GetID(pTarget);
   CreateParticle("NoGravSpark",GetX(pTarget)+RandomX(-GetDefWidth(id)/2, GetDefWidth(id)/2),GetY(pTarget)+RandomX(-GetDefHeight(id)/2, GetDefHeight(id)/2),0,RandomX(-2, -4),RandomX(18,28),RGB(10,120,210), pTarget);
   CreateParticle("Freeze",GetX(pTarget),GetY(pTarget),0,0,EffectVar(1, pTarget, iEffectNumber)*5+20,RGB(0,40,80),pTarget);
-  // Runterzählen
+  // Runterzï¿½hlen
   EffectVar(0, pTarget, iEffectNumber)-=1;
-  if(EffectVar(0, pTarget, iEffectNumber)<=0) return FX_Execute_Kill;
+  if(EffectVar(0, pTarget, iEffectNumber)<=0 && pTarget->~GetTemperature() > -40) return FX_Execute_Kill;
+
+  // kÃ¤lte erhÃ¶hen
+  if(!Random(8)) {
+    pTarget->~DoTemperature(-1);
+  }
+
   // Ein bischen tut Einfrieren auch weh
   if(!Random(10)) {
    // Damit der richtige Spieler den Schaden verursacht
@@ -103,7 +112,7 @@ global func FxFreezeEffect(string szNewEffectName, object pTarget, int iEffectNu
 {
   // nur einmal einfrieren
   if(szNewEffectName eq "Freeze") { EffectVar(0, pTarget, iEffectNumber)+=18; return(-1); }
-  // Feuer löst die Erfrierung
+  // Feuer lï¿½st die Erfrierung
   if(szNewEffectName eq "Fire") return(RemoveEffect(0,pTarget,iEffectNumber));
 }
 
@@ -117,7 +126,7 @@ global func FxFreezeStop(pTarget, iEffectNumber, iReason, fTemp)
   ResetPhysical(pTarget, "Scale");
   ResetPhysical(pTarget, "Hangle");
   ResetPhysical(pTarget, "Float");
-  // Wenn der Effekt endgültig entfernt wird: Sound!
+  // Wenn der Effekt endgï¿½ltig entfernt wird: Sound!
   if(fTemp) return();
   Sound("DePressurize", 0, pTarget);
   return(0);
