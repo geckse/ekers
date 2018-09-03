@@ -1,4 +1,4 @@
-/*--Raumfahrer Clonk--*/
+/*-- Very Special Forces Trooper --*/
 
 #strict 2
 #include SF5B
