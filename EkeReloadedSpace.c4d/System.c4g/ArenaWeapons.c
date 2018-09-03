@@ -17,6 +17,7 @@ public func RejectCollect(id idObject, object pObject) {
 				if (LocalN("gGrenades", other) >= 100) LocalN("gGrenades", other) = 100;
 			}
 		}
+		
         //  move missile in other rocket launcher
         if (idObject == RL5B) {
             if (FindContents(MS5B, pObject) && (ContentsCount(MS5B, other) == 0)) {
