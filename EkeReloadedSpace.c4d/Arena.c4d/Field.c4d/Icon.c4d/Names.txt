@@ -1,0 +1,2 @@
+DE:Aufladefeld Icon
+US:Refillfield Icon
