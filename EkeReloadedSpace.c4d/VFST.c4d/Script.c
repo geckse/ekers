@@ -5,7 +5,7 @@
 #include JB4K
 
 local iO2;
-local iTemp:
+local iTemp;
 
 func MaxO2(){ return(100); }
 

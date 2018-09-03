@@ -15,3 +15,4 @@ VertexY=0,-4,3,0
 VertexFriction=100,100,100,100
 Collectible=1
 Rotate=1
+ColorByOwner=1
