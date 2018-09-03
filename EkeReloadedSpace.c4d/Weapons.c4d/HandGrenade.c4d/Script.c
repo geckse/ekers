@@ -28,8 +28,6 @@ func Activate(object clonk)
 
 func BlowUp()
 {
- var pTarget = this;
-
   CreateObject(PEXP,0,0,GetOwner())->init(); 
   RemoveObject();
   return(1);
