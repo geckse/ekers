@@ -1,4 +1,4 @@
-/*-- Neues Objekt --*/
+/*-- Arena Field --*/
 
 #strict
 
@@ -9,7 +9,7 @@ local icon;
 func Initialize() {
    iArea = 500;
    iMod = 0;
-   SetArea(RandomX(70,350),RandomX(0,1));
+   SetArea(RandomX(70,350),2);
   return(1);
 }
 
@@ -32,6 +32,10 @@ public func SetArea(size,mod){
   if(iMod == 1){
     SetClrModulation(RGBa(255,200,0,128), this());
     icon->SetGraphics("2");
+  }
+  if(iMod == 2){
+    SetClrModulation(RGBa(255,255,255,128), this());
+    icon->SetGraphics("3");
   }
 }
 
@@ -69,6 +73,11 @@ public func Check(){
         if(LocalN("ammo", Contents(0,pClonk)) < 100) LocalN("ammo", Contents(0,pClonk)) += 5;
         pClonk -> SetAmmoBar(LocalN("ammo",Contents(0,pClonk)));
        }
+     }
+     if(iMod == 2) {
+         pClonk->~DoFuel(30);
+         SetOwner(GetOwner(pClonk), this());
+		 SetClrModulation(GetTeamColor(GetPlayerTeam(GetOwner(pClonk))), this());
      }
    }
  }
