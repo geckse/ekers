@@ -26,9 +26,11 @@ public func RejectCollect(id idObject, object pObject) {
             }
         }
 		
-		// remove duplicate and cast particles
-        pObject->~CastParticles("PxSpark", RandomX(4, 12), RandomX(12, 20), 0, 0, RandomX(30, 60), 60, RGBa(255, 255, 255), RGBa(225, 225, 255));
-        RemoveObject(pObject);
+        if ((LocalN("ammo", pObject)) || (idObject == RL5B)) {
+            // remove duplicate and cast particles
+            pObject->~CastParticles("PxSpark", RandomX(4, 12), RandomX(12, 20), 0, 0, RandomX(30, 60), 60, RGBa(255, 255, 255), RGBa(225, 225, 255));
+            RemoveObject(pObject);
+        }
     }
     return _inherited(idObject, pObject);
 }
