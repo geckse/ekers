@@ -101,9 +101,20 @@ func HitObject()
 
   flightTime = BoundBy(GetActTime(), 1, 6);
   if (flightTime > 5) RemoveObject();
-
-  // y-Abweichung der Kugel einbringen
-  SetYDir(RandomX(-yVariation, yVariation));
+    
+    // y-Abweichung der Kugel einbringen
+    if (iBulletAxis == 1) {
+        SetYDir(RandomX(-yVariation, yVariation));
+    }
+    else if (iBulletAxis == 2) {
+        SetYDir(RandomX(-yVariation, yVariation) + 180);
+    }
+    else if (iBulletAxis == 3) {
+        SetYDir(RandomX(-yVariation, yVariation) - 180);
+    }
+    else {
+        SetYDir(RandomX(-yVariation, yVariation));
+    }
 
   var x = xOld - GetX(); xOld = GetX();
   var y = yOld - GetY(); yOld = GetY();
