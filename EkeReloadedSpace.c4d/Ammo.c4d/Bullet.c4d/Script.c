@@ -16,6 +16,11 @@ local mAmount;
 local mLevel;
 local holeSize;
 local punch;
+local iBulletAxis;
+
+func GetAxis(int axis) {
+    iBulletAxis = axis;
+}
 
 func Launch(object weapon, int dir, clonk)
 {
