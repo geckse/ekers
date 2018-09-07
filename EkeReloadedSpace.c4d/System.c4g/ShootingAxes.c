@@ -1,4 +1,4 @@
-/*-- Bullet Axes --*/
+/*-- shooting axes --*/
 
 #strict 2
 #appendto AR5B
@@ -8,13 +8,18 @@
 
 local iBulletAxis;
 
-// change shooting axis by pressing "dig"
 func ControlDigSingle()
 {  
     return(1);
 }
 func ControlDig()
 {
+    // initialize axis
+    if (!iBulletAxis) {
+        iBulletAxis = 1;
+    }
+    
+    // switch axis
     iBulletAxis++;
     if (iBulletAxis > 3) {
         iBulletAxis = 1;
@@ -23,10 +28,10 @@ func ControlDig()
 }
 func CreateBullet(dir, clonk)
 {
-  var x = 8 * dir - 4;
-  var y = 0;
+    var x = 8 * dir - 4;
+    var y = 0;
 
-    // Startpunkt der Kugel festlegen
+    // set bullet spawnpoint depending on axis
     if (iBulletAxis == 1) {
         y = 0;
     }
@@ -39,10 +44,10 @@ func CreateBullet(dir, clonk)
     else {
         y = 0;
     }
-    
-  var bullet = CreateObject(BU5B, x, y, NO_OWNER);
-  bullet -> Launch(this(), dir, clonk);
-  bullet -> GetAxis(iBulletAxis);
-  SetController(GetController(clonk), bullet);
-  return(1);
+
+    var bullet = CreateObject(BU5B, x, y, NO_OWNER);
+    bullet -> GetAxis(iBulletAxis);
+    bullet -> Launch(this(), dir, clonk);
+    SetController(GetController(clonk), bullet);
+    return(bullet);
 }
