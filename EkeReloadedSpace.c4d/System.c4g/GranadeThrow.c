@@ -10,15 +10,14 @@ func ControlThrow(object clonk) {
 
   if ((GetAction(clonk) eq "Walk") || (GetAction(clonk) eq "Jump") || (GetAction(clonk) eq "JetpackFly")) {
   var pClonk = clonk;
-  // Wurfparameter berechnen
+      
+  // Wurfparameter
   var iX, iY, iR, iXDir, iYDir, iRDir, iDir;
   iDir = GetDir(pClonk)*2-1;
-
-  // Speerwurf
   iX = 10*iDir;
   iY = -6;
   iR = 90+60*iDir;
-  iXDir = 5*iDir;
+  iXDir = 4*iDir;
   iYDir = -2;
   iRDir = 4*iDir;
 
