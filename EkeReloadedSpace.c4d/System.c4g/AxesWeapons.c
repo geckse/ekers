@@ -1,18 +1,14 @@
-/*-- Assault Rifle Adds --*/
+/*-- Bullet Axes --*/
 
 #strict 2
 #appendto AR5B
+#appendto PT5B
+#appendto SG5B
+#appendto UZ5B
 
-static iBulletAxis;
+static iBulletAxis = 1;
 
-func Initialize()
-{
-  mode = "Cartridges";
-  iBulletAxis = 1;
-  return(1);
-}
-
-// mit Graben Schussachse ändern
+// change shooting axis by pressing "dig"
 func ControlDigSingle()
 {  
     return(1);
