@@ -8,17 +8,17 @@
 
 local iBulletAxis;
 
+func Initialize()
+{
+    iBulletAxis = 1;
+    return _inherited();
+}
 func ControlDigSingle()
 {  
     return(1);
 }
 func ControlDig()
-{
-    // initialize axis
-    if (!iBulletAxis) {
-        iBulletAxis = 1;
-    }
-    
+{   
     // switch axis
     iBulletAxis++;
     if (iBulletAxis > 3) {
