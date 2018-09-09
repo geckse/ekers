@@ -6,48 +6,40 @@
 #appendto SG5B
 #appendto UZ5B
 
-local iBulletAxis;
-
-func Initialize()
-{
-    iBulletAxis = 1;
-    return _inherited();
-}
 func ControlDigSingle()
 {  
     return(1);
 }
-func ControlDig()
-{   
-    // switch axis
-    iBulletAxis++;
-    if (iBulletAxis > 3) {
-        iBulletAxis = 1;
-    }
+func ControlDig(object clonk)
+{    
+    clonk -> SwitchShootingAxis();
     return(1);
 }
 func CreateBullet(dir, clonk)
 {
+    var iAxis = clonk -> GetShootingAxis();
     var x = 8 * dir - 4;
-    var y = 0;
 
     // set bullet spawnpoint depending on axis
-    if (iBulletAxis == 1) {
-        y = 0;
-    }
-    else if (iBulletAxis == 2) {
+    var y = 0;
+    if (iAxis == 2) {
         y = 4;
     }
-    else if (iBulletAxis == 3) {
+    else if (iAxis == 3) {
         y = -4;
-    }
-    else {
-        y = 0;
     }
 
     var bullet = CreateObject(BU5B, x, y, NO_OWNER);
-    bullet -> GetAxis(iBulletAxis);
+    bullet -> SetAxis(iAxis);
     bullet -> Launch(this(), dir, clonk);
     SetController(GetController(clonk), bullet);
     return(bullet);
+}
+
+// prevent axis change on reload
+func Activate(object clonk)
+{
+    clonk -> SwitchShootingAxis();
+    clonk -> SwitchShootingAxis();
+    return(_inherited(Par(), Par(1)));
 }

@@ -6,12 +6,16 @@
 
 local iO2;
 local iTemp;
+local iShootingAxis;
+local pCrosshair;
 
 func MaxO2(){ return(100); }
 
 func Initialize(){
   iO2 = MaxO2();
   AddEffect("Life", this(), 1, 35, this());
+  iShootingAxis = 1;
+  CreateCrosshair();
 
   return(_inherited());
 }
@@ -121,10 +125,70 @@ protected func Collection2(stuff)
 {
   if (ContentsCount(GetID(stuff)) == 1)
   {
-    // hinten an die Inventarliste h�ngen
+    // hinten an die Inventarliste hängen
     if (GetID(stuff) != PT5B) ShiftContents();
   }
-  // Bewaffnung pr�fen
+  // Bewaffnung prüfen
   CheckArmed();
   return(1);
+}
+
+/*------------------------------------*\
+    Shooting Axis + Crosshair
+\*------------------------------------*/
+func GetShootingAxis(){
+    return(iShootingAxis);
+}
+func SwitchShootingAxis(){
+    iShootingAxis++;
+    if (iShootingAxis > 3) {
+        iShootingAxis = 1;
+    }
+    UpdateCrosshairPosition();
+    return(1);
+}
+func CreateCrosshair() {
+    if(pCrosshair) RemoveObject(pCrosshair);
+    pCrosshair = CreateObject(CH7A, 0, 0, GetOwner(this())); pCrosshair->SetAction("Crosshair", this());
+    UpdateCrosshairPosition();
+    return(1);
+}
+func UpdateCrosshairPosition() {
+    
+    // set x
+    var iDir = GetDir() * 2 - 1; // is -1 or 1
+    var x = -40 * iDir;
+    
+    // set y
+    var y = -5;
+    if (iShootingAxis == 2) {
+      y = -23;
+    } else if (iShootingAxis == 3) {
+      y = 17;
+    }    
+ 
+    // set position
+    SetVertexXY(0,x,y,pCrosshair);
+    
+    return(1);
+}
+protected func ControlLeftSingle()
+{
+    UpdateCrosshairPosition();
+    return(_inherited());
+}
+protected func ControlRightSingle()
+{
+    UpdateCrosshairPosition();
+    return(_inherited());
+}
+func RejectEntrance() {
+    // RemoveObject(pCrosshair); --- causes respawn loop, tested on twiface :(
+    Message("Hallo %s!|Ich bin dein Clonk %s!", this(), GetPlayerName(GetOwner()), GetName());
+    return(_inherited());
+}
+func Departure() {
+    CreateCrosshair();
+    Message("Hallo %s!|Ich bin dein Clonk %s!", this(), GetPlayerName(GetOwner()), GetName());
+    return(_inherited());
 }

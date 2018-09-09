@@ -18,7 +18,7 @@ local holeSize;
 local punch;
 local iBulletAxis;
 
-func GetAxis(int axis) {
+func SetAxis(int axis) {
     iBulletAxis = axis;
 }
 
