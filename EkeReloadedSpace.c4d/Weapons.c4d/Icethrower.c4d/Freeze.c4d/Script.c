@@ -16,7 +16,7 @@ global func Freeze(object pObject, object pFrom)
   Extinguish(pObject);
 
   // Kälte setzen
-  if(pObject->~GetTemperature() > -20) pObject->~SetTemperature(-20);
+  if(pObject->~GetTemperature() > -60) pObject->~SetTemperature(-60);
 
   // Kraftfelder sollen nicht eingefroren werden
   if(GetAction(pObject)S="Field") return(0);
