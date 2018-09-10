@@ -16,7 +16,6 @@ func Initialize(){
   AddEffect("Life", this(), 1, 35, this());
   iShootingAxis = 1;
   CreateCrosshair();
-
   return(_inherited());
 }
 
@@ -148,7 +147,6 @@ func SwitchShootingAxis(){
     return(1);
 }
 func CreateCrosshair() {
-    if(pCrosshair) RemoveObject(pCrosshair);
     pCrosshair = CreateObject(CH7A, 0, 0, GetOwner(this())); pCrosshair->SetAction("Crosshair", this());
     UpdateCrosshairPosition();
     return(1);
@@ -182,8 +180,8 @@ protected func ControlRightSingle()
     UpdateCrosshairPosition();
     return(_inherited());
 }
-func RejectEntrance() {
-    // RemoveObject(pCrosshair); --- causes respawn loop, tested on twiface :(
+func Entrance() {
+    RemoveObject(pCrosshair);
     return(_inherited());
 }
 func Departure() {
