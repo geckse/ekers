@@ -184,11 +184,9 @@ protected func ControlRightSingle()
 }
 func RejectEntrance() {
     // RemoveObject(pCrosshair); --- causes respawn loop, tested on twiface :(
-    Message("Hallo %s!|Ich bin dein Clonk %s!", this(), GetPlayerName(GetOwner()), GetName());
     return(_inherited());
 }
 func Departure() {
     CreateCrosshair();
-    Message("Hallo %s!|Ich bin dein Clonk %s!", this(), GetPlayerName(GetOwner()), GetName());
     return(_inherited());
 }
