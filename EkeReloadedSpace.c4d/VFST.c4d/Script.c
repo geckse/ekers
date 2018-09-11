@@ -170,12 +170,12 @@ func UpdateCrosshairPosition() {
     
     return(1);
 }
-protected func ControlLeftSingle()
+func ControlLeftSingle()
 {
     UpdateCrosshairPosition();
     return(_inherited());
 }
-protected func ControlRightSingle()
+func ControlRightSingle()
 {
     UpdateCrosshairPosition();
     return(_inherited());
@@ -186,5 +186,17 @@ func Entrance() {
 }
 func Departure() {
     CreateCrosshair();
+    return(_inherited());
+}
+func CrewSelection(deselect)
+{
+    SetVertexXY(0,0,-100000,pCrosshair); // I want to hide it!!1!11 but SetVisibility(VIS_None(), pCrosshair); doesnt work
+    if(!deselect) {
+        UpdateCrosshairPosition();
+    }
+    return(_inherited());
+}
+func Death() {
+    RemoveObject(pCrosshair);
     return(_inherited());
 }

@@ -4,7 +4,7 @@
 
 protected func Initialize()
 {
-  SetVisibility(VIS_Owner());
+    SetVisibility(VIS_Owner());
 }
 func AttachTargetLost() {
     RemoveObject();
