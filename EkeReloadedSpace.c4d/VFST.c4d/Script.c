@@ -16,6 +16,7 @@ func Initialize(){
   AddEffect("Life", this(), 1, 35, this());
   iShootingAxis = 1;
   CreateCrosshair();
+  AddEffect("Crosshair", this(), 1, 1, this());
   return(_inherited());
 }
 
@@ -170,16 +171,6 @@ func UpdateCrosshairPosition() {
     
     return(1);
 }
-func ControlLeftSingle()
-{
-    UpdateCrosshairPosition();
-    return(_inherited());
-}
-func ControlRightSingle()
-{
-    UpdateCrosshairPosition();
-    return(_inherited());
-}
 func Entrance() {
     RemoveObject(pCrosshair);
     return(_inherited());
@@ -199,4 +190,9 @@ func CrewSelection(deselect)
 func Death() {
     RemoveObject(pCrosshair);
     return(_inherited());
+}
+
+// crosshair update effect
+func FxCrosshairTimer() {
+    UpdateCrosshairPosition();
 }
