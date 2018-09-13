@@ -16,7 +16,7 @@ func Initialize() {
 
 func Script2(){
     for(var spwn in FindObjects(Find_ID(SPNP))) {
-    var Contents = [CA5B, OB5B, HG5B, GB5B, NH5B, IT5B, GS5B, SG5B, RL5B, RB5B];
+    var Contents = [CA5B, OB5B, HG5B, GB5B, NH5B, GS5B, SG5B, RL5B, RB5B];
     CreateContents(Contents[Random(10)], spwn);
    }
 }
