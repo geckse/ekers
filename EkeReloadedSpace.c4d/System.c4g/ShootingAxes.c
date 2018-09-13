@@ -35,6 +35,31 @@ func CreateBullet(dir, clonk)
     SetController(GetController(clonk), bullet);
     return(bullet);
 }
+func CreateGrenade(dir, clonk)
+{
+    var iAxis = clonk -> GetShootingAxis();
+    var x = 8 * dir - 4;
+    var xDir = 20 * dir - 10;
+    
+    // set grenade spawnpoint depending on axis
+    var y = 0;
+    var yDir = -1;
+    if (iAxis == 2) {
+        y = 4;
+    }
+    else if (iAxis == 3) {
+        y = -4;
+    }
+    
+  // set grenade direction depending on axis
+  var yDir = -1 + y;
+
+  var grenade = CreateContents(GR5B);
+  Exit(grenade, x, y, 0, xDir, yDir);
+  grenade -> Launch(clonk);
+  SetController(GetController(clonk), grenade);
+  return(1);
+}
 
 // prevent axis change on reload
 func Activate(object clonk)
