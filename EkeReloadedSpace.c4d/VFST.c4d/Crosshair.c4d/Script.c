@@ -1,10 +1,10 @@
 /*-- Crosshair --*/
 
-#strict
+#strict 2
 
 protected func Initialize()
 {
-    SetVisibility(VIS_Owner());
+    SetVisibility(VIS_None);
 }
 func AttachTargetLost() {
     RemoveObject();

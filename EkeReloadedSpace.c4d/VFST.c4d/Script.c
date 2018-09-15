@@ -150,6 +150,9 @@ func SwitchShootingAxis(){
 func CreateCrosshair() {
     pCrosshair = CreateObject(CH7A, 0, 0, GetOwner(this())); pCrosshair->SetAction("Crosshair", this());
     UpdateCrosshairPosition();
+    if(GetCursor(GetOwner()) == this) {
+      CrewSelection();
+    }
     return(1);
 }
 func UpdateCrosshairPosition() {
