@@ -1,0 +1,1 @@
+Info=As you can see on the scoreboard, you've got %d relaunchs left. %d times you have killed another SFT and %d times you have killed yourself.
