@@ -153,22 +153,22 @@ func CreateCrosshair() {
     return(1);
 }
 func UpdateCrosshairPosition() {
-    
+
     // set x
     var iDir = GetDir() * 2 - 1; // is -1 or 1
     var x = -40 * iDir;
-    
+
     // set y
     var y = -5;
     if (iShootingAxis == 2) {
       y = -23;
     } else if (iShootingAxis == 3) {
       y = 17;
-    }    
- 
+    }
+
     // set position
     SetVertexXY(0,x,y,pCrosshair);
-    
+
     return(1);
 }
 func Entrance() {
@@ -181,9 +181,11 @@ func Departure() {
 }
 func CrewSelection(deselect)
 {
-    SetVertexXY(0,0,-100000,pCrosshair); // I want to hide it!!1!11 but SetVisibility(VIS_None(), pCrosshair); doesnt work
-    if(!deselect) {
-        UpdateCrosshairPosition();
+    if(deselect) {
+      SetVisibility(VIS_None, pCrosshair);
+    } else {
+      SetVisibility(VIS_Owner, pCrosshair);
+      UpdateCrosshairPosition();
     }
     return(_inherited());
 }
@@ -191,16 +193,16 @@ protected func Death()
 {
 
   RemoveObject(pCrosshair);
-    
+
   // ggf. HUD entfernen
-  CrewSelection(true);  
+  CrewSelection(true);
 
   // Info-Broadcasts für sterbende Clonks
   GameCallEx("OnClonkDeath", this(), GetKiller());
-  
+
   // Der Broadcast könnte seltsame Dinge gemacht haben: Clonk ist noch tot?
   if (GetAlive()) return(0);
-  
+
   Sound("SF_Die");
   DeathAnnounce();
 
