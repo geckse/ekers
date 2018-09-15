@@ -1,16 +1,17 @@
- /*-- Neues Szenario --*/
+ /*-- Asteriod Meele --*/
 
 #strict
 
-static aRel;
-
 func Initialize() {
-  aRel = [];
   // Sternenhimmel
   SetSkyParallax(0, 100,70, 1,0);
-  CreateObject(COFA);
-  CreateObject(MEST);    
+  CreateObject(COFA);  
   return(ScriptGo(1));
+}
+func Script1()
+{
+  SetMaxPlayer();
+  return(1);
 }
 
 func Script2(){
@@ -20,40 +21,18 @@ func Script2(){
    }
 }
 func Script120(){
-     goto(1);
+     goto(2);
 }
 
-func InitializePlayer(iPlr) {
-  var clonk = GetCrew(iPlr);
-  var assaultRifle = CreateContents(AR5B, clonk);
-  LocalN("ammo", assaultRifle) = 100;
-  LocalN("qGrenades", assaultRifle) = 100;
-  CreateContents(HG5B, clonk,1);
-  SetFoW (true, iPlr);
-  aRel[iPlr] = 4;
-  UpdateScoreboard(iPlr);
-  }
+private func InitializeClonk(clonk)
+{ 
+    var wipf = PlaceAnimal(WIPF);
+    SetPosition(GetX(wipf), GetY(wipf)-10, clonk);
+    RemoveObject(wipf);
 
-func RelaunchPlayer(iPlr){
-
-  if(aRel[iPlr] == 0){
-
-  UpdateScoreboard(iPlr);
-   return false;
-   }
-
-     var wipf = PlaceAnimal(WIPF);
-     var clonk = CreateObject(VSFT,GetX(wipf),GetY(wipf)-10,iPlr);
-     MakeCrewMember(clonk,iPlr);
-     SetCursor(iPlr,clonk);
-     clonk->~DoEnergy(100);
-     RemoveObject(wipf);
-       var assaultRifle = CreateContents(AR5B, clonk);
-        LocalN("ammo", assaultRifle) = 100;
-        LocalN("qGrenades", assaultRifle) = 100;
-        CreateContents(HG5B, clonk,1);
-     aRel[iPlr]--;
-
-  UpdateScoreboard(iPlr);
-    return true;
+    var assaultRifle = CreateContents(AR5B, clonk);
+    LocalN("ammo", assaultRifle) = 100;
+    LocalN("qGrenades", assaultRifle) = 100;
+    CreateContents(HG5B, clonk,1);
+    return(1);
 }

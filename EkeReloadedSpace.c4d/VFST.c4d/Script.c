@@ -187,9 +187,29 @@ func CrewSelection(deselect)
     }
     return(_inherited());
 }
-func Death() {
-    RemoveObject(pCrosshair);
-    return(_inherited());
+protected func Death()
+{
+
+  RemoveObject(pCrosshair);
+    
+  // ggf. HUD entfernen
+  CrewSelection(true);  
+
+  // Info-Broadcasts für sterbende Clonks
+  GameCallEx("OnClonkDeath", this(), GetKiller());
+  
+  // Der Broadcast könnte seltsame Dinge gemacht haben: Clonk ist noch tot?
+  if (GetAlive()) return(0);
+  
+  Sound("SF_Die");
+  DeathAnnounce();
+
+  // Letztes Mannschaftsmitglied tot?
+  if (!GetCrew(GetOwner())) GameCallEx("RelaunchPlayer", GetOwner(), this());
+
+  // Tod dem Spiel(ziel) berichten
+  GameCallEx("ReportHomicide", GetKiller(), GetOwner(), GetID(this));
+  return(1);
 }
 
 // crosshair update effect
