@@ -1,0 +1,7 @@
+[Material]
+Name=Tunnel
+Color=45,45,45,52,54,50,60,52,56
+Shape=2
+Placement=5
+TextureOverlay=ashes2
+OverlayType=4
