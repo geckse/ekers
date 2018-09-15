@@ -6,13 +6,22 @@ local pTarget;
 
 local iTeam;
 
+static Banner_FlagX1, Banner_FlagX2, Banner_FlagY1, Banner_FlagY2;
+
+public func SetFlagPositions(array positions){
+	Banner_FlagX1 = positions[0][0];
+	Banner_FlagY1 = positions[0][1];
+	Banner_FlagX2 = positions[1][0];
+	Banner_FlagY2 = positions[1][1];
+}
+
 public func GetFlagX(){
-if(iTeam == 1) return(FlagX1);
-if(iTeam == 2) return(FlagX2);
+if(iTeam == 1) return(Banner_FlagX1);
+if(iTeam == 2) return(Banner_FlagX2);
 }
 public func GetFlagY(){
-if(iTeam == 1) return(FlagY1);
-if(iTeam == 2) return(FlagY2);
+if(iTeam == 1) return(Banner_FlagY1);
+if(iTeam == 2) return(Banner_FlagY2);
 }
 
 global func GetTeamFlag(int iTam){
@@ -56,7 +65,7 @@ private func Wind2Fly()
  // Message("%d|%d",this(),BoundBy(7-(GetXDir(pTarget)/4), 0, 13),Sin (GetR(),-GetXDir(pTarget)));
   //SetR(BoundBy(Sin (GetR(),-GetXDir(pTarget)), -10, 10));
  if(!GetAlive(pTarget)){
-  OnFlagLost(this(),pTarget);
+  GameCallEx("OnFlagLost",this(),pTarget);
   ClearTarget();
   }
  }
@@ -68,7 +77,7 @@ private func Wind2Fly()
   if(pFlag){
    if(pFlag->~GetFlagTeam() != iTeam){
     if(Distance(GetX(),GetY(),GetFlagX(),GetFlagY()) < 40){
-    TakeOverFlag(pFlag,pFlag->~GetFlagTarget(),pFlag->~GetFlagTeam());
+    GameCallEx("TakeOverFlag",pFlag,pFlag->~GetFlagTarget(),pFlag->~GetFlagTeam());
     }
    }
   }
@@ -90,13 +99,13 @@ private func Wind2Fly()
 public func Capture(pClonk){
 if(!GetAlive(pClonk)) return(0);
 Set(pClonk);
-OnFlagCapture(this(),pClonk);
+GameCallEx("OnFlagCapture",this(),pClonk);
 }
 
 public func Recover(pClonk){
 if(!GetAlive(pClonk)) return(0);
 ClearTarget();
-//OnFlagRecover(this(),pClonk);
+//GameCallEx("OnFlagRecover",this(),pClonk);
 SetPosition(GetFlagX(),GetFlagY());
 }
 

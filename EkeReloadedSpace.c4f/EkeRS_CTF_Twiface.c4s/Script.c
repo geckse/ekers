@@ -4,12 +4,8 @@
 
 static aRel;
 
-static const FlagX1 = 288;
-static const FlagY1 = 464;
-static const FlagX2 = 1428;
-static const FlagY2 = 464;
-
 func Initialize() {
+  FL2G->SetFlagPositions([[288, 464], [1428, 464]]);
   aRel = [];
  capturelimit = 3;
   var flag1 = CreateObject(FL2G,288,464);
@@ -29,7 +25,7 @@ func Initialize() {
   CreateObject(HEFR);
   CreateObject(HEFR);
   CreateObject(HEFR);
-  
+
   return(ScriptGo(1));
 }
 
@@ -120,22 +116,22 @@ static killleft, killright;
 static capturelimit;
 static stateleft, stateright;
 
-global func OnFlagLost(object Flagg, object pClonk){
+func OnFlagLost(object Flagg, object pClonk){
 Log("%s(%s) hat die eigene gegnerische Flagge fallen lassen!",GetTeamName(GetPlayerTeam(GetOwner(pClonk))),GetTaggedPlayerName(GetOwner(pClonk)));
  return(1);
 }
 
-global func OnFlagCollect(object Flagg, object pClonk){
+func OnFlagCollect(object Flagg, object pClonk){
 Log("%s(%s) hat die eigene Flagge wieder!",GetTeamName(GetPlayerTeam(GetOwner(pClonk))),GetTaggedPlayerName(GetOwner(pClonk)));
  return(1);
 }
 
-global func OnFlagCapture(object Flagg, object pClonk){
+func OnFlagCapture(object Flagg, object pClonk){
 Log("%s(%s) hat die Flagge von %s!",GetTeamName(GetPlayerTeam(GetOwner(pClonk))),GetTaggedPlayerName(GetOwner(pClonk)),GetTeamName(Flagg->~GetFlagTeam()));
  return(1);
 }
 
-global func TakeOverFlag(object pFlag, object pClonk,int iTeam){
+func TakeOverFlag(object pFlag, object pClonk,int iTeam){
 var iscore;
 var stTeam1,stTeam2;
 
