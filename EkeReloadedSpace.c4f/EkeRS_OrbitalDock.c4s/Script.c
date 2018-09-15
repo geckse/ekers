@@ -11,6 +11,7 @@ func Initialize() {
   SetSkyParallax(0, 50,50, 1,0);
   CreateObject(COFA);
   CreateObject(MEST);
+  CreateObject(NF5B);
   return(ScriptGo(1));
 }
 
