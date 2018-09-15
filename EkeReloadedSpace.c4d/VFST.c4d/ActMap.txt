@@ -353,7 +353,7 @@ Delay=2
 Attach=8
 Facet=128,220,16,20
 NextAction=Deconstruct
-StartCall=Deconstructing
+; StartCall=Deconstructing
 Sound=Clonk_Build
 
 [Action]
@@ -366,7 +366,7 @@ Delay=2
 Attach=8
 Facet=128,220,16,20
 NextAction=Repair
-StartCall=Repairing
+; StartCall=Repairing
 Sound=Clonk_Build
 
 [Action]
@@ -379,7 +379,7 @@ Delay=2
 Attach=8
 Facet=128,220,16,20
 NextAction=Recycle
-StartCall=Recycling
+; StartCall=Recycling
 Sound=Clonk_Build
 
 [Action]

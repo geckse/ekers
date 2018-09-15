@@ -6,7 +6,7 @@
 public func IsFulfilled()
 {
   var iFulFil = _inherited(...);
-  if(iFulFil)
+  if(iFulFil && aPlrEvaluated)
   {
               var allPlr;
               for(var i=0; i<GetPlayerCount(); i++)

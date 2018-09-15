@@ -28,7 +28,7 @@ Facet=16,0,16,16
 
 NextAction=FlyIdle
 
-StartCall=DecideAction
+; StartCall=DecideAction
 
 PhaseCall=Idling
 
@@ -47,4 +47,4 @@ Facet=16,0,16,16
 
 NextAction=Drill
 
-PhaseCall=Drilling
+; PhaseCall=Drilling

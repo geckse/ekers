@@ -14,10 +14,6 @@ private func Wait() {
 }
 
 protected func FxWaitingTimer(object pTarget, int iEffectNumber) {
-	// Warnsystem
-	for(var MetoDetection in FindObjects(Find_ID(), Find_OCF(OCF_Fullcon)))
-		MetoDetection -> WarningMeto();
-	
 	Schedule("AddEffect(\"Meteoritestorm\", this, 100, RandomX(10, 50), this);", 500, 0, this);
 	return -1;
 }
@@ -34,7 +30,7 @@ protected func FxMeteoritestormTimer(object pTarget, int iEffectNumber) {
 		Wait();
 		return -1;
 	}
-	
+
 	var pObj = CreateObject(METO, Random(LandscapeWidth()), -100, NO_OWNER);
 	pObj -> SetSpeed(RandomX(-60, 60), RandomX(10, 50));
 }
