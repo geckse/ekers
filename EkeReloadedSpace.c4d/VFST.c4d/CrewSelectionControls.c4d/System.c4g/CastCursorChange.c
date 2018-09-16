@@ -87,15 +87,15 @@ func CursorChangeCombo(object newCursor, bool fromComboMenu)
 
 		if(key == DT_CursorChange_Prev)
 		{
-			iShootingAxis = 2;
+			ControlAxis(ShootingAxis_Downwards);
 		}
 		else if(key == DT_CursorChange_Next)
 		{
-			iShootingAxis = 3;
+			ControlAxis(ShootingAxis_Upwards);
 		}
 		else if(key == DT_CursorChange_Toggle)
 		{
-			iShootingAxis = 1;
+			ControlAxis(ShootingAxis_Straight);
 		}
 
 		UpdateCrosshairPosition();

@@ -6,6 +6,10 @@
 #appendto SG5B
 #appendto UZ5B
 
+static const ShootingAxis_Straight = 1;
+static const ShootingAxis_Downwards = 2;
+static const ShootingAxis_Upwards = 3;
+
 func CreateBullet(dir, clonk)
 {
     var iAxis = clonk -> GetShootingAxis();
@@ -13,10 +17,10 @@ func CreateBullet(dir, clonk)
 
     // set bullet spawnpoint depending on axis
     var y = 0;
-    if (iAxis == 2) {
+    if (iAxis == ShootingAxis_Downwards) {
         y = 4;
     }
-    else if (iAxis == 3) {
+    else if (iAxis == ShootingAxis_Upwards) {
         y = -4;
     }
 
@@ -35,10 +39,10 @@ func CreateGrenade(dir, clonk)
     // set grenade spawnpoint depending on axis
     var y = 0;
     var yDir = -1;
-    if (iAxis == 2) {
+    if (iAxis == ShootingAxis_Downwards) {
         y = 4;
     }
-    else if (iAxis == 3) {
+    else if (iAxis == ShootingAxis_Upwards) {
         y = -4;
     }
 
@@ -50,4 +54,9 @@ func CreateGrenade(dir, clonk)
   grenade -> Launch(clonk);
   SetController(GetController(clonk), grenade);
   return(1);
+}
+
+func IsShooting()
+{
+	return GetAction() == "Shoot";
 }

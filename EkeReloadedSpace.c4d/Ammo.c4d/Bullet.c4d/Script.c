@@ -101,20 +101,20 @@ func Shotgun()
 
 func HitObject()
 {
-  
+
   SetR(Angle(GetX(),GetY(),GetX()+GetXDir(),GetY()+GetYDir()),this());
 
   flightTime = BoundBy(GetActTime(), 1, 6);
   if (flightTime > 5) RemoveObject();
-    
+
     // y-Abweichung der Kugel einbringen
-    if (iBulletAxis == 1) {
+    if (iBulletAxis == ShootingAxis_Straight) {
         SetYDir(RandomX(-yVariation, yVariation));
     }
-    else if (iBulletAxis == 2) {
+    else if (iBulletAxis == ShootingAxis_Downwards) {
         SetYDir(RandomX(-yVariation, yVariation) + 180);
     }
-    else if (iBulletAxis == 3) {
+    else if (iBulletAxis == ShootingAxis_Upwards) {
         SetYDir(RandomX(-yVariation, yVariation) - 180);
     }
     else {

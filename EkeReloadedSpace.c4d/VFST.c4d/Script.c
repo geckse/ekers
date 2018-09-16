@@ -147,6 +147,20 @@ func SwitchShootingAxis(){
     UpdateCrosshairPosition();
     return(1);
 }
+func ControlAxis(int newAxis){
+    var weapon = Contents();
+    if(newAxis != iShootingAxis) {
+      iShootingAxis = newAxis;
+
+      UpdateCrosshairPosition();
+
+      if(weapon && !weapon->~IsShooting()) {
+        weapon->ControlThrow(this);
+      }
+    } else {
+      weapon->ControlThrow(this);
+    }
+}
 func CreateCrosshair() {
     pCrosshair = CreateObject(CH7A, 0, 0, GetOwner(this())); pCrosshair->SetAction("Crosshair", this());
     UpdateCrosshairPosition();
@@ -163,9 +177,9 @@ func UpdateCrosshairPosition() {
 
     // set y
     var y = -5;
-    if (iShootingAxis == 2) {
+    if (iShootingAxis == ShootingAxis_Downwards) {
       y = -23;
-    } else if (iShootingAxis == 3) {
+    } else if (iShootingAxis == ShootingAxis_Upwards) {
       y = 17;
     }
 
