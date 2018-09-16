@@ -194,7 +194,6 @@ func CrewSelection(deselect)
 }
 protected func Death()
 {
-
   RemoveObject(pCrosshair);
 
   // ggf. HUD entfernen

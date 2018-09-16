@@ -6,15 +6,6 @@
 #appendto SG5B
 #appendto UZ5B
 
-func ControlDigSingle()
-{  
-    return(1);
-}
-func ControlDig(object clonk)
-{    
-    clonk -> SwitchShootingAxis();
-    return(1);
-}
 func CreateBullet(dir, clonk)
 {
     var iAxis = clonk -> GetShootingAxis();
@@ -40,7 +31,7 @@ func CreateGrenade(dir, clonk)
     var iAxis = clonk -> GetShootingAxis();
     var x = 8 * dir - 4;
     var xDir = 20 * dir - 10;
-    
+
     // set grenade spawnpoint depending on axis
     var y = 0;
     var yDir = -1;
@@ -50,7 +41,7 @@ func CreateGrenade(dir, clonk)
     else if (iAxis == 3) {
         y = -4;
     }
-    
+
   // set grenade direction depending on axis
   var yDir = -1 + y;
 
@@ -59,12 +50,4 @@ func CreateGrenade(dir, clonk)
   grenade -> Launch(clonk);
   SetController(GetController(clonk), grenade);
   return(1);
-}
-
-// prevent axis change on reload
-func Activate(object clonk)
-{
-    clonk -> SwitchShootingAxis();
-    clonk -> SwitchShootingAxis();
-    return(_inherited(Par(), Par(1)));
 }
