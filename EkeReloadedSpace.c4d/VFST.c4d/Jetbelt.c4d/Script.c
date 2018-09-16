@@ -42,10 +42,10 @@ public func ControlUpDouble(){_inherited(...); return(Switch(COMD_Up));}
 public func ControlLeftDouble(){_inherited(...); SetDir(DIR_Left); return(Switch(COMD_Left));}
 public func ControlRightDouble(){_inherited(...); SetDir(DIR_Right); return(Switch(COMD_Right));}
 
-public func ControlUp(){_inherited(...); if(IsActive() && noRola())return(Start(COMD_Up));}
-public func ControlDown(){_inherited(...); if(IsActive() && noRola())return(Start(COMD_Down));}
-public func ControlLeft(){_inherited(...); if(IsActive() && noRola())return(Start(COMD_Left));}
-public func ControlRight(){_inherited(...); if(IsActive() && noRola())return(Start(COMD_Right));}
+public func ControlUp(){ var ret = _inherited(...); if(!ret && IsActive() && noRola()) Start(COMD_Up); return ret; }
+public func ControlDown(){ var ret = _inherited(...); if(!ret && IsActive() && noRola()) Start(COMD_Down); return ret; }
+public func ControlLeft(){ var ret = _inherited(...); if(!ret && IsActive() && noRola()) Start(COMD_Left); return ret; }
+public func ControlRight(){ var ret = _inherited(...); if(!ret && IsActive() && noRola()) Start(COMD_Right); return ret; }
 
 global func GrabPush() {
   return GetDefGrab(GetID()) == 1;
