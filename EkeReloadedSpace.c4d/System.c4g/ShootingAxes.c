@@ -56,6 +56,20 @@ func CreateGrenade(dir, clonk)
   return(1);
 }
 
+func ControlThrow(object clonk, bool really)
+{
+  if(really)
+  {
+    return _inherited(clonk, ...);
+  }
+  return true;
+}
+
+func IsWeapon()
+{
+  return true;
+}
+
 func IsShooting()
 {
 	return GetAction() == "Shoot";

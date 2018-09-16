@@ -154,11 +154,13 @@ func ControlAxis(int newAxis){
 
       UpdateCrosshairPosition();
 
-      if(weapon && !weapon->~IsShooting()) {
-        weapon->ControlThrow(this);
+      if(weapon && weapon->~IsWeapon() && !weapon->~IsShooting()) {
+        weapon->ControlThrow(this, true);
       }
     } else {
-      weapon->ControlThrow(this);
+      if(weapon && weapon->~IsWeapon()) {
+        weapon->ControlThrow(this, true);
+      }
     }
 }
 func CreateCrosshair() {
