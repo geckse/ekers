@@ -13,7 +13,7 @@ Definition3=EkeReloadedSpace.c4d
 [Game]
 StructNeedEnergy=0
 Goals=DM5B=5
-Rules=CM5B=1;META=1;SW5B=1;MTST=1;NF5B=1;ARWE=1
+Rules=CM5B=1;META=1;SW5B=1;NF5B=1;ARWE=1
 
 [Player1]
 Crew=VSFT=1
@@ -51,6 +51,3 @@ Climate=88,9,0,100
 StartSeason=90,8,0,100
 YearSpeed=0,0,0,100
 Wind=0,0,-100,100
-
-[Disasters]
-Meteorite=100,100,100,100

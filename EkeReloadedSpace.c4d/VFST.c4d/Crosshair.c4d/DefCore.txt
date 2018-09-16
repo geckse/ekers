@@ -8,3 +8,5 @@ Height=7
 Offset=-3,-3
 Vertices=1
 Picture=0,0,7,7
+BlitMode=0
+ColorByOwner=1

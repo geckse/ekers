@@ -1,6 +1,6 @@
 /*-- Stein --*/
 
-#strict
+#strict 2
 #appendto ROCK
 
 // Effekt anhängen, der den Stein nach einer Weile entfernt

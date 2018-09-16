@@ -1,3 +1,0 @@
-[Script]
-GlobalNamed=6;lgt_enlightment=A0,lgt_last_lgt_frame=A0,miffelCount=A0,stippelCount=A0,theEvil=A0,aRel=a[0;]
-Go=true
