@@ -115,6 +115,22 @@ func UngrabCursorChanges(object obj)
 	}
 }
 
+func Death()
+{
+	var ret = _inherited(...);
+
+	if(cursorNext)
+	{
+		cursorNext->FindOrDie();
+	}
+	if(cursorPrev)
+	{
+		cursorPrev->FindOrDie();
+	}
+
+	return ret;
+}
+
 global func GetCrew(int plr, int index)
 {
 	for(;;++index)

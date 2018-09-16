@@ -26,3 +26,10 @@ func CrewSelection(bool deselect, bool cursorOnly)
 	}
 }
 
+func FindOrDie()
+{
+	if(!GetCrew(GetOwner()))
+	{
+		RemoveObject(this);
+	}
+}
