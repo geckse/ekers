@@ -15,8 +15,8 @@ func Initialize(){
   iO2 = MaxO2();
   AddEffect("Life", this(), 1, 35, this());
   iShootingAxis = 1;
-  // CreateCrosshair();
-  // AddEffect("Crosshair", this(), 1, 1, this());
+  CreateCrosshair();
+  AddEffect("Crosshair", this(), 1, 1, this());
   return(_inherited());
 }
 
@@ -195,7 +195,7 @@ func Entrance() {
     return(_inherited());
 }
 func Departure() {
-    //CreateCrosshair();
+    CreateCrosshair();
     return(_inherited());
 }
 func CrewSelection(deselect)
@@ -204,7 +204,7 @@ func CrewSelection(deselect)
       SetVisibility(VIS_None, pCrosshair);
     } else {
       SetVisibility(VIS_Owner, pCrosshair);
-      UpdateCrosshairPosition();
+      // UpdateCrosshairPosition();
     }
     return(_inherited());
 }
