@@ -5,7 +5,7 @@
 
 // Effekt anhängen, der den Stein nach einer Weile entfernt
 func Initialize()	{
-//AddEffect("CleanUp", this(), 1, 1, this(), ROCK);
+    AddEffect("CleanUp", this(), 1, 1, this(), ROCK);
 	return(_inherited(Par(0), Par(1)));
 }
 

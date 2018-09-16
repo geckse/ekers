@@ -1,11 +1,17 @@
- /*-- Asteriod Meele --*/
+ /*-- Fog Cliffs --*/
 
 #strict
 
 func Initialize() {
-  // Sternenhimmel
-  SetSkyParallax(0, 100,70, 1,0);
-  CreateObject(COFA);  
+
+  SetSkyParallax (0,17,19,0,0,0,0); 
+  SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
+
+  //Nebel
+  for(var i=0;i<180;++i) 
+    CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
+  
+  CreateObject(COFA); 
   return(ScriptGo(1));
 }
 func Script1()

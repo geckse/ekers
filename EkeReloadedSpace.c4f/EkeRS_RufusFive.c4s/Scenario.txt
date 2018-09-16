@@ -1,6 +1,6 @@
 [Head]
 Icon=16
-Title=Asteriod Meele
+Title=Rufus V
 Version=4,9,10,7
 MaxPlayer=16
 ForcedGfxMode=1
