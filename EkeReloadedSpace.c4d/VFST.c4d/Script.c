@@ -7,7 +7,6 @@
 local iO2;
 local iTemp;
 local iShootingAxis;
-local pCrosshair;
 
 func MaxO2(){ return(100); }
 
@@ -15,8 +14,6 @@ func Initialize(){
   iO2 = MaxO2();
   AddEffect("Life", this(), 1, 35, this());
   iShootingAxis = 1;
-  CreateCrosshair();
-  AddEffect("Crosshair", this(), 1, 1, this());
   return(_inherited());
 }
 
@@ -134,7 +131,7 @@ protected func Collection2(stuff)
 }
 
 /*------------------------------------*\
-    Shooting Axis + Crosshair
+    Shooting Axis
 \*------------------------------------*/
 func GetShootingAxis(){
     return(iShootingAxis);
@@ -144,15 +141,12 @@ func SwitchShootingAxis(){
     if (iShootingAxis > 3) {
         iShootingAxis = 1;
     }
-    UpdateCrosshairPosition();
     return(1);
 }
 func ControlAxis(int newAxis){
     var weapon = Contents();
     if(newAxis != iShootingAxis) {
       iShootingAxis = newAxis;
-
-      UpdateCrosshairPosition();
 
       if(weapon && weapon->~IsWeapon() && !weapon->~IsShooting()) {
         weapon->ControlThrow(this, true);
@@ -163,55 +157,8 @@ func ControlAxis(int newAxis){
       }
     }
 }
-func CreateCrosshair() {
-    pCrosshair = CreateObject(CH7A, 0, 0, GetOwner(this())); pCrosshair->SetAction("Crosshair", this());
-    UpdateCrosshairPosition();
-    if(GetCursor(GetOwner()) == this) {
-      CrewSelection();
-    }
-    return(1);
-}
-func UpdateCrosshairPosition() {
-
-    // set x
-    var iDir = GetDir() * 2 - 1; // is -1 or 1
-    var x = -40 * iDir;
-
-    // set y
-    var y = -5;
-    if (iShootingAxis == ShootingAxis_Downwards) {
-      y = -23;
-    } else if (iShootingAxis == ShootingAxis_Upwards) {
-      y = 17;
-    }
-
-    // set position
-    SetVertexXY(0,x,y,pCrosshair);
-
-    return(1);
-}
-func Entrance() {
-    RemoveObject(pCrosshair);
-    return(_inherited());
-}
-func Departure() {
-    CreateCrosshair();
-    return(_inherited());
-}
-func CrewSelection(deselect)
-{
-    if(deselect) {
-      SetVisibility(VIS_None, pCrosshair);
-    } else {
-      SetVisibility(VIS_Owner, pCrosshair);
-      // UpdateCrosshairPosition();
-    }
-    return(_inherited());
-}
 protected func Death()
 {
-  RemoveObject(pCrosshair);
-
   // ggf. HUD entfernen
   CrewSelection(true);
 
@@ -230,9 +177,4 @@ protected func Death()
   // Tod dem Spiel(ziel) berichten
   GameCallEx("ReportHomicide", GetKiller(), GetOwner(), GetID(this));
   return(1);
-}
-
-// crosshair update effect
-func FxCrosshairTimer() {
-    UpdateCrosshairPosition();
 }

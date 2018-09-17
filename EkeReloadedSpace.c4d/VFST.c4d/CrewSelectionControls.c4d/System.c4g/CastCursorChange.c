@@ -97,8 +97,6 @@ func CursorChangeCombo(object newCursor, bool fromComboMenu)
 		{
 			ControlAxis(ShootingAxis_Straight);
 		}
-
-		UpdateCrosshairPosition();
 	}
 }
 
