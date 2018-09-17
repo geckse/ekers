@@ -58,7 +58,7 @@ func CreateGrenade(dir, clonk)
 
 func ControlThrow(object clonk, bool really)
 {
-  if(really)
+  if(really || IsShooting())
   {
     return _inherited(clonk, ...);
   }
