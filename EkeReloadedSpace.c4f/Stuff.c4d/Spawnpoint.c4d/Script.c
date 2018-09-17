@@ -141,8 +141,6 @@ public func RejectEntrance(object pClonk)
   {
     var pObj = CreateContents(GetID(Contents()));
     // Kann der Clonk einsammeln?
-    if(ObjectCount(0, 0, 0, 0, 0, 0, 0, 0, pClonk) >= 5)
-      return(1);
     var tid = GetID(Contents());
     if(tid == AS5B || tid == UZ5B || tid == SG5B || tid == FT5B || tid == IT5B || tid == RL5B){
        pObj->~LocalN("ammo") = 50;
@@ -152,10 +150,9 @@ public func RejectEntrance(object pClonk)
          }
     }
     SetOwner(GetOwner(pClonk),pObj);
-    Collect(pObj, pClonk);
-    if(Contained(pObj) == this()) RemoveObject(pObj);
-    else
-    {
+    if((pClonk->~RejectCollect(GetID(pObj), pObj) || !Collect(pObj, pClonk) || Contained(pObj) == this()) && pObj) {
+      RemoveObject(pObj);
+    } else {
       Sound("Grab", 0, pClonk, 0, GetOwner(pClonk)+1);
       Collected(GetOwner(pClonk));
     }
