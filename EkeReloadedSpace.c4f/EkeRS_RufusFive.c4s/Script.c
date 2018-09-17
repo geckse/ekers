@@ -1,4 +1,4 @@
- /*-- Fog Cliffs --*/
+ /*-- Rufus V --*/
 
 #strict 2
 
@@ -34,9 +34,11 @@ func Script120(){
 
 private func InitializeClonk(clonk)
 { 
-    var wipf = PlaceAnimal(WIPF);
-    SetPosition(GetX(wipf), GetY(wipf)-10, clonk);
-    RemoveObject(wipf);
+    // clonk spawns
+    var clonkSpawnsX = [0207, 1843, 1058, 0750, 1380, 0580, 1873];
+    var clonkSpawnsY = [0538, 0328, 0299, 0699, 0499, 0499, 0547];
+    var r = Random(7);
+    SetPosition(clonkSpawnsX[r], clonkSpawnsY[r], clonk);
 
     // add spawn protection
     AddEffect("Spawn",clonk,20,1);
