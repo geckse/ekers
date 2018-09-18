@@ -1,7 +1,7 @@
 /*-- Clean Up Effect --*/
 
 #strict 2
-#appendto ROCK
+#appendto NCRK
 #appendto SP0D
 
 // Effekt anhängen, der den Stein nach einer Weile entfernt

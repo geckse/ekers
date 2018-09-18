@@ -2,12 +2,22 @@
 
 #strict 2
 
+static clonkSpawnsX;
+static clonkSpawnsY;
+static clonkSpawnsL;
+
 func Initialize() {
 
+  // declare clonk respawn points
+  clonkSpawnsX = [0207, 1843, 1058, 0750, 1380, 0580, 1873];
+  clonkSpawnsY = [0538, 0328, 0299, 0699, 0499, 0499, 0547];
+  clonkSpawnsL = GetLength(clonkSpawnsX);
+
+  // Sky
   SetSkyParallax (0,17,19,0,0,0,0); 
   SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
 
-  //Nebel
+  // Fog
   for(var i=0;i<180;++i) 
     CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
   
@@ -34,10 +44,8 @@ func Script120(){
 
 private func InitializeClonk(clonk)
 { 
-    // clonk spawns
-    var clonkSpawnsX = [0207, 1843, 1058, 0750, 1380, 0580, 1873];
-    var clonkSpawnsY = [0538, 0328, 0299, 0699, 0499, 0499, 0547];
-    var r = Random(GetLength(clonkSpawnsX));
+    // move new clonk to random respawn point
+    var r = Random(clonkSpawnsL);
     SetPosition(clonkSpawnsX[r], clonkSpawnsY[r], clonk);
 
     // add spawn protection
