@@ -1,5 +1,5 @@
 /*-- Neues Script --*/
-
+/*
 #strict
 
 #appendto CLNK
@@ -10,3 +10,4 @@ var clonk = this;
 CreateObject(FGAM,0,0,GetOwner())->Set(clonk);
 return(_inherited());
 }
+*/
