@@ -25,7 +25,7 @@ func Script1()
 func Script2(){
     for(var spwn in FindObjects(Find_ID(SPNP))) {
     var Contents = [CA5B, OB5B, HG5B, GB5B, NH5B, GS5B, SG5B];
-    CreateContents(Contents[Random(7)], spwn);
+    CreateContents(Contents[Random(GetLength(Contents))], spwn);
    }
 }
 func Script120(){
@@ -37,7 +37,7 @@ private func InitializeClonk(clonk)
     // clonk spawns
     var clonkSpawnsX = [0207, 1843, 1058, 0750, 1380, 0580, 1873];
     var clonkSpawnsY = [0538, 0328, 0299, 0699, 0499, 0499, 0547];
-    var r = Random(7);
+    var r = Random(GetLength(clonkSpawnsX));
     SetPosition(clonkSpawnsX[r], clonkSpawnsY[r], clonk);
 
     // add spawn protection
@@ -52,7 +52,7 @@ private func InitializeClonk(clonk)
 func CreateStalactites() {
 	CreateObject(SL0D,1078,403 + 25);
 	CreateObject(SL0D,1054,398 + 25);
-	CreateObject(SL0D,1013,440 + 25);
+	//CreateObject(SL0D,1013,440 + 25);
 	CreateObject(SL0D,381,192 + 25);
 	CreateObject(SL0D,410,190 + 25);
 	CreateObject(SL0D,436,194 + 25);

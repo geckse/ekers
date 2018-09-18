@@ -52,7 +52,7 @@ func GetTeamStartPosition(iTeam, fY)
 func Script2(){
     /*for(var spwn in FindObjects(Find_ID(SPNP))) {
     var Contents = [CA5B, OB5B, HG5B, GB5B, NH5B, IT5B, GS5B, SG5B];
-    CreateContents(Contents[Random(8)], spwn);
+    CreateContents(Contents[Random(GetLength(Contents))], spwn);
    }  */
 }
 func Script120(){
