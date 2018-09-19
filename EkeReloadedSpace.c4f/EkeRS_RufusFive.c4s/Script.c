@@ -98,11 +98,11 @@ global func FxSpawnTimer(pTarget, iEffectNumber,iEffectTime)
   
      
     if(Contained(pTarget))return(0);
-    //if(++EffectVar(0,pTarget,iEffectTime)>100)return(-1);
-    if(iEffectTime > 150) { /*AddEffect("Normal",pTarget,20,1,0,0,EffectVar(0,pTarget,iEffectNumber));*/ SetClrModulation(RGB(255,255,255),pTarget); return(-1); }
-  
-    //CreateParticle("PSpark",GetX(pTarget)+Cos(EffectVar(3,pTarget,iEffectNumber),20),GetY(pTarget)+Sin(EffectVar(3,pTarget,iEffectNumber),20),GetXDir(pTarget)-Cos(EffectVar(3,pTarget,iEffectNumber),20)/3,GetYDir(pTarget)-Sin(EffectVar(3,pTarget,iEffectNumber),20)/3,30,HSL(EffectVar(0,pTarget,iEffectNumber),255,128));
-    //CreateParticle("PSpark",GetX(pTarget)+Cos(EffectVar(3,pTarget,iEffectNumber)-180,20),GetY(pTarget)+Sin(EffectVar(3,pTarget,iEffectNumber)-180,20),GetXDir(pTarget)-Cos(EffectVar(3,pTarget,iEffectNumber)+180,20)/3,GetYDir(pTarget)-Sin(EffectVar(3,pTarget,iEffectNumber)+180,20)/3,30,HSL(EffectVar(0,pTarget,iEffectNumber),255,128));
+    
+    if(iEffectTime > 150) {
+        SetClrModulation(RGB(255,255,255),pTarget);
+        return(-1);
+    }
     CreateParticle("PSpark",GetX(pTarget)+Cos(EffectVar(3,pTarget,iEffectNumber),10),GetY(pTarget)+Sin(EffectVar(3,pTarget,iEffectNumber),10),0,0,30,HSL(EffectVar(0,pTarget,iEffectNumber),255,128));
     CreateParticle("PSpark",GetX(pTarget)+Cos(EffectVar(3,pTarget,iEffectNumber)-180,10),GetY(pTarget)+Sin(EffectVar(3,pTarget,iEffectNumber)-180,10),0,0,30,HSL(EffectVar(0,pTarget,iEffectNumber),255,128));
     SetClrModulation(HSL(EffectVar(0,pTarget,iEffectNumber),255,128),pTarget);
