@@ -2,16 +2,22 @@
 
 #strict 2
 
-static clonkSpawnsX;
-static clonkSpawnsY;
+static clonkSpawns;
 static clonkSpawnsL;
 
 func Initialize() {
 
   // declare clonk respawn points
-  clonkSpawnsX = [0207, 1843, 1058, 0750, 1380, 0580, 1873];
-  clonkSpawnsY = [0538, 0328, 0299, 0699, 0499, 0499, 0547];
-  clonkSpawnsL = GetLength(clonkSpawnsX);
+  clonkSpawns = [
+      [0207, 0538],
+      [1843, 0328],
+      [1058, 0299],
+      [0750, 0699],
+      [1380, 0499],
+      [0580, 0499],
+      [1873, 0547]
+  ];
+  clonkSpawnsL = GetLength(clonkSpawns);
 
   // Sky
   SetSkyParallax (0,17,19,0,0,0,0); 
@@ -46,7 +52,7 @@ private func InitializeClonk(clonk)
 { 
     // move new clonk to random respawn point
     var r = Random(clonkSpawnsL);
-    SetPosition(clonkSpawnsX[r], clonkSpawnsY[r], clonk);
+    SetPosition(clonkSpawns[r][0], clonkSpawns[r][1], clonk);
 
     // add spawn protection
     AddEffect("Spawn",clonk,20,1);
