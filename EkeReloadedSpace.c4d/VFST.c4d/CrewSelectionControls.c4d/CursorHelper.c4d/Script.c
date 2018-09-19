@@ -1,5 +1,10 @@
 #strict 2
 
+func Recruitment()
+{
+	SetPlrViewRange(0);
+}
+
 func CrewSelection(bool deselect, bool cursorOnly)
 {
 	var clonk = FindObject2(Find_ID(VSFT), Find_Owner(GetOwner()), Find_OCF(OCF_CrewMember));
