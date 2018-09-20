@@ -6,7 +6,6 @@
 local relaunchs;
 local kills;
 local selfkills;
-local flipflop;
 local maxRelaunchs;
 
 protected func Initialize()
@@ -14,7 +13,6 @@ protected func Initialize()
   relaunchs = CreateArray();
   kills = CreateArray();
   selfkills = CreateArray();
-  flipflop = CreateArray();
 
   // Relaunchanzahl = Platzierungsanzahl
   var goal;
@@ -66,7 +64,6 @@ func RelaunchPlayer(player)
   var playerID = GetPlayerID(player);
 
   relaunchs[playerID]++;
-  flipflop[playerID] = false;
 
   var rest = maxRelaunchs - relaunchs[playerID];
   if (rest < 0) return;
