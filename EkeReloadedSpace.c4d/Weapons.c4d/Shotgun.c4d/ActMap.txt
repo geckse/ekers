@@ -1,0 +1,11 @@
+[Action]
+Name=Wait
+Delay=10
+FacetBase=1
+NextAction=Reload
+
+[Action]
+Name=Reload
+Delay=20
+FacetBase=1
+StartCall=Reloading
