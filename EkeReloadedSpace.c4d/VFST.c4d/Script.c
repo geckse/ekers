@@ -8,6 +8,8 @@ local iO2;
 local iTemp;
 local iShootingAxis;
 
+local clonkName;
+
 func MaxO2(){ return(100); }
 
 func Initialize(){
@@ -177,4 +179,35 @@ protected func Death()
   // Tod dem Spiel(ziel) berichten
   GameCallEx("ReportHomicide", GetKiller(), GetOwner(), GetID(this));
   return(1);
+}
+
+/*------------------------------------*\
+    Nameless Hero
+\*------------------------------------*/
+func WipeName() {
+    SetName("");
+}
+func ResetName() {
+    SetName(clonkName);
+}
+func DisplayRealName() {
+    CustomMessage(Format("@%s|%s", $ClonkRanks$[GetRank(this())] ,clonkName), 0, GetOwner(), -5,55, 0, 0, "1", 1);
+    return(1);
+}
+func DeathAnnounce () {
+    Message("%s $DeathMsg$", this(), clonkName);
+    return(1);
+}
+func Recruitment()
+{
+  clonkName = Format("%s", GetName());
+  WipeName();
+  return(_inherited());
+}
+func CrewSelection(deselect)
+{
+    if(!deselect) {
+        DisplayRealName();
+    }
+    return(_inherited());
 }
