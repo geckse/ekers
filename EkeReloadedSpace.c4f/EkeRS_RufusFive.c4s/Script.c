@@ -65,7 +65,8 @@ func Script120(){
 }
 
 func InitializeClonk(clonk)
-{ 
+{
+    
     // move new clonk to random respawn point, avoid spawning by hostiles
     var r = Random(clonkSpawnsL);
     for(var i = 1; i <= 4; i++) {
