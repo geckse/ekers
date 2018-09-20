@@ -5,6 +5,9 @@
 static clonkSpawns;
 static clonkSpawnsL;
 
+static itemSpawns;
+static itemSpawnsL;
+
 func Initialize() {
 
   // declare clonk respawn points
@@ -19,17 +22,22 @@ func Initialize() {
   ];
   clonkSpawnsL = GetLength(clonkSpawns);
 
+  // declare spawning items
+  itemSpawns = [CA5B, OB5B, GB5B, NH5B, SG5B, MS5B, HG5B];
+  itemSpawnsL = GetLength(itemSpawns);
+    
   // Sky
   SetSkyParallax (0,17,19,0,0,0,0); 
   SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
 
   // Fog
-  for(var i=0;i<180;++i) 
+  for(var i=0;i<90;++i)
     CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
   
   CreateObject(COFA);
   CreateItemSpawns();
   CreateStalactites();
+
   return(ScriptGo(1));
 }
 func Script1()
@@ -39,24 +47,43 @@ func Script1()
 }
 
 func Script2(){
+    
+    // create items in spawn points
     for(var spwn in FindObjects(Find_ID(SPNP))) {
-    var Contents = [CA5B, OB5B, HG5B, GB5B, NH5B, GS5B, SG5B];
-    CreateContents(Contents[Random(GetLength(Contents))], spwn);
+        
+        var r = Random(itemSpawnsL);
+        
+        // half chance for specific items
+        if (itemSpawns[r] == (SG5B || NH5B)) {
+            r = Random(itemSpawnsL);
+        }
+        CreateContents(itemSpawns[r], spwn);
    }
 }
 func Script120(){
      goto(2);
 }
 
-private func InitializeClonk(clonk)
+func InitializeClonk(clonk)
 { 
-    // move new clonk to random respawn point
+    // move new clonk to random respawn point, avoid spawning by hostiles
     var r = Random(clonkSpawnsL);
+    for(var i = 1; i <= 4; i++) {
+        var a2 = Find_Hostile(GetController(clonk));
+        var a3 = Find_OCF(OCF_Alive);
+        var a4 = Find_NoContainer();
+        var a5 = Find_Distance(150, clonkSpawns[r][0], clonkSpawns[r][1]);
+        var hostile = FindObject2(a2, a3, a4, a5);
+        if(hostile) {
+            r = Random(clonkSpawnsL);
+        }
+    }
     SetPosition(clonkSpawns[r][0], clonkSpawns[r][1], clonk);
 
     // add spawn protection
     AddEffect("Spawn",clonk,20,1);
   
+    // equip clonk
     var assaultRifle = CreateContents(AR5B, clonk);
     LocalN("ammo", assaultRifle) = 100;
     LocalN("qGrenades", assaultRifle) = 100;
@@ -68,7 +95,7 @@ func CreateStalactites() {
 	CreateObject(SL0D,1054,398 + 25);
 	//CreateObject(SL0D,1013,440 + 25);
 	CreateObject(SL0D,381,192 + 25);
-	CreateObject(SL0D,410,190 + 25);
+	//CreateObject(SL0D,410,190 + 25);
 	CreateObject(SL0D,436,194 + 25);
 	CreateObject(SL0D,459,190 + 25);
 	CreateObject(SL0D,697,571 + 25);
