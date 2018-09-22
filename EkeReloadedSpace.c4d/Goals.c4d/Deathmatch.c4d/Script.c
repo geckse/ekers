@@ -105,8 +105,7 @@ func ReportHomicide(killer, victim)
 protected func RemovePlayer(player)
 {
   var playerID = GetPlayerID(player);
-
-  SetScoreboardData(playerID, 1, 0, 0);
-  SetScoreboardData(playerID, 2, 0, 0);
-  SetScoreboardData(playerID, 3, 0, 0);
+  
+  SetScoreboardData(playerID, SBRD_Caption, GetPlayerName(player));
+  SetScoreboardData(playerID, 1, "-");
 }
