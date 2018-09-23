@@ -11,8 +11,8 @@ static itemSpawnsL;
 
 func Initialize() {
 
-  // declare clonk respawn points
-  clonkSpawns = [
+    // declare clonk respawn points
+    clonkSpawns = [
       [0207, 0538],
       [1843, 0328],
       [1058, 0299],
@@ -20,26 +20,14 @@ func Initialize() {
       [1380, 0499],
       [0580, 0499],
       [1873, 0547]
-  ];
-  clonkSpawnsL = GetLength(clonkSpawns);
+    ];
+    clonkSpawnsL = GetLength(clonkSpawns);
 
-  // declare spawning items
-  itemSpawns = [CA5B, OB5B, GB5B, NH5B, SG5B, MS5B, HG5B, BB5B];
-  itemSpawnsL = GetLength(itemSpawns);
-    
-  // Sky
-  SetSkyParallax (0,17,19,0,0,0,0); 
-  SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
+    CreateObject(COFA);
+    CreateEnvironment();
+    CreateItemSpawns();
 
-  // Fog
-  for(var i=0;i<90;++i)
-    CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
-  
-  CreateObject(COFA);
-  CreateItemSpawns();
-  CreateStalactites();
-
-  return(ScriptGo(1));
+    return(ScriptGo(1));
 }
 func Script1()
 {
@@ -65,6 +53,9 @@ func Script120(){
      goto(2);
 }
 
+/*------------------------------------*\
+    Clonk Spawn/Respawn
+\*------------------------------------*/
 func InitializeClonk(clonk)
 {
     
@@ -93,33 +84,8 @@ func InitializeClonk(clonk)
     CreateContents(HG5B, clonk,1);
     return(1);
 }
-func CreateStalactites() {
-	CreateObject(SL0D,1078,403 + 25);
-	CreateObject(SL0D,1054,398 + 25);
-	//CreateObject(SL0D,1013,440 + 25);
-	CreateObject(SL0D,381,192 + 25);
-	//CreateObject(SL0D,410,190 + 25);
-	CreateObject(SL0D,436,194 + 25);
-	CreateObject(SL0D,459,190 + 25);
-	CreateObject(SL0D,697,571 + 25);
-	CreateObject(SL0D,618,593 + 25);
-	CreateObject(SL0D,1595,190 + 25);
-	CreateObject(SL0D,1640,169 + 25);
-	CreateObject(SL0D,1573,400 + 25);
-}
-func CreateItemSpawns() {
-  CreateObject(SPNP,1578,529);
-  CreateObject(SPNP,1070,537);
-  CreateObject(SPNP,711,224);
-  CreateObject(SPNP,370,529);
-  CreateObject(SPNP,1913,546);
-  CreateObject(SPNP,663,688);
-  CreateObject(SPNP,1110,638);
-}
-
 // spawn protection
-global func FxSpawnTimer(pTarget, iEffectNumber,iEffectTime)
-{
+global func FxSpawnTimer(pTarget, iEffectNumber,iEffectTime) {
     EffectVar(3,pTarget,iEffectNumber)+=5;
 
   
@@ -143,7 +109,53 @@ global func FxSpawnTimer(pTarget, iEffectNumber,iEffectTime)
     SetCategory(C4D_Vehicle,pTarget);
 }
 
-global func FxSpawnDamage(pTarget, iEffectNumber,foo,iCause)
-{
+global func FxSpawnDamage(pTarget, iEffectNumber,foo,iCause) {
     return(0);
+}
+
+/*------------------------------------*\
+    Item Spawns
+\*------------------------------------*/
+func CreateItemSpawns() {
+
+    // spawning items
+    itemSpawns = [CA5B, OB5B, GB5B, NH5B, SG5B, MS5B, HG5B, BB5B];
+    itemSpawnsL = GetLength(itemSpawns);
+    
+    // spawn points
+    CreateObject(SPNP,1578,529);
+    CreateObject(SPNP,1070,537);
+    CreateObject(SPNP,711,224);
+    CreateObject(SPNP,370,529);
+    CreateObject(SPNP,1913,546);
+    CreateObject(SPNP,663,688);
+    CreateObject(SPNP,1110,638);
+
+}
+
+/*------------------------------------*\
+    Environment
+\*------------------------------------*/
+func CreateEnvironment() {
+    
+    // Sky
+    SetSkyParallax (0,17,19,0,0,0,0); 
+    SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
+
+    // Fog
+    for(var i=0;i<90;++i)
+    CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
+
+    // stalactites
+	CreateObject(SL0D,1078,403 + 25);
+	CreateObject(SL0D,1054,398 + 25);
+	CreateObject(SL0D,381,192 + 25);
+	CreateObject(SL0D,436,194 + 25);
+	CreateObject(SL0D,459,190 + 25);
+	CreateObject(SL0D,697,571 + 25);
+	CreateObject(SL0D,618,593 + 25);
+	CreateObject(SL0D,1595,190 + 25);
+	CreateObject(SL0D,1640,169 + 25);
+	CreateObject(SL0D,1573,400 + 25);
+    
 }
