@@ -105,7 +105,7 @@ func FxLifeTimer()
      if(GBackSolid(0,12) || GetAction() == "Hangle" || GetAction() == "Scale"){
         if(GetFuel() < MaxFuel()){
           for(var i = 0; i < 34; i++){
-           Schedule("this->~DoFuel(18)",i+1,1);
+           Schedule("this->~DoFuel(24)",i+1,1);
           }
          }
      }
