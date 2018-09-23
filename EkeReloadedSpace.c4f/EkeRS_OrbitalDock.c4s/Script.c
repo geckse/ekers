@@ -1,10 +1,18 @@
 /*-- Orbital Dock --*/
 
-#strict
+#strict 2
+
+static itemSpawns;
+static itemSpawnsL;
 
 func Initialize() {
   // Sternenhimmel
   SetSkyParallax(0, 100,70, 1,0); 
+
+  // declare spawning items
+  itemSpawns = [CA5B, OB5B, GB5B, NH5B, SG5B, MS5B, HG5B, GS5B];
+  itemSpawnsL = GetLength(itemSpawns);
+    
   return(ScriptGo(1));
 }
 func Script1()
@@ -14,9 +22,17 @@ func Script1()
 }
 
 func Script2(){
+    
+    // create items in spawn points
     for(var spwn in FindObjects(Find_ID(SPNP))) {
-    var Contents = [CA5B, OB5B, HG5B, GB5B, NH5B, GS5B, SG5B, RL5B, RB5B];
-    CreateContents(Contents[Random(GetLength(Contents))], spwn);
+        
+        var r = Random(itemSpawnsL);
+        
+        // half chance for specific items
+        if (itemSpawns[r] == (SG5B || NH5B)) {
+            r = Random(itemSpawnsL);
+        }
+        CreateContents(itemSpawns[r], spwn);
    }
 }
 func Script120(){
