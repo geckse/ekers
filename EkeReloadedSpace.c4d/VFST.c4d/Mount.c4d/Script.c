@@ -33,4 +33,7 @@ func Check(){
  if( (perc < 25 && cu->~IsActive() && FindObject(META)) || (perc < 10 && cu->~IsActive() && !FindObject(META)) ){
    Sound("doum",1,cu,100,GetOwner()+1);
  }
+
+    // Mini HUD: Fuel Bar
+    cu->~SetFuelLevel(perc);
 }

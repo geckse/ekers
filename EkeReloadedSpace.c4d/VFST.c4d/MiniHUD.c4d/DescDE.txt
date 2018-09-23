@@ -1,0 +1,1 @@
+Zeigt dem SFT den Modus des gewählten Inventarobjekts.

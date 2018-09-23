@@ -10,12 +10,22 @@ local iShootingAxis;
 
 local clonkName;
 
+local lifeBar;
+local lifeBarBackground;
+local ammoBar;
+local ammoBarBackground;
+local fuelBar;
+local fuelBarBackground;
+local energyBarsX;
+
 func MaxO2(){ return(100); }
 
 func Initialize(){
   iO2 = MaxO2();
   AddEffect("Life", this(), 1, 35, this());
   iShootingAxis = 1;
+  energyBarsX = -8;
+  CreateEnergyBars();
   return(_inherited());
 }
 
@@ -210,4 +220,114 @@ func CrewSelection(deselect)
         DisplayRealName();
     }
     return(_inherited());
+}
+
+/*------------------------------------*\
+    Mini Hud
+\*------------------------------------*/
+func CreateEnergyBars() {
+    CreateLifeBar();
+    CreateAmmoBar();
+    CreateFuelBar();
+}
+
+// Mode Switch
+private func ScrollHud(mode, fast)
+{  
+  var owner = GetOwner(this());
+  if (GetCursor(owner) != this()) return;
+
+  var hud = FindObjectOwner(HU7A, owner);
+  if(!hud)
+  {
+    // Halterung erzeugen
+    var modeSwitch = CreateObject(MT7A, 0, 0, owner);
+    SetVertexXY(0,18,16,modeSwitch);
+    SetObjDrawTransform(667,0,0,0,667,0,modeSwitch);
+    modeSwitch -> SetAction("Attach", this);
+
+    // Modus-Dreh-Bildchen erzeugen
+    hud = CreateObject(HU7A, 0, 0, owner);
+    SetVertexXY(0,18,16,hud);
+    SetObjDrawTransform(667,0,0,0,667,0,hud);
+    hud -> SetAction("Attach", this);
+  }
+    
+  hud -> Scroll(mode, fast);
+  return(inherited(...));
+}
+
+// Life Bar
+func CreateLifeBar() {
+    lifeBarBackground = CreateObject(EB7A,0,0,GetOwner());
+    lifeBar = CreateObject(EB7A,0,0,GetOwner());
+    
+    SetVertexXY(0,energyBarsX,22,lifeBar);
+    SetVertexXY(0,energyBarsX,22,lifeBarBackground);
+    SetClrModulation(RGBa(202,119,119,0), lifeBar);
+    SetGraphics("Overlay", lifeBar, EB7A, GFX_Overlay, GFXOV_MODE_Base);
+    SetGraphics("Background", lifeBarBackground);
+    
+    lifeBar -> SetAction("Attach", this);
+    lifeBarBackground -> SetAction("Attach", this);
+    
+    AddEffect("LifeBar", this(), 1, 12, this());
+}
+func UpdateEnergyBar(object pEnergyBar, int iEnergy) {
+    SetPhase(iEnergy, pEnergyBar);
+}
+
+// Ammo Bar
+func CreateAmmoBar() {
+    ammoBarBackground = CreateObject(EB7A,0,0,GetOwner());
+    ammoBar = CreateObject(EB7A,0,0,GetOwner());
+    
+    SetVertexXY(0,energyBarsX,16,ammoBar);
+    SetVertexXY(0,energyBarsX,16,ammoBarBackground);
+    SetClrModulation(RGBa(119,173,202,0), ammoBar);
+    SetGraphics("Overlay", ammoBar, EB7A, GFX_Overlay, GFXOV_MODE_Base);
+    SetGraphics("Background", ammoBarBackground);
+    
+    ammoBar -> SetAction("Attach", this);
+    ammoBarBackground -> SetAction("Attach", this);
+}
+private func SetAmmoBar(int percent)
+{
+  ResetPhysical();
+  DoMagicEnergy(0);
+
+  SetPhysical("Magic", 100000, 2);
+  DoMagicEnergy(percent);
+  UpdateEnergyBar(ammoBar, percent);
+}
+
+// Fuel Bar
+func CreateFuelBar() {
+    fuelBarBackground = CreateObject(EB7A,0,0,GetOwner());
+    fuelBar = CreateObject(EB7A,0,0,GetOwner());
+    
+    SetVertexXY(0,energyBarsX,10,fuelBar);
+    SetVertexXY(0,energyBarsX,10,fuelBarBackground);
+    SetClrModulation(RGBa(119,202,146,0), fuelBar);
+    SetGraphics("Overlay", fuelBar, EB7A, GFX_Overlay, GFXOV_MODE_Base);
+    SetGraphics("Background", fuelBarBackground);
+    
+    fuelBar -> SetAction("Attach", this);
+    fuelBarBackground -> SetAction("Attach", this);
+}
+func SetFuelLevel(int iFuelPerc) {
+    UpdateEnergyBar(fuelBar, iFuelPerc);
+}
+
+
+
+/*Essen und Schlafen*/
+func FxLifeBarTimer()
+{
+  if(!GetAlive()) return(-1);
+
+  AddEffect("Life", this(), 1, 12); //wiederholen
+
+  UpdateEnergyBar(lifeBar, GetEnergy());
+
 }
