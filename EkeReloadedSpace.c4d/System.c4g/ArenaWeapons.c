@@ -27,8 +27,13 @@ public func RejectCollect(id idObject, object pObject) {
             }
         }
         
-        // remove duplicate and cast particles
+        // set min ammo and remove duplicate
         if(idObject == AR5B || idObject == SG5B || idObject == RL5B || idObject == UZ5B) {
+            
+            // set min ammo
+            if (LocalN("ammo", other) < 50) LocalN("ammo", other) = 50;
+            
+            // remove duplicate
             pObject->~CastParticles("PxSpark", RandomX(4, 12), RandomX(12, 20), 0, 0, RandomX(30, 60), 60, RGBa(255, 255, 255), RGBa(225, 225, 255));
             RemoveObject(pObject);
             CheckArmed();
