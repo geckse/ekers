@@ -120,7 +120,7 @@ func FxLifeStop()
 
 protected func Collection2(stuff)
 {
-  if (ContentsCount(GetID(stuff)) == 1)
+  if (GetCategory(stuff) & C4D_Object && ContentsCount(GetID(stuff)) == 1)
   {
     // hinten an die Inventarliste hängen
     if (GetID(stuff) != PT5B) ShiftContents();
