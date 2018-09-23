@@ -2,28 +2,15 @@
 
 #strict
 
-protected func Initialize()
-{
-	// stanrdadmäßig idlen um im inventar zu stacken nach stoppen des zünders
-	SetAction("Idle");
-	SetPicture(5, 0, 35, 35);
-}
-
 func Activate(object clonk)
 {
-  // Zeitzünder starten oder stoppen
-  if (GetAction() eq "Activated") {
-	  SetAction("Idle");
-	  SetPicture(5, 0, 35, 35);
-	  Sound("AB_Empty");
-	  return(1);
-  }
-  else {
-	  SetAction("Activated");
-	  SetPicture(40, 0, 35, 35);
-	  Sound("HG_PullPin");
-	  return(1);
-  }
+  // Zeitzünder kann nicht verzögert werden
+  if (GetAction() eq "Activated") return(1);
+
+  SetAction("Activated");
+  SetPicture(40, 0, 35, 35);
+  Sound("HG_PullPin");
+  return(1);
 }
 
 func BlowUp()
