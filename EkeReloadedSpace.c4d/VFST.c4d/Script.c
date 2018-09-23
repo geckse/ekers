@@ -182,6 +182,7 @@ protected func Death()
 
   Sound("SF_Die");
   DeathAnnounce();
+  RemoveHud();
 
   // Letztes Mannschaftsmitglied tot?
   if (!GetCrew(GetOwner())) GameCallEx("RelaunchPlayer", GetOwner(), this());
@@ -223,12 +224,20 @@ func CrewSelection(deselect)
 }
 
 /*------------------------------------*\
-    Mini Hud
+    Mini HUD
 \*------------------------------------*/
 func RemoveHud() {
-    RemoveObject(lifeBar);
-    RemoveObject(ammoBar);
-    RemoveObject(fuelBar);
+    if(lifeBar) {
+        RemoveObject(lifeBar);
+        RemoveObject(ammoBar);
+        RemoveObject(fuelBar);
+    }
+    
+    var owner = GetOwner(this());
+    var hud = FindObjectOwner(HU7A, owner);
+    if(hud) {
+      RemoveObject(hud);
+    }
 }
 func CreateEnergyBars() {
     CreateLifeBar();
@@ -255,6 +264,10 @@ func FxEnergyTimer()
 func UpdateEnergyBar(object pEnergyBar, int iEnergy) {
     SetPhase(iEnergy, pEnergyBar);
 }
+func Departure() {
+    RemoveHud();
+    return(_inherited());
+}
 
 // Mode Switch
 private func ScrollHud(mode, fast)
@@ -279,6 +292,11 @@ private func ScrollHud(mode, fast)
   }
     
   hud -> Scroll(mode, fast);
+    
+  var energyBar = FindObjectOwner(EB7A, owner);
+  if(!energyBar) {
+      CreateLifeBar();
+  }
   return(1);
 }
 

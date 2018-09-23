@@ -8,3 +8,4 @@ Offset=-16,-2
 Vertices=1
 VertexY=0
 VertexX=0
+BlitMode=0
