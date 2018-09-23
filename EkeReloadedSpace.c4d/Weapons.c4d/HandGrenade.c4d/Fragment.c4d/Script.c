@@ -14,9 +14,11 @@ func FlyingFX()
   if (GetY() < -10) return(RemoveObject());
 
   var size = 20 + ((50 - GetActTime()) * Random(5) + 1);
-  var color = RGBa(255, 255, 255, 255 - size);
+  var color = RGBa(255, 255, 255, 255 - size*2);
 
-  CreateParticle("Fire2", 0, 0, 0, 0, size, color);
+  CreateParticle("Fire2", 0, 0, 0, 0, size/2, color);
+  CreateParticle("PSpark",0,0,0,0,40,RGBa(255,255,255,120));
+  CreateParticle("PSpark",0,0,0,0,40,RGBa(255,255,255,120));
   return(1);
 }
 

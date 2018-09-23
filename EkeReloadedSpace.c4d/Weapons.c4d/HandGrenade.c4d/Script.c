@@ -15,8 +15,8 @@ func Activate(object clonk)
 
 func BlowUp()
 {
-  CreateObject(PEXP,0,0,GetOwner())->init(); 
-  RemoveObject();
+  CastObjects(FG5B, 25, 100);
+  Explode(30);
   return(1);
 }     
 
@@ -50,4 +50,3 @@ func FX()
   }
   return(1);
 }
-

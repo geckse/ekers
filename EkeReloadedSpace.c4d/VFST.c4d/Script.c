@@ -225,10 +225,35 @@ func CrewSelection(deselect)
 /*------------------------------------*\
     Mini Hud
 \*------------------------------------*/
+func RemoveHud() {
+    RemoveObject(lifeBar);
+    RemoveObject(ammoBar);
+    RemoveObject(fuelBar);
+}
 func CreateEnergyBars() {
     CreateLifeBar();
     CreateAmmoBar();
     CreateFuelBar();
+    AddEffect("Energy", this(), 1, 2, this);
+}
+func FxEnergyTimer()
+{
+  if(!GetAlive()) return(-1);
+
+  AddEffect("Energy", this(), 1, 2); //wiederholen
+
+  // update life bar
+  UpdateEnergyBar(lifeBar, GetEnergy());
+
+  // update fuel bar
+  var perc = (GetFuel()*100)/MaxFuel();
+  UpdateEnergyBar(fuelBar, perc);
+  if(perc < 33 && IsActive()) {
+    Sound("doum",1,this,100,GetOwner()+1); 
+  }
+}
+func UpdateEnergyBar(object pEnergyBar, int iEnergy) {
+    SetPhase(iEnergy, pEnergyBar);
 }
 
 // Mode Switch
@@ -254,7 +279,7 @@ private func ScrollHud(mode, fast)
   }
     
   hud -> Scroll(mode, fast);
-  return(inherited(...));
+  return(1);
 }
 
 // Life Bar
@@ -270,11 +295,6 @@ func CreateLifeBar() {
     
     lifeBar -> SetAction("Attach", this);
     lifeBarBackground -> SetAction("Attach", this);
-    
-    AddEffect("LifeBar", this(), 1, 12, this());
-}
-func UpdateEnergyBar(object pEnergyBar, int iEnergy) {
-    SetPhase(iEnergy, pEnergyBar);
 }
 
 // Ammo Bar
@@ -314,20 +334,4 @@ func CreateFuelBar() {
     
     fuelBar -> SetAction("Attach", this);
     fuelBarBackground -> SetAction("Attach", this);
-}
-func SetFuelLevel(int iFuelPerc) {
-    UpdateEnergyBar(fuelBar, iFuelPerc);
-}
-
-
-
-/*Essen und Schlafen*/
-func FxLifeBarTimer()
-{
-  if(!GetAlive()) return(-1);
-
-  AddEffect("Life", this(), 1, 12); //wiederholen
-
-  UpdateEnergyBar(lifeBar, GetEnergy());
-
 }

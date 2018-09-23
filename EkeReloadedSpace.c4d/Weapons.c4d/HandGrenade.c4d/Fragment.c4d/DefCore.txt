@@ -9,3 +9,4 @@ Offset=-2,-2
 Vertices=1
 Mass=5
 Rotate=1
+ColorByOwner=1

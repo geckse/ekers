@@ -13,9 +13,10 @@ protected func Initialize()
 
   SetAction("Fill");
 
-  pDeko = CreateObject(MT2B,0,0,GetOwner());
-  pAir = CreateObject(MT3B,0,0,GetOwner());
-  pThermo = CreateObject(MT4B,0,0,GetOwner());
+  //pDeko = CreateObject(MT2B,0,0,GetOwner());
+  //pAir = CreateObject(MT3B,0,0,GetOwner());
+  //pThermo = CreateObject(MT4B,0,0,GetOwner());
+  RemoveObject(this);
   return(1);
 }
 

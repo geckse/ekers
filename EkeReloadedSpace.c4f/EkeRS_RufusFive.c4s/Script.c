@@ -4,6 +4,7 @@
 
 static clonkSpawns;
 static clonkSpawnsL;
+static clonkCategory;
 
 static itemSpawns;
 static itemSpawnsL;
@@ -82,6 +83,7 @@ func InitializeClonk(clonk)
     SetPosition(clonkSpawns[r][0], clonkSpawns[r][1], clonk);
 
     // add spawn protection
+    clonkCategory = GetCategory(clonk);
     AddEffect("Spawn",clonk,20,1);
   
     // equip clonk
@@ -129,6 +131,7 @@ global func FxSpawnTimer(pTarget, iEffectNumber,iEffectTime)
     
     if(iEffectTime > 150) {
         SetClrModulation(RGB(255,255,255),pTarget);
+        SetCategory(clonkCategory,pTarget);
         return(-1);
     }
     CreateParticle("PSpark",GetX(pTarget)+Cos(EffectVar(3,pTarget,iEffectNumber),10),GetY(pTarget)+Sin(EffectVar(3,pTarget,iEffectNumber),10),0,0,30,HSL(EffectVar(0,pTarget,iEffectNumber),255,128));
@@ -137,6 +140,7 @@ global func FxSpawnTimer(pTarget, iEffectNumber,iEffectTime)
   
     EffectVar(0,pTarget,iEffectNumber)+=EffectVar(1,pTarget,iEffectNumber);
     Extinguish(pTarget);
+    SetCategory(C4D_Vehicle,pTarget);
 }
 
 global func FxSpawnDamage(pTarget, iEffectNumber,foo,iCause)
