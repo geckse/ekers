@@ -8,24 +8,12 @@ local iO2;
 local iTemp;
 local iShootingAxis;
 
-local clonkName;
-
-local lifeBar;
-local lifeBarBackground;
-local ammoBar;
-local ammoBarBackground;
-local fuelBar;
-local fuelBarBackground;
-local energyBarsX;
-
 func MaxO2(){ return(100); }
 
 func Initialize(){
   iO2 = MaxO2();
   AddEffect("Life", this(), 1, 35, this());
   iShootingAxis = 1;
-  energyBarsX = -8;
-  CreateEnergyBars();
   return(_inherited());
 }
 
@@ -194,6 +182,8 @@ protected func Death()
 /*------------------------------------*\
     Nameless Hero
 \*------------------------------------*/
+local clonkName;
+
 func DeathAnnounce () {
     Message("%s $DeathMsg$", this(), clonkName);
     return(1);
@@ -215,12 +205,27 @@ func CrewSelection(deselect)
 /*------------------------------------*\
     Mini HUD
 \*------------------------------------*/
+local lifeBar;
+local lifeBarBackground;
+local ammoBar;
+local ammoBarBackground;
+local fuelBar;
+local fuelBarBackground;
+local energyBarsX;
+
+func Initialize() {
+  energyBarsX = -8;
+  CreateEnergyBars();
+  return(_inherited());
+}
+
 func CreateEnergyBars() {
     CreateLifeBar();
     CreateAmmoBar();
     CreateFuelBar();
     AddEffect("Energy", this(), 1, 2, this);
 }
+
 func RemoveHud() {
   var owner = GetOwner(this);
   var hud = FindObjectOwner(HU7A, owner);
@@ -234,13 +239,13 @@ func RemoveHud() {
   if(ammoBarBackground) RemoveObject(ammoBarBackground);
   if(fuelBarBackground) RemoveObject(fuelBarBackground);
 }
-func Death()
-{
+
+func Death() {
     RemoveHud();
     return(_inherited(...));
 }
-func FxEnergyTimer()
-{
+
+func FxEnergyTimer() {
   if(!GetAlive()) return(-1);
 
   AddEffect("Energy", this(), 1, 2); //wiederholen
@@ -260,8 +265,7 @@ func UpdateEnergyBar(object pEnergyBar, int iEnergy) {
 }
 
 // Mode Switch
-private func ScrollHud(mode, fast)
-{  
+private func ScrollHud(mode, fast) {  
   var owner = GetOwner(this());
   if (GetCursor(owner) != this()) return;
 
