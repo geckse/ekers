@@ -1,6 +1,6 @@
 /*-- Neues Script --*/
 /*
-#strict
+#strict 2
 
 #appendto CLNK
 
