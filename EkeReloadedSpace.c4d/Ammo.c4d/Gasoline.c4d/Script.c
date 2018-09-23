@@ -17,30 +17,11 @@ func Activate(object clonk)
 
   var max = clonk->~MaxFuel();
   var need = max-(clonk->~GetFuel());
-
-  if(need <= iFuel){
-    if(need > 0){
-        clonk->~DoFuel(need);
-        iFuel -= need;
-
-        CastMsg(Format("+%d{{GSIC}}",need), clonk, 0, 0, true);
-
-        // set filling level
-        var iFuelMultiplier = (iFuel*15)/MaxFuel();
-        iFuelMultiplier = 26*(15-iFuelMultiplier);
-        SetPicture(15 + iFuelMultiplier, 0, 26, 35);
-    }
-  } else {
-    clonk->~DoFuel(iFuel);
-    CastMsg(Format("+%d{{GSIC}} (-{{GS5B}})",need,iFuel), clonk, 0, 0, true);
-    RemoveObject(this);
-  }
-  if(need == 0){
-    CastMsg(Format("%d%{{GS5B}}",(6666/(iFuel*100) ) ), clonk, 0, 0, true);
-  } else {
+  if(need > 0){
+    clonk->~DoFuel(need);
     Sound("FT_Reload");
+    RemoveObject();
   }
-
   return(1);
 }
 
