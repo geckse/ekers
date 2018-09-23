@@ -182,7 +182,6 @@ protected func Death()
 
   Sound("SF_Die");
   DeathAnnounce();
-  RemoveHud();
 
   // Letztes Mannschaftsmitglied tot?
   if (!GetCrew(GetOwner())) GameCallEx("RelaunchPlayer", GetOwner(), this());
@@ -216,24 +215,29 @@ func CrewSelection(deselect)
 /*------------------------------------*\
     Mini HUD
 \*------------------------------------*/
-func RemoveHud() {
-    if(lifeBar) {
-        RemoveObject(lifeBar);
-        RemoveObject(ammoBar);
-        RemoveObject(fuelBar);
-    }
-    
-    var owner = GetOwner(this());
-    var hud = FindObjectOwner(HU7A, owner);
-    if(hud) {
-      RemoveObject(hud);
-    }
-}
 func CreateEnergyBars() {
     CreateLifeBar();
     CreateAmmoBar();
     CreateFuelBar();
     AddEffect("Energy", this(), 1, 2, this);
+}
+func RemoveHud() {
+  var owner = GetOwner(this);
+  var hud = FindObjectOwner(HU7A, owner);
+  var modeSwitch = FindObjectOwner(MT7A, owner);
+  if(hud) RemoveObject(hud);
+  if(modeSwitch) RemoveObject(modeSwitch);
+  if(lifeBar) RemoveObject(lifeBar);
+  if(ammoBar) RemoveObject(ammoBar);
+  if(fuelBar) RemoveObject(fuelBar);
+  if(lifeBarBackground) RemoveObject(lifeBarBackground);
+  if(ammoBarBackground) RemoveObject(ammoBarBackground);
+  if(fuelBarBackground) RemoveObject(fuelBarBackground);
+}
+func Death()
+{
+    RemoveHud();
+    return(_inherited(...));
 }
 func FxEnergyTimer()
 {
@@ -253,10 +257,6 @@ func FxEnergyTimer()
 }
 func UpdateEnergyBar(object pEnergyBar, int iEnergy) {
     SetPhase(iEnergy, pEnergyBar);
-}
-func Departure() {
-    RemoveHud();
-    return(_inherited());
 }
 
 // Mode Switch
@@ -285,7 +285,7 @@ private func ScrollHud(mode, fast)
     
   var energyBar = FindObjectOwner(EB7A, owner);
   if(!energyBar) {
-      CreateLifeBar();
+      CreateEnergyBars();
   }
   return(1);
 }

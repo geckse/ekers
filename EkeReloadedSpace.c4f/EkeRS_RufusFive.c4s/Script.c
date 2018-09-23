@@ -24,7 +24,7 @@ func Initialize() {
   clonkSpawnsL = GetLength(clonkSpawns);
 
   // declare spawning items
-  itemSpawns = [CA5B, OB5B, GB5B, NH5B, SG5B, MS5B, HG5B];
+  itemSpawns = [CA5B, OB5B, GB5B, NH5B, SG5B, MS5B, HG5B, BB5B];
   itemSpawnsL = GetLength(itemSpawns);
     
   // Sky
