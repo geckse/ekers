@@ -7,8 +7,3 @@ func BlowUp()
   RemoveObject();
   return(1);
 }
-func RejectEntrance(clonk)
-{
-  if (mode == "Enemy") SetSolidMask();  
-  return(1);
-}

@@ -195,16 +195,6 @@ protected func Death()
 /*------------------------------------*\
     Nameless Hero
 \*------------------------------------*/
-func WipeName() {
-    SetName("");
-}
-func ResetName() {
-    SetName(clonkName);
-}
-func DisplayRealName() {
-    CustomMessage(Format("@%s|%s", $ClonkRanks$[GetRank(this())] ,clonkName), 0, GetOwner(), -5,55, 0, 0, "1", 1);
-    return(1);
-}
 func DeathAnnounce () {
     Message("%s $DeathMsg$", this(), clonkName);
     return(1);
@@ -212,13 +202,13 @@ func DeathAnnounce () {
 func Recruitment()
 {
   clonkName = Format("%s", GetName());
-  WipeName();
+  SetName("");
   return(_inherited());
 }
 func CrewSelection(deselect)
 {
     if(!deselect) {
-        DisplayRealName();
+        CustomMessage(Format("@%s|%s", $ClonkRanks$[GetRank(this())] ,clonkName), 0, GetOwner(), -5,55, 0, 0, "1", 1);
     }
     return(_inherited());
 }
