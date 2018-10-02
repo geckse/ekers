@@ -1,6 +1,6 @@
 /* SFT */
 
-#strict
+#strict 2
 
 #include CLNK
 #include HU7A
@@ -15,13 +15,13 @@ protected func Initialize()
 
   // Munition der integrierten Pistole aufladen
   AddEffect("SellCheck", this, 1, 35, this());
-  
+
   // weiter mit überladener Funktion
   return(inherited());
 }
 
 protected func Recruitment()
-{  
+{
   // richtigen Werte gleich zu Beginn
   SetAmmoBar(LocalN("ammo", Contents()));
 
@@ -42,16 +42,16 @@ protected func ControlLeft()
   if (Control2Contents("ControlLeft")) return(1);
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlLeftDouble()
 {
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlLeftDouble")) return(1); 
-  
+  if (Control2Contents("ControlLeftDouble")) return(1);
+
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlRight()
@@ -70,28 +70,28 @@ protected func ControlRight()
   Control2Harpoon("ControlRight");
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlRightDouble()
 {
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlRightDouble")) return(1); 
-  
+  if (Control2Contents("ControlRightDouble")) return(1);
+
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlUp()
 {
   // Schlag mit dem Kopf beim Nahkampf
-  if (GetAction() eq "Fight")
+  if (GetAction() == "Fight")
   {
     SetAction("Headbang");
     return(1);
   }
-  
+
   // Steuerung an Inhaltsobjekt weitergeben
   if (Control2Contents("ControlUp")) return(1);
 
@@ -99,7 +99,7 @@ protected func ControlUp()
   Control2Harpoon("ControlUp");
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlDown()
@@ -112,7 +112,7 @@ protected func ControlDown()
   Control2Harpoon("ControlDown");
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlDownDouble()
@@ -121,25 +121,25 @@ protected func ControlDownDouble()
   //Control2Harpoon("ControlDownDouble");
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlThrow()
 {
   // Schlagen beim Nahkampf
-  if (GetAction() eq "Fight")
+  if (GetAction() == "Fight")
   {
     SetAction("Punch");
     return(1);
   }
-  // Bei vorherigem Doppel-Stop nur Ablegen   
+  // Bei vorherigem Doppel-Stop nur Ablegen
   if (GetPlrDownDouble(GetOwner())) return(0);
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlThrow")) return(1); 
- 
+  if (Control2Contents("ControlThrow")) return(1);
+
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlThrowDouble()
@@ -151,7 +151,7 @@ protected func ControlThrowDouble()
 protected func ControlDig()
 {
   // Kicken beim Nahkampf
-  if (GetAction() eq "Fight")
+  if (GetAction() == "Fight")
   {
     SetAction("Kick");
     return(1);
@@ -160,35 +160,35 @@ protected func ControlDig()
   if (Control2Contents("ControlDig")) return(1);
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlDigSingle()
 {
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlDigSingle")) return(1); 
+  if (Control2Contents("ControlDigSingle")) return(1);
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlDigDouble()
 {
   if (WildcardMatch(GetAction(), "*Walk")) return(0);
   if (WildcardMatch(GetAction(), "*Swim")) return(0);
-  if (GetAction() eq "Dig")                return(0);
-  if (GetAction() eq "Push")               return(0);
-  if (GetAction() eq "Kick")               return(0);
+  if (GetAction() == "Dig")                return(0);
+  if (GetAction() == "Push")               return(0);
+  if (GetAction() == "Kick")               return(0);
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("Activate")) return(1); 
+  if (Control2Contents("Activate")) return(1);
 
   // Keine überladene Steuerung
-  return(0);
+  return _inherited(...);
 }
 
 protected func ControlSpecial()
-{  
+{
   // ggf. Pistole wegstecken
   if (FindContents(PT7A))
   {
@@ -197,7 +197,7 @@ protected func ControlSpecial()
   }
   // Inventar verschieben
   ShiftContents(0, 0, 0, 1);
-  
+
   // Bewaffnung prüfen
   CheckArmed();
   return(1);
@@ -218,7 +218,7 @@ protected func ControlSpecial2()
     return(1);
   }
   // bei angefassten Objekten Holen ermöglichen
-  if (GetAction() eq "Push")
+  if (GetAction() == "Push")
   {
     var stuff = GetActionTarget();
     if (GetDefCoreVal("GrabPutGet", "DefCore", GetID(stuff)) > 1)
@@ -240,7 +240,7 @@ protected func ControlSpecial2Double()
 private func Control2Contents(string command)
 {
   // angefasste Objekte haben Vorrang, außer bei Modus-Auswahl
-  if ((GetAction() eq "Push") && (command != "ControlSpecial2")) return(0);
+  if ((GetAction() == "Push") && (command != "ControlSpecial2")) return(0);
 
   var result = ObjectCall(Contents(), command, this());
   return(result);
@@ -258,10 +258,10 @@ protected func ContactLeft()
   if (!GetContact(0, -1, CNAT_Left)) return(0);
 
   FallDamage();
-  
-  if (GetAction() eq "JetpackFly")
+
+  if (GetAction() == "JetpackFly")
   {
-    SetComDir(COMD_Stop());
+    SetComDir(COMD_Stop);
     SetAction("Scale");
   }
   return(1);
@@ -270,13 +270,13 @@ protected func ContactLeft()
 protected func ContactRight()
 {
   // nicht weiter bei Kontakt am Spielfeldrand
-  if (!GetContact(0, -1, CNAT_Right)) return(0);  
+  if (!GetContact(0, -1, CNAT_Right)) return(0);
 
   FallDamage();
-  
-  if (GetAction() eq "JetpackFly")
+
+  if (GetAction() == "JetpackFly")
   {
-    SetComDir(COMD_Stop());
+    SetComDir(COMD_Stop);
     SetAction("Scale");
   }
   return(1);
@@ -285,10 +285,10 @@ protected func ContactRight()
 protected func ContactTop()
 {
   FallDamage();
-  
-  if (GetAction() eq "JetpackFly")
+
+  if (GetAction() == "JetpackFly")
   {
-    SetComDir(COMD_Stop());
+    SetComDir(COMD_Stop);
     SetAction("Hangle");
   }
   return(1);
@@ -297,10 +297,10 @@ protected func ContactTop()
 protected func ContactBottom()
 {
   FallDamage();
-  
-  if (GetAction() eq "JetpackFly")
+
+  if (GetAction() == "JetpackFly")
   {
-    SetComDir(COMD_Stop());
+    SetComDir(COMD_Stop);
     SetAction("JetpackWalk");
   }
   return(1);
@@ -317,7 +317,7 @@ private func FallDamage()
   {
     DoEnergy((70 - speed) * 2);
     Sound("Hurt*");
-  } 
+  }
   return(1);
 }
 
@@ -328,29 +328,29 @@ private func CheckArmed()
   SetAmmoBar(LocalN("ammo", Contents()));
   if(ammoBar) SetPhase(LocalN("ammo", Contents()), ammoBar);
 
-  if (GetAction() eq "Walk") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolWalk"));
-  if (GetAction() eq "Jump") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolJump"));
-  if (GetAction() eq "Dive") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolJump"));
-  if (GetAction() eq "PistolWalk") if (GetID(Contents()) != PT7A) return(SetActionSmooth("Walk"));
-  if (GetAction() eq "PistolJump") if (GetID(Contents()) != PT7A) return(SetActionSmooth("Jump"));
+  if (GetAction() == "Walk") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolWalk"));
+  if (GetAction() == "Jump") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolJump"));
+  if (GetAction() == "Dive") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolJump"));
+  if (GetAction() == "PistolWalk") if (GetID(Contents()) != PT7A) return(SetActionSmooth("Walk"));
+  if (GetAction() == "PistolJump") if (GetID(Contents()) != PT7A) return(SetActionSmooth("Jump"));
 
-  if (GetAction() eq "Walk") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleWalk"));
-  if (GetAction() eq "Jump") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleJump"));
-  if (GetAction() eq "Dive") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleJump"));
-  if (GetAction() eq "AssaultRifleWalk") if (GetID(Contents()) != AR7A) return(SetActionSmooth("Walk"));
-  if (GetAction() eq "AssaultRifleJump") if (GetID(Contents()) != AR7A) return(SetActionSmooth("Jump"));
+  if (GetAction() == "Walk") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleWalk"));
+  if (GetAction() == "Jump") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleJump"));
+  if (GetAction() == "Dive") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleJump"));
+  if (GetAction() == "AssaultRifleWalk") if (GetID(Contents()) != AR7A) return(SetActionSmooth("Walk"));
+  if (GetAction() == "AssaultRifleJump") if (GetID(Contents()) != AR7A) return(SetActionSmooth("Jump"));
 
-  if (GetAction() eq "Walk") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherWalk"));
-  if (GetAction() eq "Jump") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherJump"));
-  if (GetAction() eq "Dive") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherJump"));
-  if (GetAction() eq "RocketLauncherWalk") if (GetID(Contents()) != RL7A) return(SetActionSmooth("Walk"));
-  if (GetAction() eq "RocketLauncherJump") if (GetID(Contents()) != RL7A) return(SetActionSmooth("Jump"));
+  if (GetAction() == "Walk") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherWalk"));
+  if (GetAction() == "Jump") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherJump"));
+  if (GetAction() == "Dive") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherJump"));
+  if (GetAction() == "RocketLauncherWalk") if (GetID(Contents()) != RL7A) return(SetActionSmooth("Walk"));
+  if (GetAction() == "RocketLauncherJump") if (GetID(Contents()) != RL7A) return(SetActionSmooth("Jump"));
 
-  if (GetAction() eq "Walk") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunWalk"));
-  if (GetAction() eq "Jump") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunJump"));
-  if (GetAction() eq "Dive") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunJump"));
-  if (GetAction() eq "ShotgunWalk") if (GetID(Contents()) != SG7A) return(SetActionSmooth("Walk"));
-  if (GetAction() eq "ShotgunJump") if (GetID(Contents()) != SG7A) return(SetActionSmooth("Jump"));
+  if (GetAction() == "Walk") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunWalk"));
+  if (GetAction() == "Jump") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunJump"));
+  if (GetAction() == "Dive") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunJump"));
+  if (GetAction() == "ShotgunWalk") if (GetID(Contents()) != SG7A) return(SetActionSmooth("Walk"));
+  if (GetAction() == "ShotgunJump") if (GetID(Contents()) != SG7A) return(SetActionSmooth("Jump"));
 
 }
 
@@ -373,7 +373,7 @@ private func SetAmmoBar(int percent)
 private func Punching()
 {
   if (!Random(3)) Sound("Kime*");
-  
+
   Punch(GetActionTarget());
   Sound("Punch*");
   return(1);
@@ -404,10 +404,10 @@ private func Headbanging()
 private func Kicking()
 {
   if (!Random(3)) Sound("Kime*");
-  
+
   DoEnergy(-10, GetActionTarget());
   Fling(GetActionTarget(), 4 * GetDir() - 2, -1);
-  SetComDir(COMD_Stop()); 
+  SetComDir(COMD_Stop);
   Sound("Punch*");
   return(1);
 }
@@ -427,14 +427,14 @@ private func Chopping()
 
 private func Building()
 {
-  if (GetAction() eq "Build")
+  if (GetAction() == "Build")
   {
     // Funken und bläuliches Licht
-    WeldingFX(20 * GetDir() - 10, 8);    
+    WeldingFX(20 * GetDir() - 10, 8);
 
     // Maske ab, Schweißnaht checken
     if (!Random(10)) SetAction("WeldingMaskDown");
-  }  
+  }
   else
   {
     // Maske auf, Schweißen!
@@ -447,7 +447,7 @@ private func WeldingFX(xPos, yPos)
 {
   CreateParticle("MSpark", xPos, yPos, RandomX(-15, 15), Random(15) * -1, 15, RGB(255, 255, 255));
   CreateParticle("MSpark", xPos, yPos, RandomX(-20, 20), Random(20) * -1, 15, RGB(255, 255, 255));
-  CreateParticle("MSpark", xPos, yPos, RandomX(-25, 25), Random(25) * -1, 15, RGB(255, 255, 255));  
+  CreateParticle("MSpark", xPos, yPos, RandomX(-25, 25), Random(25) * -1, 15, RGB(255, 255, 255));
 
   CreateParticle("PSpark", xPos, yPos, RandomX(-1, 1), RandomX(-1, 1), RandomX(25, 50), RGB(Random(255), 255, 255));
   CreateParticle("PSpark", xPos, yPos, RandomX(-1, 1), RandomX(-1, 1), RandomX(100, 250), RGBa(Random(255), 255, 255, 150));
@@ -456,8 +456,8 @@ private func WeldingFX(xPos, yPos)
 private func JetpackFX()
 {
   var xPos = -14 * GetDir() + 7;
-  var yPos = 1; 
- 
+  var yPos = 1;
+
   CreateParticle("PSpark", xPos, yPos, 0, 0, RandomX(25, 50), RGB(Random(255), 255, 255));
 }
 
@@ -478,7 +478,7 @@ private func Holster()
   ShiftContents(0, true, PT7A);
   CheckArmed();
   Sound("SF_Holster");
-  return(1);  
+  return(1);
 }
 
 func FxSellCheckTimer()
@@ -525,7 +525,7 @@ func RejectCollect(id idObject, object pObject)
 }
 
 protected func Collection2(stuff)
-{   
+{
   if (ContentsCount(GetID(stuff)) == 1)
   {
     // hinten an die Inventarliste hängen
@@ -550,14 +550,14 @@ protected func Ejection(stuff)
 }
 
 protected func Death()
-{ 
+{
 
   // Info-Broadcasts für sterbende Clonks
   GameCallEx("OnClonkDeath", this(), GetKiller());
-  
+
   // Der Broadcast könnte seltsame Dinge gemacht haben: Clonk ist noch tot?
   if (GetAlive()) return(0);
-  
+
   Sound("SF_Die");
   DeathAnnounce();
 
