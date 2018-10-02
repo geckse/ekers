@@ -143,20 +143,20 @@ func SwitchShootingAxis(){
     }
     return(1);
 }
-func ControlAxis(int newAxis){
-    var weapon = Contents();
-    if(newAxis != iShootingAxis) {
-      iShootingAxis = newAxis;
 
-      if(weapon && weapon->~IsWeapon() && !weapon->~IsShooting()) {
-        weapon->ControlThrow(this, true);
-      }
-    } else {
-      if(weapon && weapon->~IsWeapon()) {
-        weapon->ControlThrow(this, true);
-      }
-    }
+func ControlAxis(int newAxis) {
+	var weapon = Contents();
+	if(weapon->~IsWeapon()) {
+		if(iShootingAxis != newAxis && weapon->~IsShooting()) {
+			iShootingAxis = newAxis;
+		}
+		else {
+			iShootingAxis = newAxis;
+			weapon->ControlThrow(this, true);
+		}
+	}
 }
+
 protected func Death()
 {
   // ggf. HUD entfernen
