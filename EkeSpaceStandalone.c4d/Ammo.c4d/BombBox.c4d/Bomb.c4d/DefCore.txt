@@ -1,0 +1,11 @@
+[DefCore]
+id=BO7A
+Name=Bomb
+Version=4,9,5
+Category=C4D_Object
+Width=13
+Height=13
+Offset=-6,-6
+Mass=25
+Vertices=1
+Rotate=180

@@ -1,0 +1,1 @@
+The Special Force Trooper (SFT) can handle with all the nice Eke-toys. He carries up to 5 objects and always a pistol, which can be produced with [Special2]. In close combat the SFT is able to box with the [Throw]-command, kick [Dig] and punch with his head [Up]. If the SFT falls down from a high level, the impact will break his bones.

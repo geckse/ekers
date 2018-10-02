@@ -1,0 +1,1 @@
+Creatures get kicked back if hit by a projectile.

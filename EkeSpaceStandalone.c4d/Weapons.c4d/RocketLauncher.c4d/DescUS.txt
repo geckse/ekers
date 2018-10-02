@@ -1,0 +1,1 @@
+Expensive state-of-the-art weapon. Can be loaded only with Missiles. After Missile launch it is possible to activate a remote control with [Dig]. Then guide the missile via [Left/Right], stop turning with [Down] or blow up the missile with [Throw]. Of course you can end the remote guiding mode if you press [Dig] again. 

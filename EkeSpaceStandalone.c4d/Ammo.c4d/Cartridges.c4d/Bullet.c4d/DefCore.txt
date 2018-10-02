@@ -1,0 +1,12 @@
+[DefCore]
+id=BU7A
+Name=Bullet
+Version=4,9,5
+Category=C4D_Vehicle
+Width=3
+Height=3
+Offset=-1,-1
+Vertices=1
+
+[Physical]
+Float=100000

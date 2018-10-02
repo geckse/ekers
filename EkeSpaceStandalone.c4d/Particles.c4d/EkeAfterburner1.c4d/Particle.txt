@@ -1,0 +1,12 @@
+[Particle]
+Name=EkeAfterburner1
+MaxCount=1000
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,15,15,-7,-7
+Delay=0
+GravityAcc=0
+AlphaFade=10
+Additive=1
+Attach=1

@@ -1,0 +1,1 @@
+Enthält Munition für alle Projektilwaffen. Kann mit [Doppelt Graben] zu Pistolenmagazinen umgebaut werden.

@@ -1,0 +1,1 @@
+Lebewesen werden nach hinten geschleudert, wenn sie von Projektilen getroffen werden.

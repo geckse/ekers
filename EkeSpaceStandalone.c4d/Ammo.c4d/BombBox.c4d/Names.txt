@@ -1,0 +1,2 @@
+DE:Bombenkiste
+US:Bomb Box

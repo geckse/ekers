@@ -1,0 +1,1 @@
+With this extended jetpack version can the pilot navigate freely in the air. The engines are turned on/off by pressing [Double-Up]. The slow flight mode can be de-/activated by pressing [Single-Dig].

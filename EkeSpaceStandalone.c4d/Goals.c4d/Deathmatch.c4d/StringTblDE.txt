@@ -1,0 +1,1 @@
+Info=Wie du auf dem Scoreboard sehen kannst, hast du noch %d Relaunchs übrig. %d mal hast einen anderen SFT gekillt und %d mal hast du dich selbst getötet.

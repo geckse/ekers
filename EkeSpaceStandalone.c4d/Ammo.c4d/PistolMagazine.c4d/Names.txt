@@ -1,0 +1,2 @@
+DE:Pistolenmagazin
+US:Pistol Magazine

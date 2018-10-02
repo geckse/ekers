@@ -1,0 +1,17 @@
+[DefCore]
+id=RB7A
+Name=RocketBox
+Version=4,9,5
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=5
+Width=16
+Height=10
+Offset=-8,-5
+Value=30
+Mass=25
+Picture=16,0,35,35
+Vertices=1
+VertexY=4
+VertexFriction=100
+Rebuy=1
+Collectible=1

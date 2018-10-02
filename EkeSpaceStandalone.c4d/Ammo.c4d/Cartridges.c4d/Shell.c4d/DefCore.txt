@@ -1,0 +1,10 @@
+[DefCore]
+id=SH7A
+Name=Shell
+Version=4,9,5
+Category=4
+Width=5
+Height=5
+Offset=-2,-2
+Vertices=1
+VertexFriction=50

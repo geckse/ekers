@@ -1,0 +1,2 @@
+DE:Hülse
+US:Shell

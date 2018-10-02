@@ -1,0 +1,1 @@
+Fest integrierte Standardwaffe vom SFT. Schlagkräftig und präzise. Wird in der Heimatbasis automatisch aufgeladen, wenn leer. Pistole ziehen mit [Special2].

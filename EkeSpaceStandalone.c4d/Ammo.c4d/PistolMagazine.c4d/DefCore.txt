@@ -1,0 +1,16 @@
+[DefCore]
+id=PM7A
+Name=PistolMagazine
+Version=4,9,5
+Category=C4D_Object
+Width=4
+Height=9
+Offset=-2,-4
+Value=5
+Mass=5
+Picture=4,0,35,35
+Vertices=1
+VertexY=3
+VertexFriction=100
+Collectible=1
+ 

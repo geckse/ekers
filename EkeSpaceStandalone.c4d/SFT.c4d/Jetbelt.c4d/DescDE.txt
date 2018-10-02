@@ -1,0 +1,1 @@
+Mit dieser erweiterten Jetpack-Version kann der Pilot frei in der Luft manövrieren. Die Triebwerke werden mit [Doppel-Hoch] an bzw. aus geschaltet. Mit [Einzel-Graben] kann der langsame Flugmodus aktiviert bzw. deaktiviert werden.

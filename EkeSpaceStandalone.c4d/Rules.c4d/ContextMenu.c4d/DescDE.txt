@@ -1,0 +1,1 @@
+Öffnet das Kontextmenü des ausgewählten Clonks.

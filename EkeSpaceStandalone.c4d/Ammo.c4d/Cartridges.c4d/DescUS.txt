@@ -1,0 +1,1 @@
+Contains ammo for all projectile weapons. You can convert it with [Double Dig] to 5 pistol mags.

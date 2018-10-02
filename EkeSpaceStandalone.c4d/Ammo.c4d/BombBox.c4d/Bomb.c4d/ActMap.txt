@@ -1,0 +1,9 @@
+[Action]
+Name=Fly
+Directions=2
+FlipDir=1
+Length=25
+Delay=1
+Facet=0,0,13,13
+NextAction=Fly
+PhaseCall=Flying

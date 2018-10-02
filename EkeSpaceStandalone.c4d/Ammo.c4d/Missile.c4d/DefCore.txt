@@ -1,0 +1,16 @@
+[DefCore]
+id=MS7A
+Name=Missile
+Version=4,9,5
+Category=C4D_Vehicle
+Width=13
+Height=13
+Offset=-6,-6
+Value=10
+Mass=10
+Picture=0,13,35,35
+Vertices=2
+VertexY=-6,6
+VertexFriction=100
+Collectible=1
+Rotate=1

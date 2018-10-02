@@ -1,0 +1,1 @@
+Contains ammo for the grenade launcher of the Assault Rifle. You may convert it with [Double Dig] to 5 Hand Grenades.

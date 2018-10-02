@@ -1,0 +1,13 @@
+[DefCore]
+id=RO7A
+Name=Rocket
+Version=4,9,5
+Category=C4D_Vehicle
+Width=13
+Height=6
+Offset=-6,-3
+Mass=10
+Vertices=1
+
+[Physical]
+Float=100000

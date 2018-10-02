@@ -1,0 +1,1 @@
+Hochmoderne und teure Waffe, kann nur mit Lenkraketen geladen werden. Nach dem Abschuß können diese mit [Graben] für die Fernsteuerung aktiviert werden: Flugrichtung wählen mit [Links/Rechts], Geradeausflug mit [Runter], Sprengung der Lenkrakete mit [Werfen]. Der Fernsteuer-Modus kann jederzeit abgebrochen werden, dazu drückt man nochmal die mit [Graben]-Taste.

@@ -1,0 +1,2 @@
+DE:Schockwellengeschosse
+US:Shock Wave Bullets

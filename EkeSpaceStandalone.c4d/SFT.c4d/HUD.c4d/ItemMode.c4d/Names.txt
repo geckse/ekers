@@ -1,0 +1,2 @@
+DE:Item Mode
+US:Item Mode
