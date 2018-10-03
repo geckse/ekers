@@ -1,0 +1,2 @@
+- Jetpack: kleinerer Tank, automatische Regeneration
+- Waffen: beim aufsammeln werden Duplikate entfernt und die Munition wird übertragen
