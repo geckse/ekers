@@ -1,0 +1,6 @@
+[DefCore]
+id=WP7A
+Name=Weapon
+Version=4,9,5
+Category=C4D_StaticBack
+Picture=25,0,35,35

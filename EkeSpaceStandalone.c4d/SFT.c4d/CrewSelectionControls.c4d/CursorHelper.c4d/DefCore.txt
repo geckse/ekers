@@ -1,0 +1,7 @@
+[DefCore]
+id=_CCC
+Category=C4D_StaticBack
+Width=1
+Height=1
+CrewMember=1
+Name=Cursor Helper

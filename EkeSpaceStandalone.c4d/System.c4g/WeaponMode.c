@@ -10,15 +10,15 @@ func Initialize() {
 }
 
 func ControlThrow(object clonk)
-{  
+{
   if(iSwitch) {
-	  iSwitch = 0;
+    iSwitch = 0;
   }
   else {
-	  iSwitch = 1;
-	  AddEffect("Switch", this, 1, 2, this);
+    iSwitch = 1;
+    AddEffect("Switch", this, 1, 2, this);
   }
-  // ControlShoot();
+  Stop();
   return(1);
 }
 
@@ -37,18 +37,13 @@ func PilotLight()
   return(1);
 }
 
-func IsShooting()
-{
-	return GetAction() == "Shoot";
-}
-
 func FxSwitchTimer()
-{	
-	if(iSwitch) {
-		if(!IsShooting()) PilotLight();
-		AddEffect("Switch", this, 1, 2);
-	}
-	else {
-		return(-1);
-	}
+{
+  if(iSwitch) {
+    if(!IsShooting()) PilotLight();
+    AddEffect("Switch", this, 1, 2);
+  }
+  else {
+    return(-1);
+  }
 }

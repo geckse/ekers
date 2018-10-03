@@ -14,6 +14,7 @@ local mAmount;
 local mLevel;
 local holeSize;
 local punch;
+local shootingAxis;
 
 func Launch(object weapon, int dir, clonk)
 {
@@ -23,11 +24,15 @@ func Launch(object weapon, int dir, clonk)
   if (GetID(weapon) == AB7A) Airbike();
   if (GetID(weapon) == SG7A) Shotgun();
 
+  shootingAxis = weapon->~GetShootingAxis();
+
   xOld = GetX();
-  yOld = GetY();
+  yOld = GetY() + shootingAxis * 4;
 
   shooter = clonk;
   direction = 2 * dir - 1;
+
+
   SetXDir(direction * 400);
   SetAction("Fly");
   return(1);
@@ -95,7 +100,7 @@ func HitObject()
   if (flightTime > 5) RemoveObject();
 
   // y-Abweichung der Kugel einbringen
-  SetYDir(RandomX(-yVariation, yVariation));
+  SetYDir(RandomX(-yVariation, yVariation) + shootingAxis * 180);
 
   var x = xOld - GetX(); xOld = GetX();
   var y = yOld - GetY(); yOld = GetY();
@@ -143,7 +148,7 @@ func HitSoft(material)
 {
   CastPXS(material, mAmount, mLevel);
   DigFree(GetX(), GetY(), holeSize);
-  
+
   Sound("BU_SoftHit*");
   RemoveObject();
   return(1);
@@ -151,13 +156,13 @@ func HitSoft(material)
 
 func HitHard()
 {
-  for (var i = 0; i < 5; i++) 
+  for (var i = 0; i < 5; i++)
   {
     var xDir = Random(25) * -direction;
     var yDir = RandomX(-25, 25);
 
     CreateParticle("PxSpark", 0, 0, xDir, yDir, 40, RGBa(255, 255, 0, 150));
-    
+
     if (punch < 5) break; // Shotgun
   }
   Sound("BU_HardHit*");
@@ -183,7 +188,7 @@ func HitCreature(victim)
 
   // Schockwellengeschosse aktiviert?
   if (ObjectCount(SW7A))
-  {  
+  {
     // Piloten nicht vom Airbike reißen
     if (GetAction(victim) ne "AirbikeFly")
     {
@@ -201,13 +206,13 @@ func HitCreature(victim)
     var x = GetX(victim) - GetX();
     var y = GetY(victim) - GetY();
 
-    for (var i = 0; i < 3; i++) 
-    {  
+    for (var i = 0; i < 3; i++)
+    {
       var xDir = Random(10) * -direction;
       var yDir = RandomX(-10, 10);
       var s = 50 + Random(30);
       CreateParticle("EkeBlood", x, y, xDir, yDir, s);
-      
+
       if (punch < 5) break; // Shotgun
     }
     // nicht bei schweren (großen) Lebewesen
@@ -246,7 +251,7 @@ func HitTin(victim)
   var b3 = !Hostile(GetController(), GetController(victim), 1);
 
   if (b1 && b2 && b3)                         return(0);
-  if (GetOCF(victim) & OCF_Alive())           return(0);  
+  if (GetOCF(victim) & OCF_Alive())           return(0);
   if (GetCategory(victim) & C4D_StaticBack()) return(0);
   if (GetCategory(victim) & C4D_Structure())  return(0);
   if (PrivateCall(victim, "IsTree"))          return(0);

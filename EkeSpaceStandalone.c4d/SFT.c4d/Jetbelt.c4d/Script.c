@@ -40,10 +40,10 @@ public func ControlUpDouble(){_inherited(...); return(Switch(COMD_Up));}
 public func ControlLeftDouble(){_inherited(...); SetDir(DIR_Left); return(Switch(COMD_Left));}
 public func ControlRightDouble(){_inherited(...); SetDir(DIR_Right); return(Switch(COMD_Right));}
 
-public func ControlUp(){ var ret = _inherited(...); if(!ret && IsActive()) Start(COMD_Up); return ret; }
-public func ControlDown(){ var ret = _inherited(...); if(!ret && IsActive()) Start(COMD_Down); return ret; }
-public func ControlLeft(){ var ret = _inherited(...); if(!ret && IsActive()) Start(COMD_Left); return ret; }
-public func ControlRight(){ var ret = _inherited(...); if(!ret && IsActive()) Start(COMD_Right); return ret; }
+public func ControlUp(){ if(IsActive()) return Start(COMD_Up); }
+public func ControlDown(){ if(IsActive()) return Start(COMD_Down); }
+public func ControlLeft(){ if(IsActive()) return Start(COMD_Left); }
+public func ControlRight(){ if(IsActive()) return Start(COMD_Right); }
 
 global func GrabPush() {
 	return GetDefGrab(GetID()) == 1;
@@ -88,16 +88,16 @@ private func Stop()
   {
     Sound("Jetbelt",0,this,0,0,-1);
     Sound("JetbeltStop");
-    
+
     SetPhysical("CanScale", 1, PHYS_Temporary);
     SetPhysical("CanHangle", 1, PHYS_Temporary);
   }
-    
+
   StandBy();
   cdir = COMD_None;
-  
+
   jGrab = 0;
-  
+
   return;
 }
 
@@ -106,33 +106,33 @@ private func Start(int iDir)
   if(!IsReady()) return;
 
   var jnr = GetPlrCoreJumpAndRunControl(GetController());
-  
+
   if(iDir == COMD_Stop)
   {
     if(!jnr)
       slow = !slow;
     else
       slow = true;
-      
+
     return;
   }
   else
   {
     if(jnr)
       slow = false;
-  
+
   }
-  
+
   cdir = iDir;
-  
+
   if(!IsActive())
-  { 
+  {
     Sound("Jetbelt",0,this,0,0,+1);
     SetUserAction();
     Active();
-    
+
     ControlDig(); // automatisch Sachen festheben
-    
+
     SetPhysical("CanScale", 0, PHYS_Temporary);
     SetPhysical("CanHangle", 0, PHYS_Temporary);
   }
@@ -159,29 +159,29 @@ protected func FxJetbeltTimer()
 {
   if(!IsReady()) return(Stop());
   if(GetAction() == "Tumble") return(Stop());
-  
+
   //UpdateTimer();
-  
+
   if(!GetFuel()) RefillFuel();
   DoFuel(-Consumption());
-  
+
   var r = ComDir2Angle(cdir);
-  
+
   var xmax = MaxSpeed();
   var ymax = MaxSpeed();
-  
+
   if(slow)
   {
     xmax /= 4;
     ymax /= 4;
   }
-  
+
   var xdir = BoundBy(GetXDir()*100+Sin(r,MaxAccel()),-xmax*100,+xmax*100);
   var ydir = BoundBy(GetYDir()*100-Cos(r,MaxAccel()),-ymax*100,+ymax*100);
 
   SetXDir(xdir,0,1000);
   SetYDir(ydir-GetGravityAccel4K(1000),0,1000);//4K-Lib sorgt für Pseudo-Schwerelosigkeit. ;D
-  
+
   if(jGrab) {
   	if(ObjectDistance(jGrab) > Distance(GetDefWidth(jGrab -> GetID()), GetDefHeight(jGrab -> GetID()))) {
   		Message("%s verloren!", this, jGrab -> GetName());
@@ -200,12 +200,12 @@ protected func FxJetbeltTimer()
   	SetDir(DIR_Left);
   else if(xdir > 0)
   	SetDir(DIR_Right);*/
-  
+
   UpdateFuelHUD();
 
-    
+
   r-=180;
-  
+
   var dist = Distance(0,0,GetXDir(),GetYDir());
   var maxx = +Sin(r,dist/10);
   var maxy = -Cos(r,dist/10);
@@ -257,21 +257,12 @@ public func IsReady()
 
 private func SetUserAction()
 {
-  if(GetAction() != "Jump")
+  if(!WildcardMatch(GetAction(), "*Jump"))
+  {
     SetAction("Jump");
-  if(GetAction() != "AssaultRifleJump")
-    SetAction("AssaultRifleJump");
-  if(GetAction() != "PistolJump")
-    SetAction("PistolJump");
-  if(GetAction() != "RocketLauncherJump")
-    SetAction("RocketLauncherJump");
-  if(GetAction() != "FlamethrowerJump")
-    SetAction("FlamethrowerJump");
-  if(GetAction() != "IcethrowerJump")
-    SetAction("IcethrowerJump");
-  if(GetAction() != "ShotgunJump")
-    SetAction("ShotgunJump");
-    }
+    this->CheckArmed();
+  }
+}
 
 private func ComDir2Angle(int iDir)
 {
