@@ -237,12 +237,21 @@ protected func ControlSpecial2Double()
   return(1);
 }
 
+protected func ControlShoot()
+{
+  // Steuerung an Inhaltsobjekt weitergeben
+  if (Control2Contents("ControlShoot", ...)) return(1);
+
+  // Keine überladene Steuerung
+  return _inherited(...);
+}
+
 private func Control2Contents(string command)
 {
   // angefasste Objekte haben Vorrang, außer bei Modus-Auswahl
   if ((GetAction() == "Push") && (command != "ControlSpecial2")) return(0);
 
-  var result = ObjectCall(Contents(), command, this());
+  var result = ObjectCall(Contents(), command, this(), ...);
   return(result);
 }
 
@@ -323,35 +332,32 @@ private func FallDamage()
 
 private func CheckArmed()
 {
+  var weapon = Contents();
+  ScrollHud(LocalN("mode", weapon));
+  SetAmmoBar(LocalN("ammo", weapon));
+  if(ammoBar) SetPhase(LocalN("ammo", weapon), ammoBar);
 
-  ScrollHud(LocalN("mode", Contents()));
-  SetAmmoBar(LocalN("ammo", Contents()));
-  if(ammoBar) SetPhase(LocalN("ammo", Contents()), ammoBar);
+  var weaponAction = (weapon && weapon->~IsWeapon() && weapon->~ActionString()) || "";
+  var action = GetAction();
 
-  if (GetAction() == "Walk") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolWalk"));
-  if (GetAction() == "Jump") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolJump"));
-  if (GetAction() == "Dive") if (GetID(Contents()) == PT7A) return(SetActionSmooth("PistolJump"));
-  if (GetAction() == "PistolWalk") if (GetID(Contents()) != PT7A) return(SetActionSmooth("Walk"));
-  if (GetAction() == "PistolJump") if (GetID(Contents()) != PT7A) return(SetActionSmooth("Jump"));
+  // With a weapon change Dive into Jump
+  if(action == "Dive" && weaponAction != "")
+  {
+    action = "Jump";
+  }
 
-  if (GetAction() == "Walk") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleWalk"));
-  if (GetAction() == "Jump") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleJump"));
-  if (GetAction() == "Dive") if (GetID(Contents()) == AR7A) return(SetActionSmooth("AssaultRifleJump"));
-  if (GetAction() == "AssaultRifleWalk") if (GetID(Contents()) != AR7A) return(SetActionSmooth("Walk"));
-  if (GetAction() == "AssaultRifleJump") if (GetID(Contents()) != AR7A) return(SetActionSmooth("Jump"));
-
-  if (GetAction() == "Walk") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherWalk"));
-  if (GetAction() == "Jump") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherJump"));
-  if (GetAction() == "Dive") if (GetID(Contents()) == RL7A) return(SetActionSmooth("RocketLauncherJump"));
-  if (GetAction() == "RocketLauncherWalk") if (GetID(Contents()) != RL7A) return(SetActionSmooth("Walk"));
-  if (GetAction() == "RocketLauncherJump") if (GetID(Contents()) != RL7A) return(SetActionSmooth("Jump"));
-
-  if (GetAction() == "Walk") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunWalk"));
-  if (GetAction() == "Jump") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunJump"));
-  if (GetAction() == "Dive") if (GetID(Contents()) == SG7A) return(SetActionSmooth("ShotgunJump"));
-  if (GetAction() == "ShotgunWalk") if (GetID(Contents()) != SG7A) return(SetActionSmooth("Walk"));
-  if (GetAction() == "ShotgunJump") if (GetID(Contents()) != SG7A) return(SetActionSmooth("Jump"));
-
+  for(var checkAction in ["Walk", "Jump", "Swim"])
+  {
+    if(WildcardMatch(action, Format("*%s", checkAction)))
+    {
+      var newAction = Format("%s%s", weaponAction, checkAction);
+      if(newAction != action)
+      {
+        SetActionSmooth(newAction);
+      }
+      return;
+    }
+  }
 }
 
 private func SetActionSmooth(newAction)

@@ -2,12 +2,15 @@
 
 #strict
 
+func IsWeapon() { return true; }
+func ActionString() { return "RocketLauncher"; }
+
 local ammo;    // Restmunition in Prozent
 local missile; // Lenkrakete im Flug
 local guiding; // SFT ist am Lenken
 
 func ControlLeft(object clonk)
-{ 
+{
   if (!guiding) return(0);
 
   SetPlrView(GetOwner(clonk), missile);
@@ -16,12 +19,12 @@ func ControlLeft(object clonk)
 }
 
 func ControlLeftDouble(object clonk)
-{ 
+{
   return(ControlLeft(clonk));
 }
 
 func ControlRight(object clonk)
-{ 
+{
   if (!guiding) return(0);
 
   SetPlrView(GetOwner(clonk), missile);
@@ -30,17 +33,17 @@ func ControlRight(object clonk)
 }
 
 func ControlRightDouble(object clonk)
-{ 
+{
   return(ControlRight(clonk));
 }
 
 func ControlUp(object clonk)
-{ 
+{
   return(ControlDown(clonk));
 }
 
 func ControlDown(object clonk)
-{ 
+{
   if (!guiding) return(0);
 
   SetPlrView(GetOwner(clonk), missile);
@@ -49,7 +52,7 @@ func ControlDown(object clonk)
 }
 
 func ControlThrow(object clonk)
-{ 
+{
   if (!WildcardMatch(GetAction(clonk), "RocketLauncher*")) return(1);
 
   if (guiding)
@@ -79,9 +82,9 @@ func ControlThrow(object clonk)
   Exit(missile, x, y, r);
   missile -> Launch(this());
   SetController(GetController(clonk), missile);
-  
+
   SetAction("Wait");
- 
+
   ammo -= 100;
   clonk -> SetAmmoBar(ammo);
   Sound("RL_Shoot");
@@ -96,11 +99,11 @@ func ControlDig(object clonk)
     {
       guiding = 0;
       clonk -> SetAmmoBar(0);
-    }    
+    }
     else
     {
       guiding = 1;
-    
+
       SetComDir(COMD_Stop(), clonk);
       SetPlrView(GetOwner(clonk), missile);
       Sound("AB_Select");
@@ -131,7 +134,7 @@ func Reloading()
 }
 
 func Activate(object clonk)
-{ 
+{
   if (ammo > 0) return(0);
   if (guiding)  return(0);
 

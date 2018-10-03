@@ -257,21 +257,12 @@ public func IsReady()
 
 private func SetUserAction()
 {
-  if(GetAction() != "Jump")
+  if(!WildcardMatch(GetAction(), "*Jump"))
+  {
     SetAction("Jump");
-  if(GetAction() != "AssaultRifleJump")
-    SetAction("AssaultRifleJump");
-  if(GetAction() != "PistolJump")
-    SetAction("PistolJump");
-  if(GetAction() != "RocketLauncherJump")
-    SetAction("RocketLauncherJump");
-  if(GetAction() != "FlamethrowerJump")
-    SetAction("FlamethrowerJump");
-  if(GetAction() != "IcethrowerJump")
-    SetAction("IcethrowerJump");
-  if(GetAction() != "ShotgunJump")
-    SetAction("ShotgunJump");
-    }
+    this->CheckArmed();
+  }
+}
 
 private func ComDir2Angle(int iDir)
 {
