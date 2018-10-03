@@ -146,6 +146,7 @@ func SwitchShootingAxis(){
 
 func ControlAxis(int newAxis) {
 	var weapon = Contents();
+    if(!weapon) return(0);
 	if(weapon->~IsWeapon()) {
 		if(iShootingAxis != newAxis && weapon->~IsShooting()) {
 			iShootingAxis = newAxis;
