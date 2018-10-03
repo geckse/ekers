@@ -29,8 +29,8 @@ func PilotLight()
 
   if (!WildcardMatch(GetAction(clonk), "AssaultRifle*")) return(0);
 
-  var x = 20 * dir - 10 + Random(2);
-  var y = RandomX(-3, -1);
+  var x = 16 * dir - 8 + Random(2);
+  var y = -1;
 
   CreateParticle("PSpark", x, y, 0, -1, 20, GetColorDw(clonk), clonk);
   CreateParticle("PSpark", x, y, 0, 0, 20, RGBa(255,255,255,120), clonk);
