@@ -23,6 +23,8 @@ func MuzzleFlashData() { return ["EkeMuzzleFlash2", 16, -1, 90, 85]; }
 static const WP7A_ShotDelayEffect = "ShotDelay";
 static const WP7A_AutoShootEffect = "AutoShoot";
 
+static const WP7A_All = -1;
+
 // copy of current mode data for HUD and stuff
 local ammo; // current mode's ammo in percent
 local mode; // current mode's HUD name
@@ -62,12 +64,80 @@ func ControlSpecial2(object clonk)
   return true;
 }
 
+func UpdateCurrentAmmo()
+{
+  ammo = modeAmmos[modeIndex];
+  var container = Contained();
+  if(container && Contents(0, container) == this)
+  {
+    container->~SetAmmoBar(ammo);
+  }
+}
+
+// Set/Get the current ammo amount for the current or a specific mode
+// If modePlusOne is omitted or zero, the current mode's ammo is returned
+// otherwise modePlusOne specifies the desired index increased by one
+
+// For SetAmmo the constant WP7A_All can be used to set the ammo for all available modes
+
+func SetAmmo(int amount, int modePlusOne)
+{
+  if(modePlusOne == WP7A_All)
+  {
+    for(var i = 0; i < ModeCount(); ++i)
+    {
+      modeAmmos[i] = amount;
+    }
+    UpdateCurrentAmmo();
+    return true;
+  }
+
+  var affectedMode = modeIndex;
+  if(modePlusOne != 0)
+  {
+    affectedMode = modePlusOne - 1;
+
+    if(affectedMode >= ModeCount())
+    {
+      return false;
+    }
+  }
+
+  modeAmmos[affectedMode] = amount;
+
+  if(affectedMode == modeIndex)
+  {
+    UpdateCurrentAmmo();
+  }
+
+  return true;
+}
+
+func GetAmmo(int modePlusOne)
+{
+  var affectedMode = modeIndex;
+  if(modePlusOne != 0)
+  {
+    affectedMode = modePlusOne - 1;
+
+    if(affectedMode >= ModeCount())
+    {
+      return -1;
+    }
+  }
+
+  return modeAmmos[affectedMode];
+}
+
 func ChangeMode(int newMode, object clonk)
 {
   if(IsShooting())
   {
     Stop();
   }
+
+  // for backward compatibility reasons
+  modeAmmos[modeIndex] = ammo;
 
   modeIndex = newMode;
 
@@ -90,7 +160,7 @@ func Shooting()
   {
     return FX_Execute_Kill;
   }
-  if(!ammo)
+  if(ammo <= 0)
   {
     Sound(EmptySound()[modeIndex]);
     return FX_Execute_Kill;
@@ -207,7 +277,7 @@ func Shoot()
     return true;
   }
 
-  if(!ammo)
+  if(ammo <= 0)
   {
     Sound(EmptySound()[modeIndex]);
     return true;
