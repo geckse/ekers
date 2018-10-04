@@ -390,6 +390,7 @@ func ActivateWeapon()
   if(!IsActive())
   {
     AddEffect(WP7A_ActiveEffect, this, 1, 2, this);
+    Sound("WP_Activate");
   }
 }
 
