@@ -390,7 +390,7 @@ func ActivateWeapon()
   if(!IsActive())
   {
     AddEffect(WP7A_ActiveEffect, this, 1, 2, this);
-    Sound("WP_Activate");
+    Sound("WP_Activate",1,this,100,GetOwner()+1);
   }
 }
 
@@ -430,7 +430,7 @@ func FxActiveTimer()
   }
 
   AddAmmo(-3);
-  PilotLight();
+  // PilotLight();
 }
 
 func ToggleActivation()
