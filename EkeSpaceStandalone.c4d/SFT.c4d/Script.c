@@ -5,6 +5,7 @@
 #include CLNK
 #include HU7A
 #include JB4K
+#include FN7A
 
 local pistol;
 

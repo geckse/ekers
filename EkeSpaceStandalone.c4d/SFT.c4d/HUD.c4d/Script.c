@@ -79,7 +79,7 @@ func CreateHud()
     }
     if(!ammoBar) {
         ammoBar = CreateObject(EB7A,0,0,owner);
-        SetClrModulation(RGBa(119,173,202,0), ammoBar);
+        SetClrModulation(RGBa(202,202,202,0), ammoBar);
         SetGraphics("Overlay", ammoBar, EB7A, GFX_Overlay, GFXOV_MODE_Base);
     }
     if(!fuelBar) {
@@ -155,7 +155,17 @@ func FxHudTimer()
     SetPhase(GetEnergy() + 1, lifeBar);
 
     // update ammo bar
-    SetPhase(LocalN("ammo", Contents()) + 1, ammoBar);
+    var item = Contents();
+    var activeFx = GetEffect("Active", item);
+    SetPhase(LocalN("ammo", item) + 1, ammoBar);
+    if (activeFx || GetID(item) == PT7A) {
+        SetGraphics("Active", hudMount);
+        SetClrModulation(RGBa(119,173,202,0), ammoBar);
+    }
+    else {
+        SetGraphics(0, hudMount);
+        SetClrModulation(RGBa(202,202,202,0), ammoBar);
+    }
 
     // update fuel bar
     var fuel = this->GetFuel();
