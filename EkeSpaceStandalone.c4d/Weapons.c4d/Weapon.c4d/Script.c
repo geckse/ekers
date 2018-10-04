@@ -131,6 +131,11 @@ func GetAmmo(int modePlusOne)
 
   return modeAmmos[affectedMode];
 }
+func AddAmmo(int amount, int modePlusOne)
+{
+    var currentAmmo = GetAmmo(modePlusOne);
+    SetAmmo(currentAmmo + amount, modePlusOne);
+}
 
 func ChangeMode(int newMode, object clonk)
 {
@@ -378,6 +383,7 @@ func FxActiveTimer()
     return FX_Execute_Kill;
   }
 
+  AddAmmo(-1);
   PilotLight();
 }
 
