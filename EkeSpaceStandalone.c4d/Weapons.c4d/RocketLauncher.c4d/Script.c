@@ -146,3 +146,8 @@ func Activate(object clonk)
   Sound("RL_Reload");
   return(1);
 }
+
+func GetAmmoPercent()
+{
+	return ammo;
+}

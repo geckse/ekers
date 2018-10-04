@@ -24,7 +24,7 @@ protected func Initialize()
 protected func Recruitment()
 {
   // richtigen Werte gleich zu Beginn
-  SetAmmoBar(LocalN("ammo", Contents()));
+  SetAmmoBar(Contents() && Contents()->~GetAmmoPercent());
 
   // weiter mit überladener Funktion
   return(inherited());
@@ -335,8 +335,9 @@ private func CheckArmed()
 {
   var weapon = Contents();
   ScrollHud(LocalN("mode", weapon));
-  SetAmmoBar(LocalN("ammo", weapon));
-  if(ammoBar) SetPhase(LocalN("ammo", weapon), ammoBar);
+  var ammoPercent = weapon && weapon->~GetAmmoPercent();
+  SetAmmoBar(ammoPercent);
+  if(ammoBar) SetPhase(ammoPercent, ammoBar);
 
   var weaponAction = (weapon && weapon->~IsWeapon() && weapon->~ActionString()) || "";
   var action = GetAction();
@@ -476,7 +477,7 @@ private func Holster()
   if (!pistol)
   {
     pistol = CreateContents(PT7A);
-    LocalN("ammo", pistol) = 100;
+    pistol->SetAmmoPercent(100);
   }
   else
   {
@@ -502,7 +503,7 @@ func FxSellCheckTimer()
   if (baseOwner < 0)                     return;
   if (Hostile(baseOwner, GetOwner(), 1)) return;
 
-  var ammo = LocalN("ammo", pistol);
+  var ammo = pistol->GetAmmoPercent();
   if (ammo == 100) return;
 
   var cashNeed = (100 - ammo) / 20;
@@ -512,8 +513,8 @@ func FxSellCheckTimer()
   var ammoHave = cashHave * 20;
 
   ammo += Min(ammoNeed, ammoHave);
-  LocalN("ammo", pistol) = ammo;
-  if (Contained(pistol) == this()) SetAmmoBar(ammo);
+  pistol->SetAmmoPercent(ammo);
+  if (Contained(pistol) == this) SetAmmoBar(ammo);
 
   DoWealth(baseOwner, -Min(cashNeed, cashHave));
   if (Min(cashNeed, cashHave)) Sound("UnCash");

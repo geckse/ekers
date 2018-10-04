@@ -7,13 +7,13 @@
 func Initialize()
 {
     // arenaModeRule = FindObject2(Find_ID(AM7A));
-    arenaModeRule = 1;
+//     arenaModeRule = 1;
     DebugLog("%d", arenaModeRule);
     return _inherited(...);
 }
 func FxAmmoRegenTimer()
 {
-  AddAmmo(1);
+  AddAmmo(10);
 }
 func ActivateWeapon()
 {

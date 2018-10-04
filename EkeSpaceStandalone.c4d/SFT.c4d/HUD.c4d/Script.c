@@ -89,14 +89,14 @@ func CreateHud()
     }
 
     MoveHud();
-    
+
     var object = Contents();
     ScrollHud(LocalN("mode", object), true);
 }
 
 // scroll item mode
 func ScrollHud(mode, fast)
-{ 
+{
     if(!hudMount) CreateHud();
     itemMode -> Scroll(mode, fast);
     return(1);
@@ -110,7 +110,7 @@ func MoveHud()
 
     SetVertexXY(0,hudX,hudY,hudMount);
     hudMount -> SetAction("Attach", this);
-    
+
     SetVertexXY(0,hudX + 18,hudY,itemMode);
     itemMode -> SetAction("Attach", this);
 
@@ -147,7 +147,7 @@ func ShowHud()
 }
 
 func FxHudTimer()
-{   
+{
     // create hud if needed
     if(!hudMount) CreateHud();
 
@@ -157,7 +157,7 @@ func FxHudTimer()
     // update ammo bar
     var item = Contents();
     var activeFx = GetEffect("Active", item);
-    SetPhase(LocalN("ammo", item) + 1, ammoBar);
+    SetPhase(item && item->~GetAmmoPercent() + 1, ammoBar);
     if (activeFx || GetID(item) == PT7A) {
         SetGraphics("Active", hudMount);
         SetClrModulation(RGBa(119,173,202,0), ammoBar);

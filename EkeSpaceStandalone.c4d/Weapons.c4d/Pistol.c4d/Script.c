@@ -10,7 +10,7 @@ func NeedsActivation() { return false; }
 func Modes() { return ["Pistol"]; }
 func ShotDelay() { return [10]; }
 func AmmoID() { return [PM7A]; }
-func AmmoUsage() { return [10]; }
+func AmmoUsage() { return [100]; }
 func ShotSound() { return [false]; }
 func ReloadSound() { return ["PT_Reload"]; }
 func EmptySound() { return ["PT_Empty"]; }
