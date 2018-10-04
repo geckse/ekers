@@ -429,7 +429,7 @@ func FxActiveTimer()
     return FX_Execute_Kill;
   }
 
-  AddAmmo(-5);
+  AddAmmo(-3);
   PilotLight();
 }
 

@@ -11,7 +11,7 @@ func Initialize()
 }
 func FxAmmoRegenTimer()
 {
-  AddAmmo(10);
+  AddAmmo(2);
 }
 func ActivateWeapon()
 {
