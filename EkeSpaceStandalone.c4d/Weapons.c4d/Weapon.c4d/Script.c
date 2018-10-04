@@ -134,7 +134,10 @@ func GetAmmo(int modePlusOne)
 func AddAmmo(int amount, int modePlusOne)
 {
     var currentAmmo = GetAmmo(modePlusOne);
-    SetAmmo(currentAmmo + amount, modePlusOne);
+    var totalAmmo = currentAmmo + amount;
+    if (totalAmmo > 100) totalAmmo = 100;
+    if (totalAmmo < 0) totalAmmo = 0;
+    SetAmmo(totalAmmo, modePlusOne);
 }
 
 func ChangeMode(int newMode, object clonk)
