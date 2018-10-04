@@ -5,6 +5,8 @@
 
 func ActionString() { return "Pistol"; }
 
+func NeedsActivation() { return false; }
+
 func Modes() { return ["Pistol"]; }
 func ShotDelay() { return [10]; }
 func AmmoID() { return [PM7A]; }

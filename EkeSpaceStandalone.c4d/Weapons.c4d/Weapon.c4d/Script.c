@@ -3,6 +3,8 @@
 func IsWeapon() { return true; }
 func ActionString() { return ""; }
 
+func NeedsActivation() { return true; }
+
 // weapon settings; array of values for each mode
 // the mode names for the HUD; false for default
 func Modes() { return [false]; }
@@ -22,6 +24,7 @@ func MuzzleFlashData() { return ["EkeMuzzleFlash2", 16, -1, 90, 85]; }
 // ShotDelay is only a dummy effect
 static const WP7A_ShotDelayEffect = "ShotDelay";
 static const WP7A_AutoShootEffect = "AutoShoot";
+static const WP7A_ActiveEffect = "Active";
 
 static const WP7A_All = -1;
 
@@ -327,14 +330,85 @@ func GetShootingAxis()
   return shootingAxis;
 }
 
-func ControlThrow()
+func IsActive()
+{
+  return !NeedsActivation() || GetEffect(WP7A_ActiveEffect, this);
+}
+
+func ActivateWeapon()
+{
+  if(!IsActive())
+  {
+    AddEffect(WP7A_ActiveEffect, this, 1, 2, this);
+  }
+}
+
+func DeactivateWeapon()
 {
   Stop();
+
+  if(NeedsActivation() && IsActive())
+  {
+    RemoveEffect(WP7A_ActiveEffect, this);
+  }
+}
+
+func PilotLight()
+{
+  var clonk = Contained();
+  var dir = GetDir(clonk);
+
+  if (!ReadyToShoot(clonk)) return;
+
+  var pos = MuzzlePos();
+
+  var x = pos[0] * (dir * 2 - 1) + Random(2);
+  var y = pos[1];
+
+  CreateParticle("PSpark", x, y, 0, -1, 20, GetColorDw(clonk), clonk);
+  CreateParticle("PSpark", x, y, 0, 0, 20, RGBa(255,255,255,120), clonk);
+}
+
+
+func FxActiveTimer()
+{
+  var container = Contained();
+  if(!container || Contents(0, container) != this)
+  {
+    return FX_Execute_Kill;
+  }
+
+  PilotLight();
+}
+
+func ToggleActivation()
+{
+  if(IsActive())
+  {
+    DeactivateWeapon();
+  }
+  else
+  {
+    ActivateWeapon();
+  }
+}
+
+func ControlThrow()
+{
+  if(NeedsActivation())
+  {
+    ToggleActivation();
+  }
   return true;
 }
 
 func ControlShoot(object clonk, int axis)
 {
+  if(!IsActive())
+  {
+    return false;
+  }
+
   if(shootingAxis == axis && IsShooting())
   {
     Stop();

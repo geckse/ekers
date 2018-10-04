@@ -13,7 +13,7 @@ func ShotSound() { return [false]; }
 func ReloadSound() { return ["SG_Reload"]; }
 func EmptySound() { return ["PT_Empty"]; }
 
-func MuzzlePos() { return [8, 0, 1]; }
+func MuzzlePos() { return [8, -3, 1]; }
 func MuzzleFlashData() { return ["EkeMuzzleFlash3", 17, -2, 90, 100]; }
 
 func Fire(object clonk, int dir, int mode)
