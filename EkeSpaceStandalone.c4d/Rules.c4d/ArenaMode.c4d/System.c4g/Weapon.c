@@ -6,10 +6,8 @@
 \*------------------------------------*/
 func Initialize()
 {
-    // arenaModeRule = FindObject2(Find_ID(AM7A));
-//     arenaModeRule = 1;
-    DebugLog("%d", arenaModeRule);
-    return _inherited(...);
+  DeactivateWeapon();
+  return _inherited(...);
 }
 func FxAmmoRegenTimer()
 {
