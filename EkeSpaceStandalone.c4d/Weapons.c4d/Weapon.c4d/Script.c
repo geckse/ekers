@@ -213,7 +213,7 @@ func Shooting()
   {
     return FX_Execute_Kill;
   }
-  if(ammo <= 0)
+  if(ammo < AmmoUsage()[modeIndex])
   {
     Sound(EmptySound()[modeIndex]);
     return FX_Execute_Kill;
@@ -330,7 +330,7 @@ func Shoot()
     return true;
   }
 
-  if(ammo <= 0)
+  if(ammo < AmmoUsage()[modeIndex])
   {
     Sound(EmptySound()[modeIndex]);
     return true;
