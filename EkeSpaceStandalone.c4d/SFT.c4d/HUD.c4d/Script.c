@@ -57,6 +57,7 @@ func Departure() {
 func Death()
 {
     HideHud();
+    RemoveEffect("Hud", this);
     return _inherited(...);
 }
 
@@ -146,12 +147,7 @@ func ShowHud()
 }
 
 func FxHudTimer()
-{
-    // loop fx unless clonk is dead
-    if(!GetAlive()) DebugLog("hud fx killed");
-    if(!GetAlive()) return(-1);
-    AddEffect("Hud", this, 1, 2);
-    
+{   
     // create hud if needed
     if(!hudMount) CreateHud();
 
