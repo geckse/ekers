@@ -486,6 +486,7 @@ private func Holster()
   ShiftContents(0, true, PT7A);
   CheckArmed();
   Sound("SF_Holster");
+  Sound("WP_Activate",1,this,100,GetOwner()+1);
   return(1);
 }
 
