@@ -426,6 +426,7 @@ func FxActiveTimer()
   var container = Contained();
   if(!container || Contents(0, container) != this)
   {
+    DeactivateWeapon();
     return FX_Execute_Kill;
   }
 
