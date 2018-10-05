@@ -3,3 +3,12 @@ kleinerer Tank, automatische Regeneration
 
 Waffen:
 beim aufsammeln werden Duplikate entfernt und die Munition wird übertragen
+
+Dekoobjekte:
+sind nicht einsammelbar, verschwinden nach einer Weile
+
+Clonks:
+Leichen werden mit Effekt ausgeblendet
+
+Omniblaster:
+Wechseln den Besitzer beim Aufsammeln
