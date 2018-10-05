@@ -1,2 +1,2 @@
-DE:EkeRS - Orbital Dock
-US:EkeRS - Orbital Dock
+DE:ES - Orbital Dock
+US:ES - Orbital Dock

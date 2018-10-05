@@ -1,2 +1,2 @@
-DE:EkeRS - Asteroid Meele
-US:EkeRS - Asteroid Meele
+DE:ES - Asteroid Meele
+US:ES - Asteroid Meele

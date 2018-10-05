@@ -1,2 +1,2 @@
-DE:EkeRS (CTF) - Glacialis Lacus
-US:EkeRS (CTF) - Glacialis Lacus
+DE:ES - Glacialis Lacus
+US:ES - Glacialis Lacus

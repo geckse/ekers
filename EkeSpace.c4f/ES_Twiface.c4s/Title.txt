@@ -1,2 +1,2 @@
-DE:EkeRS (CTF) - Twiface
-US:EkeRS (CTF) - Twiface
+DE:ES - Twiface
+US:ES - Twiface
