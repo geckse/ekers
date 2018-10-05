@@ -9,11 +9,10 @@ func Modes() { return ["Cartridges", "Grenades"]; }
 func Automatic() { return [true, false]; }
 func ShotDelay() { return [4, 10]; }
 func StopDelay() { return [10, 10]; }
-func AmmoID() { return [CA7A, CA7A]; }
+func AmmoID() { return CA7A; }
 func AmmoUsage() { return [7, 70]; }
-func MaxAmmo() { return [1000, 1000]; }
 func ShotSound() { return ["AR_Shoot", "GR_Shoot"]; }
-func ReloadSound() { return ["AR_Reload", "AR_Reload"]; }
+func ReloadSound() { return "AR_Reload"; }
 func EmptySound() { return ["PT_Empty", "PT_Empty"]; }
 
 func MuzzlePos() { return [4, 0]; }

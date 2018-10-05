@@ -64,11 +64,11 @@ func InitializePlayer(iPlr) {
   var clonk = GetCrew(iPlr);
   if(!Random(2)){
          var assaultRifle = CreateContents(AR7A, clonk);
-         assaultRifle->SetAmmoPercent(100, WP7A_All);
+         assaultRifle->SetAmmoPercent(100);
          CreateContents(HG7A, clonk,2);
   } else {
          var sRifle = CreateContents(SG7A, clonk);
-         sRifle->SetAmmoPercent(100, WP7A_All);
+         sRifle->SetAmmoPercent(100);
          CreateContents(CA7A, clonk,1);
          CreateContents(HG7A, clonk,2);
   }
@@ -95,11 +95,11 @@ func RelaunchPlayer(iPlr){
      Enter(spawn,clonk);
   if(!Random(2)){
          var assaultRifle = CreateContents(AR7A, clonk);
-         assaultRifle->SetAmmoPercent(100, WP7A_All);
+         assaultRifle->SetAmmoPercent(100);
          CreateContents(HG7A, clonk,2);
   } else {
          var sRifle = CreateContents(SG7A, clonk);
-         sRifle->SetAmmoPercent(100, WP7A_All);
+         sRifle->SetAmmoPercent(100);
          CreateContents(CA7A, clonk,1);
          CreateContents(HG7A, clonk,2);
   }

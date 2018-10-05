@@ -73,7 +73,7 @@ private func InitializeClonk(clonk)
 
     // equip clonk
     var assaultRifle = CreateContents(AR7A, clonk);
-    assaultRifle->SetAmmoPercent(100, WP7A_All);
+    assaultRifle->SetAmmoPercent(100);
     CreateContents(HG7A, clonk,1);
     return(1);
 }

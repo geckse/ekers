@@ -11,11 +11,11 @@ func Modes() { return [false]; }
 func Automatic() { return [false]; }
 func ShotDelay() { return [10]; }
 func StopDelay() { return ShotDelay(); }
-func AmmoID() { return [CA7A]; }
+func AmmoID() { return CA7A; }
 func AmmoUsage() { return [10]; }
-func MaxAmmo() { return [1000]; }
+func MaxAmmo() { return 1000; }
 func ShotSound() { return ["AR_Shoot"]; }
-func ReloadSound() { return ["AR_Reload"]; }
+func ReloadSound() { return "AR_Reload"; }
 func EmptySound() { return ["PT_Empty"]; }
 
 func MuzzlePos() { return [4, 0]; }
@@ -27,14 +27,11 @@ static const WP7A_ShotDelayEffect = "ShotDelay";
 static const WP7A_AutoShootEffect = "AutoShoot";
 static const WP7A_ActiveEffect = "Active";
 
-static const WP7A_All = -1;
-
 // copy of current mode data for HUD and stuff
 local ammo; // current mode's ammo in percent
 local mode; // current mode's HUD name
 
 local modeIndex; // current mode's index
-local modeAmmos; // current ammo of all modes
 
 local shootingAxis;
 
@@ -46,7 +43,6 @@ func ModeCount()
 func Initialize()
 {
   modeIndex = 0;
-  modeAmmos = CreateArray(ModeCount());
   mode = Modes()[0];
 }
 
@@ -70,7 +66,6 @@ func ControlSpecial2(object clonk)
 
 func UpdateCurrentAmmo()
 {
-  ammo = modeAmmos[modeIndex];
   var container = Contained();
   if(container && Contents(0, container) == this)
   {
@@ -78,108 +73,33 @@ func UpdateCurrentAmmo()
   }
 }
 
-func AffectedMode(int modePlusOne)
+func SetAmmo(int amount)
 {
-  // wrong input
-  if(modePlusOne > ModeCount() || modePlusOne < 0) return ModeCount();
+  ammo = amount;
 
-  if(modePlusOne == 0) return modeIndex;
-  return modePlusOne - 1;
-}
-
-// Set/Get the current ammo amount for the current or a specific mode
-// If modePlusOne is omitted or zero, the current mode's ammo is returned
-// otherwise modePlusOne specifies the desired index increased by one
-
-// For SetAmmo the constant WP7A_All can be used to set the ammo for all available modes
-
-func SetAmmo(int amount, int modePlusOne)
-{
-  if(modePlusOne == WP7A_All)
-  {
-    for(var i = 0; i < ModeCount(); ++i)
-    {
-      modeAmmos[i] = amount;
-    }
-    UpdateCurrentAmmo();
-    return true;
-  }
-
-  var affectedMode = AffectedMode(modePlusOne);
-  if(affectedMode >= ModeCount())
-  {
-    return false;
-  }
-
-  modeAmmos[affectedMode] = amount;
-
-  if(affectedMode == modeIndex)
-  {
-    UpdateCurrentAmmo();
-  }
+  UpdateCurrentAmmo();
 
   return true;
 }
 
-func SetAmmoPercent(int amount, int modePlusOne)
+func SetAmmoPercent(int amount)
 {
-  if(modePlusOne == WP7A_All)
-  {
-    for(var i = 0; i < ModeCount(); ++i)
-    {
-      modeAmmos[i] = amount * MaxAmmo()[i] / 100;
-    }
-    UpdateCurrentAmmo();
-    return true;
-  }
-
-  var affectedMode = AffectedMode(modePlusOne);
-  if(affectedMode >= ModeCount())
-  {
-    return false;
-  }
-
-  modeAmmos[affectedMode] = amount * MaxAmmo()[affectedMode] / 100;
-
-  if(affectedMode == modeIndex)
-  {
-    UpdateCurrentAmmo();
-  }
-
-  return true;
+  return SetAmmo(amount * MaxAmmo() / 100);
 }
 
-func GetAmmo(int modePlusOne)
+func GetAmmo()
 {
-  var affectedMode = AffectedMode(modePlusOne);
-  if(affectedMode >= ModeCount())
-  {
-    return -1;
-  }
-
-  return modeAmmos[affectedMode];
+  return ammo;
 }
 
-func GetAmmoPercent(int modePlusOne)
+func GetAmmoPercent()
 {
-  var affectedMode = AffectedMode(modePlusOne);
-  if(affectedMode >= ModeCount())
-  {
-    return -1;
-  }
-
-  return 100 * modeAmmos[affectedMode] / MaxAmmo()[affectedMode];
+  return 100 * ammo / MaxAmmo();
 }
 
-func AddAmmo(int amount, int modePlusOne)
+func AddAmmo(int amount)
 {
-  var affectedMode = AffectedMode(modePlusOne);
-  if(affectedMode >= ModeCount())
-  {
-    return false;
-  }
-
-  return SetAmmo(BoundBy(GetAmmo(modePlusOne) + amount, 0, MaxAmmo()[affectedMode]), modePlusOne);
+  return SetAmmo(BoundBy(GetAmmo() + amount, 0, MaxAmmo()));
 }
 
 func ChangeMode(int newMode, object clonk)
@@ -189,13 +109,9 @@ func ChangeMode(int newMode, object clonk)
     Stop();
   }
 
-  // for backward compatibility reasons
-  modeAmmos[modeIndex] = ammo;
-
   modeIndex = newMode;
 
   mode = Modes()[modeIndex];
-  ammo = modeAmmos[modeIndex];
 
   if(clonk)
   {
@@ -223,7 +139,6 @@ func Shooting()
 
   ammo -= AmmoUsage()[modeIndex];
   clonk->SetAmmoBar(GetAmmoPercent());
-  modeAmmos[modeIndex] = ammo;
   if(!Automatic()[modeIndex])
   {
     var sound = ShotSound()[modeIndex];
@@ -279,9 +194,9 @@ func CreateShell(dir)
 
 func Activate(object clonk)
 {
-  if(ammo >= MaxAmmo()[modeIndex]) return false;
+  if(ammo >= MaxAmmo()) return false;
 
-  var newAmmo = FindContents(AmmoID()[modeIndex], clonk);
+  var newAmmo = FindContents(AmmoID(), clonk);
 
   if(!newAmmo) return false;
 
@@ -289,11 +204,10 @@ func Activate(object clonk)
 
   Stop();
 
-  ammo = MaxAmmo()[modeIndex];
-  modeAmmos[modeIndex] = ammo;
+  ammo = MaxAmmo();
   clonk->SetAmmoBar(GetAmmoPercent());
 
-  Sound(ReloadSound()[modeIndex]);
+  Sound(ReloadSound());
   return true;
 }
 

@@ -143,7 +143,7 @@ public func RejectEntrance(object pClonk)
     // Kann der Clonk einsammeln?
     var tid = GetID(Contents());
     if(tid == AR7A || tid == UZ7A || tid == SG7A || tid == FT7A || tid == IT7A || tid == RL7A){
-       pObj->~SetAmmoPercent(50, WP7A_All);
+       pObj->~SetAmmoPercent(50);
        if(tid == RL7A){
            pObj->LocalN("ammo") = 100;
            Enter(pObj, CreateObject(MS7A,0,0,GetOwner(pClonk)));
