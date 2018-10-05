@@ -1,1 +1,0 @@
-Halterung für das HUD.

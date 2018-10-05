@@ -1,5 +1,0 @@
-[Action]
-Name=Activated
-Delay=120
-FacetBase=1
-EndCall=BlowUp

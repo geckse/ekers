@@ -1,9 +1,0 @@
-[Action]
-Name=Fill
-Procedure=NONE
-Directions=1
-Length=10
-Delay=0
-Facet=0,0,16,15
-NextAction=Fill
-

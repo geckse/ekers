@@ -1,3 +1,0 @@
-Material wird global gelagert und für den Bau von Gebäuden und Gegenständen benötigt. Um die maximale Grenze zu erweitern, können Silos gebaut werden.
-
-Diese Regel wird für Gebäudebau gebraucht.

@@ -1,2 +1,0 @@
-DE:Objektnachricht
-US:Object message

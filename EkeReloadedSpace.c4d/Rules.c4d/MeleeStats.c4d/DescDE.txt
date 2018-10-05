@@ -1,1 +1,0 @@
-Die Melee bezogenen Aktionen, wie zB. Kills des Spielers werden aufgezählt und am Ende der Runde ausgewertet.

@@ -1,1 +1,0 @@
-Jeder Spieler hat zu Beginn 10 Relaunchs. Für jeden zweiten Kill gibt es einen Relaunch dazu, wenn der SFT nicht zwischenzeitlich stirbt.

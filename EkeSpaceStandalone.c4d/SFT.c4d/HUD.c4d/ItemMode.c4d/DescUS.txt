@@ -1,1 +1,0 @@
-Shows the SFT the mode of the selected inventory object.

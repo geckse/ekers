@@ -1,1 +1,0 @@
-You start with 10 relaunchs. For every second kill, you get an extra relaunch if your SFT does not die in the meantime.

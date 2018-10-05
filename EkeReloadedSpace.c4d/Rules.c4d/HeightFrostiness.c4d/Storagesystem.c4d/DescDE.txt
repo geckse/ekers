@@ -1,1 +1,0 @@
-Speichert die Rohstoffe der Clonks in Zahlen!

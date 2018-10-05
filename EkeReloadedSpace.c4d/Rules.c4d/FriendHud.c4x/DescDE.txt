@@ -1,1 +1,0 @@
-Sammelt man eine Waffe auf, welche man schon im Inventar hat, wird diese Entfernt und die Munition auf die vorhandene übertragen.

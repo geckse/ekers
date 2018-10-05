@@ -1,2 +1,0 @@
-DE:Auflade-Feld
-US:Refill Field

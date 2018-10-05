@@ -1,3 +1,0 @@
-Simmuliert einen zusätzlichen Gamma Effekt.
-
-Geht Maximal bis 2kx2k Pixel.
