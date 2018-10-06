@@ -118,9 +118,7 @@ private func Start(int iDir)
   }
   else
   {
-    if(jnr)
-      slow = false;
-
+    slow = false;
   }
 
   cdir = iDir;

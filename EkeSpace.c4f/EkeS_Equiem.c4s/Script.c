@@ -19,7 +19,7 @@ func Initialize()
 
   // set sky color
   // SetSkyAdjust(RGBa(220,220,255,50), RGB(0,0,0));
-    
+
   CreateEnvironment();
 
   ScriptGo(1);
@@ -33,12 +33,12 @@ func Script1()
 }
 
 func Script2(){
-    
+
     // create items in spawn points
     for(var spwn in FindObjects(Find_ID(IS7A))) {
-        
+
         var r = Random(itemSpawnsL);
-        
+
         // half chance for specific items
         if (itemSpawns[r] == NH7A) {
             r = Random(itemSpawnsL);
@@ -63,7 +63,7 @@ func Script15()
 
   // ist unser UziBird noch am Leben?
   if (!GetAlive(uziBird)) CreateUziBird();
- 
+
   goto(2);
   return(1);
 }
@@ -77,7 +77,7 @@ private func CreateUziBird()
 }
 
 func InitializeClonk(clonk)
-{ 
+{
   SetPosition(Random(LandscapeWidth()), Random(100) + 25, clonk);
 
   // equip clonk
@@ -86,8 +86,11 @@ func InitializeClonk(clonk)
   // pull pistol
   clonk -> Holster();
 
+  // make ready for jetpack
+  clonk -> SetAction("Jump");
   // set jetpack active
   clonk -> Start(COMD_Up);
+  clonk -> LocalN("slow") = true;
 
   return(1);
 }
@@ -98,13 +101,13 @@ func InitializeClonk(clonk)
     Environment
 \*------------------------------------*/
 func CreateEnvironment() {
-    
+
     // Sky
-    SetSkyParallax (0,17,19,0,0,0,0); 
+    SetSkyParallax (0,17,19,0,0,0,0);
     SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
 
     // Fog
     for(var i=0;i<20;++i)
     CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
-    
+
 }
