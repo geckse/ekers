@@ -1,0 +1,8 @@
+[Material]
+Name=Rock
+Color=86,86,86,106,106,106,126,126,126
+Density=50
+Friction=100
+MaxSlide=250
+Placement=50
+TextureOverlay=Rough

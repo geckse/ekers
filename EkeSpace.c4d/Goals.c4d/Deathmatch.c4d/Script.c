@@ -23,7 +23,7 @@ protected func Initialize()
   }
   maxRelaunchs = 1;
 
-  return(inherited());
+  return _inherited(...);
 }
 
 
