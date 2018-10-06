@@ -1,5 +1,5 @@
 [Head]
-Icon=2
+Icon=16
 Title=Equiem
 Version=4,9,9,3
 ForcedGfxMode=1
