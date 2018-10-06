@@ -4,7 +4,6 @@
 func Initialize()
 {
 	AddEffect("CheckStuck2", this, 20, 1, this);
-	DebugLog("HallO");
 	return _inherited(...);
 }
 
