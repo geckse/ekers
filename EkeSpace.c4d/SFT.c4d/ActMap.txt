@@ -57,6 +57,7 @@ Facet=0,300,16,20,0,1
 NextAction=Hold
 StartCall=CheckArmed
 PhaseCall=CheckStuck
+InLiquidAction=PistolSwim
 
 [Action]
 Name=RocketLauncherWalk
