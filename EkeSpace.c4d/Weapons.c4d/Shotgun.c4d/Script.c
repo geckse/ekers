@@ -18,7 +18,7 @@ func MuzzleFlashData() { return ["EkeMuzzleFlash3", 17, -2, 90, 100]; }
 
 func Fire(object clonk, int dir, int mode)
 {
-  for (var i = 0; i < 6; i++)
+  for (var i = 0; i < 5; i++)
   {
     var bullet = CreateBullet(dir, clonk);
     if (i == 0) Sound("SG_Shoot", 0, bullet);

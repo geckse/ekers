@@ -85,7 +85,7 @@ func Airbike()
 
 func Shotgun()
 {
-  yVariation = 75;
+  yVariation = 50;
   mAmount = 10;
   mLevel = 30;
   holeSize = 3;
