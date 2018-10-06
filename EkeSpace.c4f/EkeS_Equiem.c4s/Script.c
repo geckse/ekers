@@ -51,11 +51,11 @@ func Script15()
 {
   // es sollen genug Miffel im Graben #2 leben
   var zapCount = ObjectCount(MI5B);
-  if (zapCount < 4) CreateObject(MI5B, RandomX(170, 220), RandomX(200, 400), NO_OWNER);
+  if (zapCount < 3) CreateObject(MI5B, RandomX(170, 220), RandomX(200, 400), NO_OWNER);
 
   // es sollen genug Stippel im Graben #5 leben
   var zapCount = ObjectCount(ST5B);
-  if (zapCount < 10) CreateObject(ST5B, RandomX(770, 840), 400, NO_OWNER);
+  if (zapCount < 7) CreateObject(ST5B, RandomX(770, 840), 400, NO_OWNER);
 
   // es sollen genug Feuermonster im Graben #4 leben
   var zapCount = ObjectCount(FMNS);

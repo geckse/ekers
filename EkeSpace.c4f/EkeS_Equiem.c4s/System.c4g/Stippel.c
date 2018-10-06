@@ -8,6 +8,12 @@ func Initialize() {
 func FxHobbleTimer()
 { 
   if (GetY() < 210) Incinerate();
-  if (ObjectCount(ST5B) > 15) Incinerate();
+  return _inherited(...);
+}
+
+//Hier sollten Stippel keine Kokons legen
+func Pregnancy() 
+{
+  if(GetID() == ST5B) return false;
   return _inherited(...);
 }

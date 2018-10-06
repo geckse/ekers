@@ -11,5 +11,5 @@ func Initialize()
 func FxSelfkillTimer()
 {
     var owner = GetOwner();
-    if(GetPlayerCount(C4PT_User) < 2) EliminatePlayer(owner);
+    if(GetPlayerCount(C4PT_User) < 2) EliminatePlayer(owner, 1);
 }
