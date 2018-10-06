@@ -29,23 +29,30 @@ protected func Initialize()
 
 func InitializePlayer(player, x, y, base, team)
 {
-  var playerID = GetPlayerID(player);
+  if(GetPlayerType(player) == C4PT_User)
+  {
+      var playerID = GetPlayerID(player);
 
-  SetScoreboardData(SBRD_Caption, SBRD_Caption, "Score", SBRD_Caption);
+      SetScoreboardData(SBRD_Caption, SBRD_Caption, "Score", SBRD_Caption);
 
-  SetScoreboardData(SBRD_Caption, 1, "{{SF7A}}", 1);
-  SetScoreboardData(SBRD_Caption, 2, "{{AR7A}}", 2);
-  SetScoreboardData(SBRD_Caption, 3, "{{HG7A}}", 3);
-  SetScoreboardData(playerID, SBRD_Caption, GetTaggedPlayerName(player), playerID);
-  SetScoreboardData(playerID, 1, Format("%d", maxRelaunchs), 10);
-  SetScoreboardData(playerID, 2, "0", 0);
-  SetScoreboardData(playerID, 3, "0", 0);
-  SortScoreboard(1, true);
+      SetScoreboardData(SBRD_Caption, 1, "{{SF7A}}", 1);
+      SetScoreboardData(SBRD_Caption, 2, "{{AR7A}}", 2);
+      SetScoreboardData(SBRD_Caption, 3, "{{HG7A}}", 3);
+      SetScoreboardData(playerID, SBRD_Caption, GetTaggedPlayerName(player), playerID);
+      SetScoreboardData(playerID, 1, Format("%d", maxRelaunchs), 10);
+      SetScoreboardData(playerID, 2, "0", 0);
+      SetScoreboardData(playerID, 3, "0", 0);
+      SortScoreboard(1, true);
 
-  DoScoreboardShow(1, player + 1);
+      DoScoreboardShow(1, player + 1);
 
-  GameCall("InitializeClonk", GetCrew(player));
-  return(inherited(player, x, y, base, team));
+      GameCall("InitializeClonk", GetCrew(player));
+      return(inherited(player, x, y, base, team));   
+  }
+  else
+  {
+    DebugLog("yau");
+  }
 }
 
 func Activate(player)

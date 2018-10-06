@@ -7,7 +7,7 @@ func Initialize() {
 }
 func FxHobbleTimer()
 { 
-  if (GetY() < 210) Kill();
-  if (ObjectCount(ST5B) > 15) Kill();
+  if (GetY() < 210) Incinerate();
+  if (ObjectCount(ST5B) > 15) Incinerate();
   return _inherited(...);
 }

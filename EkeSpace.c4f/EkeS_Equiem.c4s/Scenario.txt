@@ -12,7 +12,7 @@ Definition4=EkeSpace.c4f
 
 [Game]
 StructNeedEnergy=0
-Goals=DM7A=10
+Goals=DM7A=1
 Rules=SW7A=1;AM7A=1
 
 [Player1]

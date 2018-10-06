@@ -76,7 +76,7 @@ private func CreateUziBird()
   return(1);
 }
 
-private func InitializeClonk(clonk)
+func InitializeClonk(clonk)
 { 
   SetPosition(Random(LandscapeWidth()), Random(100) + 25, clonk);
 
@@ -87,9 +87,12 @@ private func InitializeClonk(clonk)
   clonk -> Holster();
 
   // set jetpack active
+  clonk -> Start(COMD_Up);
 
   return(1);
 }
+
+
 
 /*------------------------------------*\
     Environment

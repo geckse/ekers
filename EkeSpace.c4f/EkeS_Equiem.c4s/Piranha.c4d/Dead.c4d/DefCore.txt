@@ -16,7 +16,7 @@ Mass=15
 Components=PIRA=1
 Picture=16,0,64,64
 Placement=1
-Collectible=1
+Collectible=0
 Float=1
 ColorByOwner=1
 StretchGrowth=1
