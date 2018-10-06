@@ -1,2 +1,4 @@
 [Teams]
-Active=0
+Custom=false
+AllowHostilityChange=true
+AutoGenerateTeams=true
