@@ -13,7 +13,7 @@ local killHudFx;
 func Recruitment()
 {
     maxFuel = this->MaxFuel();
-    AddEffect("Hud", this, 1, 2, this);
+    AddEffect("Hud", this, 1, 0, this);
     return _inherited(...);
 }
 
@@ -33,21 +33,13 @@ func Entrance() {
     var container = Contained(this);
     if(container && hudMount) {
         hudMount -> SetAction("Attach", container);
-        itemMode -> SetAction("Attach", container);
-        lifeBar -> SetAction("Attach", container);
-        ammoBar -> SetAction("Attach", container);
-        fuelBar -> SetAction("Attach", container);
         HideHud();
     }
     return _inherited(...);
 }
 func Departure() {
-    if(!hudMount) CreateHud();
+    EnsureHud();
     hudMount -> SetAction("Attach", this);
-    itemMode -> SetAction("Attach", this);
-    lifeBar -> SetAction("Attach", this);
-    ammoBar -> SetAction("Attach", this);
-    fuelBar -> SetAction("Attach", this);
     ScrollHud(LocalN("mode", Contents()), true);
     var owner = GetOwner(this);
     if(GetCursor(owner) == this) ScheduleCall(0, "ShowHud", 2);
@@ -67,37 +59,42 @@ func CreateHud()
     var owner = GetOwner(this);
 
     if(!hudMount) hudMount = CreateObject(HM7A,0,0,owner);
+    hudMount->SetObjectLayer(hudMount);
     if(!itemMode) {
         itemMode = CreateObject(IM7A,0,0,owner);
         SetObjDrawTransform(667,0,0,0,667,0,itemMode);
+        itemMode->SetObjectLayer(hudMount);
     }
 
     if(!lifeBar) {
         lifeBar = CreateObject(EB7A,0,0,owner);
         SetClrModulation(RGBa(202,119,119,0), lifeBar);
         SetGraphics("Overlay", lifeBar, EB7A, GFX_Overlay, GFXOV_MODE_Base);
+        lifeBar->SetObjectLayer(hudMount);
     }
     if(!ammoBar) {
         ammoBar = CreateObject(EB7A,0,0,owner);
         SetClrModulation(RGBa(202,202,202,0), ammoBar);
         SetGraphics("Overlay", ammoBar, EB7A, GFX_Overlay, GFXOV_MODE_Base);
+        ammoBar->SetObjectLayer(hudMount);
     }
     if(!fuelBar) {
         fuelBar = CreateObject(EB7A,0,0,owner);
         SetClrModulation(RGBa(119,202,146,0), fuelBar);
         SetGraphics("Overlay", fuelBar, EB7A, GFX_Overlay, GFXOV_MODE_Base);
+        fuelBar->SetObjectLayer(hudMount);
     }
 
     MoveHud();
 
-    var object = Contents();
-    ScrollHud(LocalN("mode", object), true);
+    var obj = Contents();
+    ScrollHud(LocalN("mode", obj), true);
 }
 
 // scroll item mode
 func ScrollHud(mode, fast)
 {
-    if(!hudMount) CreateHud();
+    EnsureHud();
     itemMode -> Scroll(mode, fast);
     return(1);
 }
@@ -105,29 +102,29 @@ func ScrollHud(mode, fast)
 // move HUD to selected clonk
 func MoveHud()
 {
-    var hudX = 0;
-    var hudY = 24;
-
-    SetVertexXY(0,hudX,hudY,hudMount);
+    var hudOffsetY = 24;
     hudMount -> SetAction("Attach", this);
+    itemMode -> SetAction("Attach", hudMount);
 
-    SetVertexXY(0,hudX + 18,hudY,itemMode);
-    itemMode -> SetAction("Attach", this);
+    SetVertexXY(0, -8, hudOffsetY + 6,lifeBar);
+    lifeBar -> SetAction("Attach", hudMount);
 
-    SetVertexXY(0,hudX - 8,hudY + 6,lifeBar);
-    lifeBar -> SetAction("Attach", this);
+    SetVertexXY(0, -8, hudOffsetY, ammoBar);
+    ammoBar -> SetAction("Attach", hudMount);
 
-    SetVertexXY(0,hudX - 8,hudY,ammoBar);
-    ammoBar -> SetAction("Attach", this);
+    SetVertexXY(0, -8, hudOffsetY - 6, fuelBar);
+    fuelBar -> SetAction("Attach", hudMount);
+}
 
-    SetVertexXY(0,hudX - 8,hudY - 6,fuelBar);
-    fuelBar -> SetAction("Attach", this);
+func EnsureHud()
+{
+    if(!hudMount) CreateHud();
 }
 
 // hide HUD
 func HideHud()
 {
-    if(!hudMount) CreateHud();
+    EnsureHud();
     SetVisibility(VIS_None, hudMount);
     SetVisibility(VIS_None, itemMode);
     SetVisibility(VIS_None, lifeBar);
@@ -138,7 +135,7 @@ func HideHud()
 // show HUD
 func ShowHud()
 {
-    if(!hudMount) CreateHud();
+    EnsureHud();
     SetVisibility(VIS_Owner, hudMount);
     SetVisibility(VIS_Owner, itemMode);
     SetVisibility(VIS_Owner, lifeBar);
@@ -146,30 +143,57 @@ func ShowHud()
     SetVisibility(VIS_Owner, fuelBar);
 }
 
-func FxHudTimer()
+func FxHudStart(object target, int effectNumber, int temp)
 {
-    // create hud if needed
-    if(!hudMount) CreateHud();
+    if(temp == FX_Call_Normal)
+    {
+        EnsureHud();
+        EffectCall(target, effectNumber, "Damage", 0, FX_Call_DmgScript);
 
-    // update life bar
-    SetPhase(GetEnergy() + 1, lifeBar);
-
-    // update ammo bar
-    var item = Contents();
-    var activeFx = GetEffect("Active", item);
-    SetPhase(item && item->~GetAmmoPercent() + 1, ammoBar);
-    if (activeFx) {
-        SetGraphics("Active", hudMount);
-        SetClrModulation(RGBa(119,173,202,0), ammoBar);
+        var weapon = Contents();
+        if(weapon && weapon->~IsWeapon() && weapon->~IsActive())
+        {
+            WeaponActivated();
+        }
+        else
+        {
+            WeaponDeactivated();
+        }
     }
-    else {
-        SetGraphics(0, hudMount);
-        SetClrModulation(RGBa(202,202,202,0), ammoBar);
-    }
+}
 
+func FxHudDamage(object target, int effectNumber, int damage, int cause)
+{
+    EnsureHud();
+    var newEnergy = GetObjectVal("Energy") + damage;
+    newEnergy = BoundBy(100 * newEnergy / GetPhysical("Energy"), 0, 100);
+    SetPhase(newEnergy + 1, lifeBar);
+    return damage;
+}
+
+func DoFuel()
+{
+    EnsureHud();
+    var ret = _inherited(...);
     // update fuel bar
     var fuel = this->GetFuel();
     var perc = (fuel*100)/maxFuel;
     SetPhase(perc + 1, fuelBar);
     if(perc < 33 && this->IsActive()) Sound("JB_Doum",1,this,100,GetOwner()+1);
+
+    return ret;
+}
+
+func WeaponActivated()
+{
+    EnsureHud();
+    SetGraphics("Active", hudMount);
+    SetClrModulation(RGBa(119,173,202,0), ammoBar);
+}
+
+func WeaponDeactivated()
+{
+    EnsureHud();
+    SetGraphics(0, hudMount);
+    SetClrModulation(RGBa(202,202,202,0), ammoBar);
 }

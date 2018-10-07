@@ -3,8 +3,8 @@
 #strict 2
 
 #include CLNK
-#include HU7A
 #include JB4K
+#include HU7A
 #include FN7A
 
 local pistol;
@@ -337,7 +337,6 @@ private func CheckArmed()
   ScrollHud(LocalN("mode", weapon));
   var ammoPercent = weapon && weapon->~GetAmmoPercent();
   SetAmmoBar(ammoPercent);
-  if(ammoBar) SetPhase(ammoPercent, ammoBar);
 
   var weaponAction = (weapon && weapon->~IsWeapon() && weapon->~ActionString()) || "";
   var action = GetAction();
@@ -346,6 +345,15 @@ private func CheckArmed()
   if(action == "Dive" && weaponAction != "")
   {
     action = "Jump";
+  }
+
+  if(weapon && weapon->~IsWeapon() && weapon->~IsActive())
+  {
+    WeaponActivated();
+  }
+  else
+  {
+    WeaponDeactivated();
   }
 
   for(var checkAction in ["Walk", "Jump", "Swim"])
@@ -376,6 +384,8 @@ private func SetAmmoBar(int percent)
 
   SetPhysical("Magic", 100000, 2);
   DoMagicEnergy(percent);
+
+  if(ammoBar) SetPhase(percent, ammoBar);
 }
 
 private func Punching()

@@ -2,12 +2,13 @@
 
 #strict 2
 
-protected func Initialize() 
+func Initialize()
 {
-  SetVisibility(VIS_None);
-  return true;
+	SetVisibility(VIS_None);
+	return true;
 }
-protected func AttachTargetLost()
+
+func AttachTargetLost()
 {
-    RemoveObject();
+	RemoveObject();
 }

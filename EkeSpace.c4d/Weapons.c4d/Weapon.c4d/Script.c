@@ -44,6 +44,7 @@ func Initialize()
 {
   modeIndex = 0;
   mode = Modes()[0];
+  Deactivated();
 }
 
 func ControlSpecial2(object clonk)
@@ -131,7 +132,7 @@ func Shooting()
   }
   if(ammo < AmmoUsage()[modeIndex])
   {
-    Sound(EmptySound()[modeIndex]);
+    Empty();
     return FX_Execute_Kill;
   }
 
@@ -147,6 +148,13 @@ func Shooting()
       Sound(sound);
     }
   }
+
+  if(ammo < AmmoUsage()[modeIndex])
+  {
+    Empty();
+    return FX_Execute_Kill;
+  }
+
   return true;
 }
 
@@ -246,7 +254,7 @@ func Shoot()
 
   if(ammo < AmmoUsage()[modeIndex])
   {
-    Sound(EmptySound()[modeIndex]);
+    Empty();
     return true;
   }
 
@@ -303,7 +311,7 @@ func ActivateWeapon()
 {
   if(!IsActive())
   {
-    AddEffect(WP7A_ActiveEffect, this, 1, 2, this);
+    AddEffect(WP7A_ActiveEffect, this, 1, 0, this);
     Sound("WP_Activate",1,this,100,GetOwner()+1);
   }
 }
@@ -334,16 +342,30 @@ func PilotLight()
   CreateParticle("PSpark", x, y, 0, 0, 20, RGBa(255,255,255,120), clonk);
 }
 
+func FxActiveStart(object target, int effectNumber, int temp)
+{
+  if(temp == FX_Call_Normal)
+  {
+    Activated();
+  }
+}
 
 func FxActiveTimer()
 {
   if(GetAmmo() < AmmoUsage()[modeIndex]) {
-    DeactivateWeapon();
     return FX_Execute_Kill;
   }
 
   // AddAmmo(-3);
   // PilotLight();
+}
+
+func FxActiveStop(object target, int effectNumber, int reason, bool temp)
+{
+  if(!temp)
+  {
+    Deactivated();
+  }
 }
 
 func ToggleActivation()
@@ -368,7 +390,7 @@ func ControlShoot(object clonk, int axis)
 {
   if(!IsActive())
   {
-    Sound(EmptySound()[modeIndex]);
+    Empty();
     return false;
   }
 
@@ -382,4 +404,32 @@ func ControlShoot(object clonk, int axis)
     Shoot();
   }
   return true;
+}
+
+func Empty()
+{
+  Sound(EmptySound()[modeIndex]);
+
+  if(IsActive())
+  {
+    DeactivateWeapon();
+  }
+}
+
+func Activated()
+{
+  var clonk = Contained();
+  if(clonk && Contents(0, clonk) == this)
+  {
+    clonk->~WeaponActivated(this);
+  }
+}
+
+func Deactivated()
+{
+  var clonk = Contained();
+  if(clonk && Contents(0, clonk) == this)
+  {
+    clonk->~WeaponDeactivated(this);
+  }
 }

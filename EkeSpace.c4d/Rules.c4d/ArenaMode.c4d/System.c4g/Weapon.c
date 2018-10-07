@@ -4,22 +4,17 @@
 /*------------------------------------*\
     Ammo Regeneration
 \*------------------------------------*/
-func Initialize()
-{
-  DeactivateWeapon();
-  return _inherited(...);
-}
 func FxAmmoRegenTimer()
 {
   AddAmmo(2);
   if(GetAmmoPercent() == 100) ActivateWeapon();
 }
-func ActivateWeapon()
+func Activated()
 {
   if(arenaModeRule) RemoveEffect("AmmoRegen",this);
   return _inherited(...);
 }
-func DeactivateWeapon()
+func Deactivated()
 {
   if(arenaModeRule) AddEffect("AmmoRegen", this, 1, 2, this);
   return _inherited(...);

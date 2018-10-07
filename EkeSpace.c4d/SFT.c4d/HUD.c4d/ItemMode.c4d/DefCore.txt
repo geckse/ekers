@@ -2,9 +2,12 @@
 id=IM7A
 Version=4,9,5
 Name=ItemMode
-Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Category=C4D_Object|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
 Width=24
 Height=24
 Offset=-12,-12
 Picture=168,24,24,24
 NoSell=1
+Vertices=1
+VertexX=18
+VertexY=24

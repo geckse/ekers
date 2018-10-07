@@ -1,12 +1,12 @@
 [DefCore]
 id=HM7A
 Name=HudMount
-Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Category=C4D_Object|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
 Width=51
 Height=16
 Offset=-26,-8
 Vertices=1
-VertexY=0
+VertexY=24
 VertexX=0
 BlitMode=0
 NoSell=1
