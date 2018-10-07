@@ -95,11 +95,11 @@ func CursorChangeCombo(object newCursor, bool fromComboMenu)
 		}
 		else if(key == DT_CursorChange_Next)
 		{
-			ControlShoot(ShootingAxis_Upwards);
+			// ControlShoot(ShootingAxis_Upwards);
 		}
 		else if(key == DT_CursorChange_Toggle)
 		{
-			ControlShoot(ShootingAxis_Straight);
+			ControlShoot(ShootingAxis_Upwards);
 		}
 	}
 }

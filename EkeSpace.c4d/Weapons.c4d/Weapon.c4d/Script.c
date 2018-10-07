@@ -3,7 +3,7 @@
 func IsWeapon() { return true; }
 func ActionString() { return ""; }
 
-func NeedsActivation() { return true; }
+func NeedsActivation() { return false; }
 
 // weapon settings; array of values for each mode
 // the mode names for the HUD; false for default
@@ -366,6 +366,7 @@ func ControlThrow()
   {
     ToggleActivation();
   }
+  ControlShoot(ShootingAxis_Straight);
   return true;
 }
 
