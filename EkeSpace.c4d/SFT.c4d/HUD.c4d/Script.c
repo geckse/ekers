@@ -14,6 +14,7 @@ func Recruitment()
 {
     maxFuel = this->MaxFuel();
     AddEffect("Hud", this, 1, 0, this);
+    DoFuel();
     return _inherited(...);
 }
 
