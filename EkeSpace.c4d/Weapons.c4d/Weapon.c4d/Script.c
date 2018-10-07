@@ -45,6 +45,7 @@ func Initialize()
   modeIndex = 0;
   mode = Modes()[0];
   Deactivated();
+  ActivateWeapon();
 }
 
 func ControlSpecial2(object clonk)
