@@ -5,7 +5,7 @@
 
 func ActionString() { return "Pistol"; }
 
-func NeedsActivation() { return false; }
+func NeedsActivation() { return true; }
 
 func Modes() { return ["Pistol"]; }
 func ShotDelay() { return [10]; }

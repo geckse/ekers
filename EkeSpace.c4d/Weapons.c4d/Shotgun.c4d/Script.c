@@ -8,7 +8,7 @@ func ActionString() { return "Shotgun"; }
 func Modes() { return [false]; }
 func ShotDelay() { return [30]; }
 func AmmoID() { return CA7A; }
-func AmmoUsage() { return [100]; }
+func AmmoUsage() { return [150]; }
 func ShotSound() { return [false]; }
 func ReloadSound() { return "SG_Reload"; }
 func EmptySound() { return ["PT_Empty"]; }

@@ -12,6 +12,7 @@ func Initialize()
 func FxAmmoRegenTimer()
 {
   AddAmmo(2);
+  if(GetAmmoPercent() == 100) ActivateWeapon();
 }
 func ActivateWeapon()
 {

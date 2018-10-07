@@ -10,7 +10,7 @@ func Automatic() { return [true, false]; }
 func ShotDelay() { return [4, 10]; }
 func StopDelay() { return [10, 10]; }
 func AmmoID() { return CA7A; }
-func AmmoUsage() { return [7, 70]; }
+func AmmoUsage() { return [10, 100]; }
 func ShotSound() { return ["AR_Shoot", "GR_Shoot"]; }
 func ReloadSound() { return "AR_Reload"; }
 func EmptySound() { return ["PT_Empty", "PT_Empty"]; }

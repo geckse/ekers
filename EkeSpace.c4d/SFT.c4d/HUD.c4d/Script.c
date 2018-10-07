@@ -158,7 +158,7 @@ func FxHudTimer()
     var item = Contents();
     var activeFx = GetEffect("Active", item);
     SetPhase(item && item->~GetAmmoPercent() + 1, ammoBar);
-    if (activeFx || GetID(item) == PT7A) {
+    if (activeFx) {
         SetGraphics("Active", hudMount);
         SetClrModulation(RGBa(119,173,202,0), ammoBar);
     }

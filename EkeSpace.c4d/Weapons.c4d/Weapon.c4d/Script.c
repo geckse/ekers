@@ -3,7 +3,7 @@
 func IsWeapon() { return true; }
 func ActionString() { return ""; }
 
-func NeedsActivation() { return false; }
+func NeedsActivation() { return true; }
 
 // weapon settings; array of values for each mode
 // the mode names for the HUD; false for default
@@ -337,14 +337,12 @@ func PilotLight()
 
 func FxActiveTimer()
 {
-  var container = Contained();
-  if(!container || Contents(0, container) != this)
-  {
+  if(GetAmmo() < AmmoUsage()[modeIndex]) {
     DeactivateWeapon();
     return FX_Execute_Kill;
   }
 
-  AddAmmo(-3);
+  // AddAmmo(-3);
   // PilotLight();
 }
 
@@ -362,10 +360,6 @@ func ToggleActivation()
 
 func ControlThrow()
 {
-  if(NeedsActivation())
-  {
-    ToggleActivation();
-  }
   ControlShoot(ShootingAxis_Straight);
   return true;
 }
@@ -374,6 +368,7 @@ func ControlShoot(object clonk, int axis)
 {
   if(!IsActive())
   {
+    Sound(EmptySound()[modeIndex]);
     return false;
   }
 
