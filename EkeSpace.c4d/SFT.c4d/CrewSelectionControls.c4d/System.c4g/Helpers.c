@@ -10,7 +10,7 @@ global func GetCrew(int plr, int index, bool includeHelpers)
 	}
 
 	var foundIndex = -1;
-	for(var i = 0; i < GetCrewCount(); ++i)
+	for(var i = 0; i < GetCrewCount(plr); ++i)
 	{
 		var crew = inherited(plr, index);
 		if(!crew || !crew->~IsCursorHelper())
@@ -27,7 +27,7 @@ global func GetCrewIndex(object crew)
 {
 	var plr = GetOwner(crew);
 
-	for(var i = 0; i < GetCrewCount(); ++i)
+	for(var i = 0; i < GetCrewCount(plr); ++i)
 	{
 		if(GetCrew(plr, i, true) == crew)
 		{
