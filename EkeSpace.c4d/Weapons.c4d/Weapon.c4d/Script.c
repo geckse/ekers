@@ -316,7 +316,11 @@ func ActivateWeapon()
   if(!IsActive())
   {
     AddEffect(WP7A_ActiveEffect, this, 1, 0, this);
-    Sound("WP_Activate",1,this,100,GetOwner()+1);
+    var container = Contained();
+    if(container) {
+      var owner = GetOwner(container);
+      if(owner != NO_OWNER) Sound("WP_Activate",1,this,100,owner+1);
+    }
   }
 }
 
