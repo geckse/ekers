@@ -207,7 +207,10 @@ func Activate(object clonk)
 
   var newAmmo = FindContents(AmmoID(), clonk);
 
-  if(!newAmmo) return false;
+  if(!newAmmo) {
+    DeactivateWeapon();
+    return false;
+  }
 
   RemoveObject(newAmmo);
 
