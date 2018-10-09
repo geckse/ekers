@@ -258,7 +258,6 @@ private func SetUserAction()
   if(!WildcardMatch(GetAction(), "*Jump"))
   {
     SetAction("Jump");
-    this->CheckArmed();
   }
 }
 
@@ -286,4 +285,52 @@ private func ComDir2String(int iDir)//:D Debug!
   if(iDir == COMD_UpLeft) return("COMD_UpLeft");
   if(iDir == COMD_UpRight) return("COMD_UpRight");
   return("COMD_Up");
+}
+
+protected func ContactLeft()
+{
+	// nicht weiter bei Kontakt am Spielfeldrand
+	if (!GetContact(0, -1, CNAT_Left)) return(0);
+
+	if (IsActive() && (cdir == COMD_Left || cdir == COMD_DownLeft || cdir == COMD_UpLeft))
+	{
+		Stop();
+		SetDir(DIR_Left);
+		SetAction("Scale");
+	}
+	return _inherited(...);
+}
+
+protected func ContactRight()
+{
+	// nicht weiter bei Kontakt am Spielfeldrand
+	if (!GetContact(0, -1, CNAT_Right)) return(0);
+
+	if (IsActive() && (cdir == COMD_Right || cdir == COMD_DownRight || cdir == COMD_DownRight))
+	{
+		Stop();
+		SetDir(DIR_Right);
+		SetAction("Scale");
+	}
+	return _inherited(...);
+}
+
+protected func ContactTop()
+{
+	if (IsActive() && (cdir == COMD_Up || cdir == COMD_UpLeft || cdir == COMD_UpRight))
+	{
+		Stop();
+		SetAction("Hangle");
+	}
+	return _inherited(...);
+}
+
+protected func ContactBottom()
+{
+	if (IsActive() && (cdir == COMD_Down || cdir == COMD_DownLeft || cdir == COMD_DownRight))
+	{
+		Stop();
+		SetAction("Walk");
+	}
+	return _inherited(...);
 }

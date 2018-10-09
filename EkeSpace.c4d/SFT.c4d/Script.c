@@ -287,13 +287,7 @@ protected func ContactLeft()
   if (!GetContact(0, -1, CNAT_Left)) return(0);
 
   FallDamage();
-
-  if (GetAction() == "JetpackFly")
-  {
-    SetComDir(COMD_Stop);
-    SetAction("Scale");
-  }
-  return(1);
+  return _inherited(...);
 }
 
 protected func ContactRight()
@@ -302,37 +296,19 @@ protected func ContactRight()
   if (!GetContact(0, -1, CNAT_Right)) return(0);
 
   FallDamage();
-
-  if (GetAction() == "JetpackFly")
-  {
-    SetComDir(COMD_Stop);
-    SetAction("Scale");
-  }
-  return(1);
+  return _inherited(...);
 }
 
 protected func ContactTop()
 {
   FallDamage();
-
-  if (GetAction() == "JetpackFly")
-  {
-    SetComDir(COMD_Stop);
-    SetAction("Hangle");
-  }
-  return(1);
+  return _inherited(...);
 }
 
 protected func ContactBottom()
 {
   FallDamage();
-
-  if (GetAction() == "JetpackFly")
-  {
-    SetComDir(COMD_Stop);
-    SetAction("JetpackWalk");
-  }
-  return(1);
+  return _inherited(...);
 }
 
 private func FallDamage()
