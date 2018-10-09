@@ -27,7 +27,7 @@ func CrewSelection(deselect)
     if(deselect) {
         HideHud();
     }
-    return _inherited(...);
+    return _inherited(deselect, ...);
 }
 
 func Entrance() {

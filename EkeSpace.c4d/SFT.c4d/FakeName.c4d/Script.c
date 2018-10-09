@@ -13,7 +13,7 @@ func CrewSelection(deselect)
     if(!deselect) {
         CustomMessage(Format("@%s|%s", $ClonkRanks$[GetRank(this())] ,clonkName), 0, GetOwner(), -5,55, 0, 0, "1", 1);
     }
-    return _inherited(...);
+    return _inherited(deselect, ...);
 }
 func DeathAnnounce ()
 {
