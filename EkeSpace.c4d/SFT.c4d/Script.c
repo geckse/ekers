@@ -247,6 +247,25 @@ protected func ControlShoot()
   return _inherited(...);
 }
 
+protected func ControlCursorLeft()
+{
+  ControlShoot(ShootingAxis_Upwards);
+  return true;
+}
+
+protected func ControlCursorMiddle()
+{
+  var owner = GetOwner();
+  DT_CursorChange_LastCursors[owner] = CycleCursor(owner, false, this);
+  return DT_CursorChange_NoTouch;
+}
+
+protected func ControlCursorRight()
+{
+  ControlShoot(ShootingAxis_Downwards);
+	return true;
+}
+
 private func Control2Contents(string command)
 {
   // angefasste Objekte haben Vorrang, auﬂer bei Modus-Auswahl

@@ -1,5 +1,5 @@
 [DefCore]
-id=_CCC
+id=CH7I
 Category=C4D_StaticBack
 Width=1
 Height=1
