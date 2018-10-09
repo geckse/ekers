@@ -22,5 +22,5 @@ private func StandBy() {
 
 protected func FxFuelRegenTimer()
 {
-  if(GBackSolid(0,12) || GetAction() == "Hangle" || GetAction() == "Scale") DoFuel(70);
+  if(GetProcedure() == "WALK" || GetProcedure() == "HANGLE" || GetProcedure() == "SCALE") DoFuel(70);
 }
