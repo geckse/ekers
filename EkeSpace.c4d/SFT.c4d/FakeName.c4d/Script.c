@@ -20,3 +20,13 @@ func DeathAnnounce ()
     Message("%s $DeathMsg$", this(), clonkName);
     return(1);
 }
+
+global func GetName(object target, id id)
+{
+    if(id)
+    {
+        return inherited(target, id, ...);
+    }
+
+    return LocalN("clonkName", target || this) || inherited(target, ...);
+}

@@ -15,7 +15,7 @@ VertexFriction=300,300,100,300,300,300,300
 Value=50
 Mass=50
 Components=CLNK=1
-Picture=6160,0,35,35
+Picture=198,100,23,40
 Collection=-8,-10,16,27
 ContactIncinerate=1
 Prey=1

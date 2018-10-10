@@ -1,0 +1,15 @@
+[Action]
+Name=UpperLeft
+Facet=0,0,5,5
+
+[Action]
+Name=UpperRight
+Facet=5,0,5,5
+
+[Action]
+Name=LowerLeft
+Facet=10,0,5,5
+
+[Action]
+Name=LowerRight
+Facet=15,0,5,5

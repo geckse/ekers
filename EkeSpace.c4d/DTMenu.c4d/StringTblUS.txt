@@ -1,0 +1,7 @@
+Accept=Accept
+Decline=Decline
+Back=Back
+EnterValue=Value
+EnterNumber=Number
+EnterText=Text
+EnterIDOrName=ID or name

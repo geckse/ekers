@@ -1,0 +1,5 @@
+[DefCore]
+id=MS7I
+Name=Menu symbol dummy
+Version=4,9,5
+Category=C4D_StaticBack

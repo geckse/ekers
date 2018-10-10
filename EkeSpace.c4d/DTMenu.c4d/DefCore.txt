@@ -1,0 +1,7 @@
+[DefCore]
+id=MN7I
+Name=Menu
+Version=4,9,5
+Category=C4D_StaticBack
+Width=64
+Height=64
