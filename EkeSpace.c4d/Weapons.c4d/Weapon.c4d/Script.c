@@ -1,5 +1,7 @@
 #strict 2
 
+#include AC7A
+
 func IsWeapon() { return true; }
 func ActionString() { return ""; }
 
@@ -46,6 +48,7 @@ func Initialize()
   mode = Modes()[0];
   Deactivated();
   ActivateWeapon();
+  return _inherited(...);
 }
 
 func ControlSpecial2(object clonk)
