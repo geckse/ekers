@@ -1,7 +1,5 @@
 #strict 2
 
-#include AC7A
-
 func IsWeapon() { return true; }
 func ActionString() { return ""; }
 
@@ -48,7 +46,6 @@ func Initialize()
   mode = Modes()[0];
   Deactivated();
   ActivateWeapon();
-  return _inherited(...);
 }
 
 func ControlSpecial2(object clonk)
@@ -69,7 +66,7 @@ func ControlSpecial2(object clonk)
   return true;
 }
 
-func UpdateCurrentAmmo()
+func UpdateAmmoBar()
 {
   var container = Contained();
   if(container && Contents(0, container) == this)
@@ -82,8 +79,7 @@ func SetAmmo(int amount)
 {
   ammo = amount;
 
-  UpdateCurrentAmmo();
-
+  UpdateAmmoBar();
   return true;
 }
 
@@ -118,10 +114,10 @@ func ChangeMode(int newMode, object clonk)
 
   mode = Modes()[modeIndex];
 
+  UpdateAmmoBar();
   if(clonk)
   {
     clonk->ScrollHud(mode);
-    clonk->SetAmmoBar(GetAmmoPercent());
   }
 }
 
@@ -143,7 +139,7 @@ func Shooting()
   Fire(clonk, dir, modeIndex);
 
   ammo -= AmmoUsage()[modeIndex];
-  clonk->SetAmmoBar(GetAmmoPercent());
+  UpdateAmmoBar();
   if(!Automatic()[modeIndex])
   {
     var sound = ShotSound()[modeIndex];
@@ -220,7 +216,7 @@ func Activate(object clonk)
   Stop();
 
   ammo = MaxAmmo();
-  clonk->SetAmmoBar(GetAmmoPercent());
+  UpdateAmmoBar();
 
   Sound(ReloadSound());
   return true;
