@@ -137,11 +137,11 @@ func HideHud()
 func ShowHud()
 {
     EnsureHud();
-    SetVisibility(VIS_Owner, hudMount);
-    SetVisibility(VIS_Owner, itemMode);
-    SetVisibility(VIS_Owner, lifeBar);
-    SetVisibility(VIS_Owner, ammoBar);
-    SetVisibility(VIS_Owner, fuelBar);
+    SetVisibility(VIS_Owner | VIS_God, hudMount);
+    SetVisibility(VIS_Owner | VIS_God, itemMode);
+    SetVisibility(VIS_Owner | VIS_God, lifeBar);
+    SetVisibility(VIS_Owner | VIS_God, ammoBar);
+    SetVisibility(VIS_Owner | VIS_God, fuelBar);
 }
 
 func FxHudStart(object target, int effectNumber, int temp)
