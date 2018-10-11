@@ -15,10 +15,11 @@ func CrewSelection(deselect)
     }
     return _inherited(deselect, ...);
 }
-func DeathAnnounce ()
+
+func Death()
 {
-    Message("%s $DeathMsg$", this(), clonkName);
-    return(1);
+  SetName(clonkName);
+  return _inherited(...);
 }
 
 global func GetName(object target, id id)
