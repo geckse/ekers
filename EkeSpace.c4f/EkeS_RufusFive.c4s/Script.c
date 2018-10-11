@@ -138,8 +138,7 @@ func CreateItemSpawns() {
 func CreateEnvironment() {
     
     // Sky
-    SetSkyParallax (0,17,19,0,0,0,0); 
-    SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
+    SetSkyParallax (0,17,19,0,0,0,0);
 
     // Fog
     for(var i=0;i<90;++i)
