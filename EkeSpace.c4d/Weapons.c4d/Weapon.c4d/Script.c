@@ -204,7 +204,20 @@ func Activate(object clonk)
 {
   if(ammo >= MaxAmmo()) return false;
 
-  var newAmmo = FindContents(AmmoID(), clonk);
+  var ammoIDs = AmmoID();
+  if(GetType(ammoIDs) != C4V_Array)
+  {
+    ammoIDs = [ammoIDs];
+  }
+
+  var newAmmo;
+  for(var ammoID in ammoIDs)
+  {
+    if(newAmmo = FindContents(ammoID, clonk))
+    {
+      break;
+    }
+  }
 
   if(!newAmmo) {
     DeactivateWeapon();
