@@ -10,7 +10,7 @@ func Initialize()
   var pictureHeight = GetDefCoreVal("Picture", 0, id, 3);
 
   SetGraphics(0, this, AC7A, GFX_Overlay, GFXOV_MODE_Picture);
-  SetObjDrawTransform(1000 * targetSize / pictureWidth, 0, (pictureWidth - targetSize) * 500, 0, 1000 * targetSize / pictureHeight, (pictureHeight - targetSize) * 500, this, GFX_Overlay);
+  SetObjDrawTransform(1000 * targetSize / pictureWidth, 0, (pictureWidth - targetSize) / 2 * 1000, 0, 1000 * targetSize / pictureHeight, (pictureHeight - targetSize) / 2 * 1000, this, GFX_Overlay);
 
   return _inherited(...);
 }
