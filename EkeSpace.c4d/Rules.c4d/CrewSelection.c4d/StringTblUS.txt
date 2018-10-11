@@ -1,0 +1,2 @@
+SelectAll=Select all
+InvertSelection=Invert selection
