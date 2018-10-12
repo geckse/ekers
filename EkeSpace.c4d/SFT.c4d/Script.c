@@ -4,7 +4,6 @@
 
 #include CLNK
 #include JB4K
-#include HU7A
 
 local pistol;
 
@@ -341,15 +340,6 @@ private func CheckArmed()
     action = "Jump";
   }
 
-  if(weapon && weapon->~IsWeapon() && weapon->~IsActive())
-  {
-    WeaponActivated();
-  }
-  else
-  {
-    WeaponDeactivated();
-  }
-
   for(var checkAction in ["Walk", "Jump", "Swim"])
   {
     if(WildcardMatch(action, Format("*%s", checkAction)))
@@ -378,8 +368,6 @@ private func SetAmmoBar(int percent)
 
   SetPhysical("Magic", 100000, 2);
   DoMagicEnergy(percent);
-
-  if(ammoBar) SetPhase(percent, ammoBar);
 }
 
 private func Punching()
@@ -563,7 +551,6 @@ protected func Ejection(stuff)
 
 protected func Death()
 {
-
   // Info-Broadcasts für sterbende Clonks
   GameCallEx("OnClonkDeath", this(), GetKiller());
 

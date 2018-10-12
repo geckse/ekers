@@ -1,6 +1,7 @@
 /*-- HUD --*/
 
 #strict 2
+#appendto SF7A
 
 local itemMode;
 local lifeBar;
@@ -14,7 +15,6 @@ func Recruitment()
 {
     maxFuel = this->MaxFuel();
     AddEffect("Hud", this, 1, 0, this);
-    DoFuel();
     return _inherited(...);
 }
 
@@ -150,16 +150,8 @@ func FxHudStart(object target, int effectNumber, int temp)
     {
         EnsureHud();
         EffectCall(target, effectNumber, "Damage", 0, FX_Call_DmgScript);
-
-        var weapon = Contents();
-        if(weapon && weapon->~IsWeapon() && weapon->~IsActive())
-        {
-            WeaponActivated();
-        }
-        else
-        {
-            WeaponDeactivated();
-        }
+        DoFuel();
+        CheckArmed();
     }
 }
 
@@ -185,6 +177,14 @@ func DoFuel()
     return ret;
 }
 
+func SetAmmoBar(int ammo)
+{
+    EnsureHud();
+    SetPhase(ammo, ammoBar);
+
+    return _inherited(ammo, ...);
+}
+
 func WeaponActivated()
 {
     EnsureHud();
@@ -197,4 +197,19 @@ func WeaponDeactivated()
     EnsureHud();
     SetGraphics(0, hudMount);
     SetClrModulation(RGBa(202,202,202,0), ammoBar);
+}
+
+func CheckArmed()
+{
+  var weapon = Contents();
+  if(!weapon || !weapon->~IsWeapon() || weapon->~IsActive())
+  {
+    WeaponActivated();
+  }
+  else
+  {
+    WeaponDeactivated();
+  }
+
+  return _inherited(...);
 }
