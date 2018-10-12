@@ -10,4 +10,5 @@ NothingtoRepair=Nothing to repair!
 Standing=Just stand quitly to repair!
 NeededMaterials=Needed Materials:
 NoEnergy=Not enough energy!
+RankUp=%s is promoted|to %s!
 ClonkRanks=["Rekrut", "Gefreiter", "Obergefreiter", "Hauptgefreiter", "Stabsgefreiter", "Oberstabsgefreiter", "Unteroffizier", "Stabsunteroffizier", "Feldwebel", "Oberfeldwebel", "Hauptfeldwebel", "Stabsfeldwebel", "Oberstabsfeldwebel", "Leutnant", "Oberleutnant", "Hauptmann", "Stabshauptmann", "Major", "Oberstleutnant", "Oberst", "Brigadegeneral", "Generalmajor", "Generalleutnant", "General"]
