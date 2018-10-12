@@ -13,10 +13,10 @@ protected func Initialize()
   if (!ObjectCount(CM7A)) CreateObject(CM7A, 0, 0, NO_OWNER);
 
   // Munition der integrierten Pistole aufladen
-  AddEffect("SellCheck", this, 1, 35, this());
+  AddEffect("SellCheck", this, 1, 35, this);
 
   // weiter mit überladener Funktion
-  return(inherited());
+  return _inherited(...);
 }
 
 protected func Recruitment()
@@ -25,7 +25,7 @@ protected func Recruitment()
   SetAmmoBar(Contents() && Contents()->~GetAmmoPercent());
 
   // weiter mit überladener Funktion
-  return(inherited());
+  return _inherited(...);
 }
 
 protected func ControlLeft()
@@ -38,7 +38,7 @@ protected func ControlLeft()
   }
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlLeft")) return(1);
+  if (Control2Contents("ControlLeft")) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -47,7 +47,7 @@ protected func ControlLeft()
 protected func ControlLeftDouble()
 {
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlLeftDouble")) return(1);
+  if (Control2Contents("ControlLeftDouble")) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -63,7 +63,7 @@ protected func ControlRight()
   }
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlRight")) return(1);
+  if (Control2Contents("ControlRight")) return true;
 
   // Steuerung an Harpune weitergeben
   Control2Harpoon("ControlRight");
@@ -74,9 +74,8 @@ protected func ControlRight()
 
 protected func ControlRightDouble()
 {
-
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlRightDouble")) return(1);
+  if (Control2Contents("ControlRightDouble")) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -88,11 +87,11 @@ protected func ControlUp()
   if (GetAction() == "Fight")
   {
     SetAction("Headbang");
-    return(1);
+    return true;
   }
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlUp")) return(1);
+  if (Control2Contents("ControlUp")) return true;
 
   // Steuerung an Harpune weitergeben
   Control2Harpoon("ControlUp");
@@ -103,9 +102,8 @@ protected func ControlUp()
 
 protected func ControlDown()
 {
-
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlDown")) return(1);
+  if (Control2Contents("ControlDown")) return true;
 
   // Steuerung an Harpune weitergeben
   Control2Harpoon("ControlDown");
@@ -129,13 +127,13 @@ protected func ControlThrow()
   if (GetAction() == "Fight")
   {
     SetAction("Punch");
-    return(1);
+    return true;
   }
   // Bei vorherigem Doppel-Stop nur Ablegen
-  if (GetPlrDownDouble(GetOwner())) return(0);
+  if (GetPlrDownDouble(GetOwner())) return false;
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlThrow")) return(1);
+  if (Control2Contents("ControlThrow")) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -144,7 +142,7 @@ protected func ControlThrow()
 protected func ControlThrowDouble()
 {
   ControlThrow();
-  return(1);
+  return true;
 }
 
 protected func ControlDig()
@@ -153,10 +151,10 @@ protected func ControlDig()
   if (GetAction() == "Fight")
   {
     SetAction("Kick");
-    return(1);
+    return true;
   }
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlDig")) return(1);
+  if (Control2Contents("ControlDig")) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -165,7 +163,7 @@ protected func ControlDig()
 protected func ControlDigSingle()
 {
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlDigSingle")) return(1);
+  if (Control2Contents("ControlDigSingle")) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -173,14 +171,14 @@ protected func ControlDigSingle()
 
 protected func ControlDigDouble()
 {
-  if (WildcardMatch(GetAction(), "*Walk")) return(0);
-  if (WildcardMatch(GetAction(), "*Swim")) return(0);
-  if (GetAction() == "Dig")                return(0);
-  if (GetAction() == "Push")               return(0);
-  if (GetAction() == "Kick")               return(0);
+  if (WildcardMatch(GetAction(), "*Walk")) return false;
+  if (WildcardMatch(GetAction(), "*Swim")) return false;
+  if (GetAction() == "Dig")                return false;
+  if (GetAction() == "Push")               return false;
+  if (GetAction() == "Kick")               return false;
 
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("Activate")) return(1);
+  if (Control2Contents("Activate")) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -192,20 +190,20 @@ protected func ControlSpecial()
   if (FindContents(PT7A))
   {
     Holster();
-    return(0);
+    return false;
   }
   // Inventar verschieben
   ShiftContents(0, 0, 0, 1);
 
   // Bewaffnung prüfen
   CheckArmed();
-  return(1);
+  return true;
 }
 
 protected func ControlSpecialDouble()
 {
   ControlSpecial();
-  return(1);
+  return true;
 }
 
 protected func ControlSpecial2()
@@ -214,7 +212,7 @@ protected func ControlSpecial2()
   if (Control2Contents("ControlSpecial2"))
   {
     Sound("SF_Mode");
-    return(1);
+    return true;
   }
   // bei angefassten Objekten Holen ermöglichen
   if (GetAction() == "Push")
@@ -223,23 +221,23 @@ protected func ControlSpecial2()
     if (GetDefCoreVal("GrabPutGet", "DefCore", GetID(stuff)) > 1)
     {
       SetCommand(0, "Get", GetActionTarget(), 0, 0, 0, 1);
-      return(1);
+      return true;
     }
   }
   Holster();
-  return(0);
+  return false;
 }
 
 protected func ControlSpecial2Double()
 {
   ControlSpecial2();
-  return(1);
+  return true;
 }
 
 protected func ControlShoot()
 {
   // Steuerung an Inhaltsobjekt weitergeben
-  if (Control2Contents("ControlShoot", ...)) return(1);
+  if (Control2Contents("ControlShoot", ...)) return true;
 
   // Keine überladene Steuerung
   return _inherited(...);
@@ -261,28 +259,28 @@ protected func ControlCursorMiddle()
 protected func ControlCursorRight()
 {
   ControlShoot(ShootingAxis_Downwards);
-	return true;
+  return true;
 }
 
 private func Control2Contents(string command)
 {
   // angefasste Objekte haben Vorrang, außer bei Modus-Auswahl
-  if ((GetAction() == "Push") && (command != "ControlSpecial2")) return(0);
+  if ((GetAction() == "Push") && (command != "ControlSpecial2")) return false;
 
-  var result = ObjectCall(Contents(), command, this(), ...);
-  return(result);
+  var result = ObjectCall(Contents(), command, this, ...);
+  return result;
 }
 
 private func Control2Harpoon(string command)
 {
-  var harpoon = FindObject2(Find_Container(this()), Find_ID(HP7A), Find_Action("Reel"));
+  var harpoon = FindObject2(Find_Container(this), Find_ID(HP7A), Find_Action("Reel"));
   if (harpoon) LocalN("ropeCommand", harpoon) = command;
 }
 
 protected func ContactLeft()
 {
   // nicht weiter bei Kontakt am Spielfeldrand
-  if (!GetContact(0, -1, CNAT_Left)) return(0);
+  if (!GetContact(0, -1, CNAT_Left)) return false;
 
   FallDamage();
   return _inherited(...);
@@ -291,7 +289,7 @@ protected func ContactLeft()
 protected func ContactRight()
 {
   // nicht weiter bei Kontakt am Spielfeldrand
-  if (!GetContact(0, -1, CNAT_Right)) return(0);
+  if (!GetContact(0, -1, CNAT_Right)) return false;
 
   FallDamage();
   return _inherited(...);
@@ -312,7 +310,7 @@ protected func ContactBottom()
 private func FallDamage()
 {
   // weiter nur wenn der Clonk noch lebt
-  if(!GetAlive()) return(0);
+  if(!GetAlive()) return false;
 
   var speed = Max(Abs(GetXDir()), Abs(GetYDir()));
 
@@ -321,7 +319,7 @@ private func FallDamage()
     DoEnergy((70 - speed) * 2);
     Sound("Hurt*");
   }
-  return(1);
+  return true;
 }
 
 private func CheckArmed()
@@ -376,7 +374,7 @@ private func Punching()
 
   Punch(GetActionTarget());
   Sound("Punch*");
-  return(1);
+  return true;
 }
 
 private func Headbanging()
@@ -398,7 +396,7 @@ private func Headbanging()
     Sound("Hurt*");
   }
   Sound("Punch*");
-  return(1);
+  return true;
 }
 
 private func Kicking()
@@ -409,7 +407,7 @@ private func Kicking()
   Fling(GetActionTarget(), 4 * GetDir() - 2, -1);
   SetComDir(COMD_Stop);
   Sound("Punch*");
-  return(1);
+  return true;
 }
 
 private func Chopping()
@@ -422,7 +420,7 @@ private func Chopping()
   {
     Sound("Chop*");
   }
-  return(1);
+  return true;
 }
 
 private func Building()
@@ -440,7 +438,7 @@ private func Building()
     // Maske auf, Schweißen!
     if (!Random(10)) SetAction("WeldingMaskUp");
   }
-  return(1);
+  return true;
 }
 
 private func WeldingFX(xPos, yPos)
@@ -464,7 +462,7 @@ private func JetpackFX()
 private func Holster()
 {
   // Pistole wegwerfen, weiter mit Ejection()
-  if (FindContents(PT7A)) return(Exit(pistol));
+  if (FindContents(PT7A)) return Exit(pistol);
 
   if (!pistol)
   {
@@ -473,12 +471,12 @@ private func Holster()
   }
   else
   {
-    Enter(this(), pistol);
+    Enter(this, pistol);
   }
   ShiftContents(0, true, PT7A);
   CheckArmed();
   Sound("SF_Holster");
-  return(1);
+  return true;
 }
 
 func FxSellCheckTimer()
@@ -520,7 +518,7 @@ protected func ContentsDestruction()
 func RejectCollect(id idObject, object pObject)
 {
   // nicht mehr als 5 Objekte tragbar
-  if (ContentsCount() >= 5) return(1);
+  if (ContentsCount() >= 5) return true;
   return (0);
 }
 
@@ -533,7 +531,7 @@ protected func Collection2(stuff)
   }
   // Bewaffnung prüfen
   CheckArmed();
-  return(1);
+  return true;
 }
 
 protected func Ejection(stuff)
@@ -546,22 +544,22 @@ protected func Ejection(stuff)
   }
   // Bewaffnung prüfen
   CheckArmed();
-  return(1);
+  return true;
 }
 
 protected func Death()
 {
   // Info-Broadcasts für sterbende Clonks
-  GameCallEx("OnClonkDeath", this(), GetKiller());
+  GameCallEx("OnClonkDeath", this, GetKiller());
 
   // Der Broadcast könnte seltsame Dinge gemacht haben: Clonk ist noch tot?
-  if (GetAlive()) return(0);
+  if (GetAlive()) return false;
 
   Sound("SF_Die");
   DeathAnnounce();
 
   // Letztes Mannschaftsmitglied tot?
-  if (!GetCrew(GetOwner())) GameCallEx("RelaunchPlayer", GetOwner(), this());
+  if (!GetCrew(GetOwner())) GameCallEx("RelaunchPlayer", GetOwner(), this);
 
   // Tod dem Spiel(ziel) berichten
   GameCallEx("ReportHomicide", GetKiller(), GetOwner(), GetID(this));
