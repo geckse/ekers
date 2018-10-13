@@ -58,7 +58,7 @@ func CrewFactory(array args, int entryNumber)
 			ArrayAppend(entries, Menu_Entry
 			([
 				Menu_Entry_Caption(caption),
-				Menu_Entry_Symbol(GetID(crew)),
+				Menu_Entry_Symbol(crew),
 
 				Menu_Entry_Callbacks
 				([

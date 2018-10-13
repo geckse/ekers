@@ -480,7 +480,8 @@ func AddEntries(array& entries)
 			if(GetType(symbol[0]) == C4V_C4Object)
 			{
 				entry[DT_Menu_Entry_Extra] |= C4MN_Add_ImgObject;
-				deleteSymbol = entry[DT_Menu_Entry_XPar1] = symbol[0];
+				entry[DT_Menu_Entry_XPar1] = symbol[0];
+				deleteSymbol = symbol[1];
 				symbolID = GetID(symbol[0]);
 			}
 		}
@@ -1250,7 +1251,7 @@ func AdaptorBitFieldItemsFactory(args)
 	var infoCaption = entry[DT_Menu_Entry_InfoCaption];
 	var symbol = entry[DT_Menu_Entry_Symbol];
 	var fieldValue = ScopedVar(args[DT_Menu_Adaptor_Variable]);
-	
+
 	var layoutVals = args[DT_Menu_Adaptor_LayoutVals];
 	var layout = layoutVals[1];
 	layoutVals = layoutVals[0];
