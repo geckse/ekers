@@ -292,7 +292,7 @@ protected func ContactLeft()
 	// nicht weiter bei Kontakt am Spielfeldrand
 	if (!GetContact(0, -1, CNAT_Left)) return(0);
 
-	if (IsActive() && (cdir == COMD_Left || cdir == COMD_DownLeft || cdir == COMD_UpLeft))
+	if (IsActive())
 	{
 		Stop();
 		SetDir(DIR_Left);
@@ -306,7 +306,7 @@ protected func ContactRight()
 	// nicht weiter bei Kontakt am Spielfeldrand
 	if (!GetContact(0, -1, CNAT_Right)) return(0);
 
-	if (IsActive() && (cdir == COMD_Right || cdir == COMD_DownRight || cdir == COMD_DownRight))
+	if (IsActive())
 	{
 		Stop();
 		SetDir(DIR_Right);
@@ -317,7 +317,7 @@ protected func ContactRight()
 
 protected func ContactTop()
 {
-	if (IsActive() && (cdir == COMD_Up || cdir == COMD_UpLeft || cdir == COMD_UpRight))
+	if (IsActive())
 	{
 		Stop();
 		SetAction("Hangle");
@@ -327,7 +327,7 @@ protected func ContactTop()
 
 protected func ContactBottom()
 {
-	if (IsActive() && (cdir == COMD_Down || cdir == COMD_DownLeft || cdir == COMD_DownRight))
+	if (IsActive())
 	{
 		Stop();
 		SetAction("Walk");
