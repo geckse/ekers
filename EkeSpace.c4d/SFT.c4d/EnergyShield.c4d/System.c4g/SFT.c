@@ -8,12 +8,20 @@ func RegenerateAmount() { return 1000; }
 
 local maxShieldEnergy;
 local shieldEnergy;
+local cone;
 
 func Initialize()
 {
     maxShieldEnergy = 150000;
     DoShieldEnergy(maxShieldEnergy);
     AddEffect("EnergyShield", this, 20, 10, this);
+    
+    // energy cone
+    var owner = GetOwner();
+    cone = CreateObject(EC7A,0,0,owner);
+    SetVisibility(VIS_None, cone);
+    cone -> SetAction("Attach", this);
+    
     return _inherited(...);
 }
 
@@ -24,6 +32,10 @@ func FxEnergyShieldDamage(object target, int effectNumber, int damage, int cause
     // no damage or healing is ok
     if(damage >= 0)
     {
+        // hide cone
+        SetVisibility(VIS_None, cone);
+        
+        // return damage
         return damage;
     }
 
@@ -31,10 +43,17 @@ func FxEnergyShieldDamage(object target, int effectNumber, int damage, int cause
 
     // disable regeneration temporarily
     EffectVar(0, target, effectNumber) = 0;
+    
+    // show cone
+    SetVisibility(VIS_All, cone);
 
     if(shieldEnergy < 1)
     {
-      return damage;
+        // hide cone
+        SetVisibility(VIS_None, cone);
+        
+        // return damage
+        return damage;
     }
     return 0;
 }
@@ -48,6 +67,10 @@ func FxEnergyShieldTimer(object target, int effectNumber, int effectTime)
 
     if(EffectVar(0, target, effectNumber) + PreRegenerateNoDamageTime() <= effectTime)
     {
+        // hide cone
+        SetVisibility(VIS_None, cone);
+        
+        // regen shield
         DoShieldEnergy(RegenerateAmount());
     }
 }
