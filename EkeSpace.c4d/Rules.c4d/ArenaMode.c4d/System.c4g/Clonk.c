@@ -32,7 +32,7 @@ func RejectCollect(id idObject, object pObject)
 {
     if(arenaModeRule)
     {
-        if(idObject == ROCK || idObject == SL7A) return 1;
+        if(idObject == ROCK || idObject == SL7A || idObject == ICE1) return 1;
     }
     return _inherited(idObject, pObject);
 }

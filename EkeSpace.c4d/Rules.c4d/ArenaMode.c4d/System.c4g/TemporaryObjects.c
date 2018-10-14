@@ -3,6 +3,7 @@
 #strict 2
 #appendto ROCK
 #appendto SP7A
+#appendto ICE1
 
 // Effekt anhängen, der das Objekt nach einer Weile entfernt
 func Initialize()
