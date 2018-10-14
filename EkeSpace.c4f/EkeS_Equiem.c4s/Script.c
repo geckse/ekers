@@ -13,7 +13,7 @@ func Initialize()
   CreateUziBird();
 
   // create item spawns
-  itemSpawns = [NH7A, PM7A];
+  itemSpawns = [PM7A];
   itemSpawnsL = GetLength(itemSpawns);
   CreateObject(IS7A,500,395);
 
@@ -40,9 +40,11 @@ func Script2(){
         var r = Random(itemSpawnsL);
 
         // half chance for specific items
+        /*
         if (itemSpawns[r] == NH7A) {
             r = Random(itemSpawnsL);
         }
+        */
         CreateContents(itemSpawns[r], spwn);
    }
 }
@@ -55,7 +57,7 @@ func Script15()
 
   // es sollen genug Stippel im Graben #5 leben
   var zapCount = ObjectCount(ST5B);
-  if (zapCount < 5) CreateObject(ST5B, RandomX(770, 840), 400, NO_OWNER);
+  if (zapCount < 8) CreateObject(ST5B, RandomX(770, 840), 400, NO_OWNER);
 
   // es sollen genug Feuermonster im Graben #4 leben
   var zapCount = ObjectCount(FMNS);
@@ -81,6 +83,7 @@ func InitializeClonk(clonk)
   SetPosition(Random(LandscapeWidth()), Random(100) + 25, clonk);
 
   // equip clonk
+  CreateContents(PM7A, clonk);
   CreateContents(PM7A, clonk);
 
   // pull pistol
