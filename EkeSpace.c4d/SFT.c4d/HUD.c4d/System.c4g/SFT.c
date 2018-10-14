@@ -14,7 +14,7 @@ local killHudFx;
 func Recruitment()
 {
     maxFuel = this->MaxFuel();
-    AddEffect("Hud", this, 1, 0, this);
+    AddEffect("Hud", this, 21, 0, this);
     return _inherited(...);
 }
 

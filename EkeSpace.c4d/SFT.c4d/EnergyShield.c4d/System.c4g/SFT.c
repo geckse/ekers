@@ -3,30 +3,61 @@
 #strict 2
 #appendto SF7A
 
+func PreRegenerateNoDamageTime() { return 180; }
+func RegenerateAmount() { return 1000; }
+
 local maxShieldEnergy;
 local shieldEnergy;
-local shieldHit;
 
 func Initialize()
 {
     maxShieldEnergy = 150000;
-    shieldEnergy = maxShieldEnergy;
-    AddEffect("EnergyShield", this, 1, 0, this);
+    DoShieldEnergy(maxShieldEnergy);
+    AddEffect("EnergyShield", this, 20, 10, this);
     return _inherited(...);
 }
 
+// EffectVar 0 contains the effectTime of the last damage
+
 func FxEnergyShieldDamage(object target, int effectNumber, int damage, int cause)
 {
-    var shieldDamage = damage + 1000;
-    shieldEnergy = shieldEnergy + shieldDamage; // shieldDamage is negative value
-    if(shieldDamage) DebugLog("shieldEnergy: %d", shieldEnergy);
-    if(shieldEnergy < 1) {
-      shieldEnergy = 0;
+    // no damage or healing is ok
+    if(damage >= 0)
+    {
+        return damage;
+    }
+
+    DoShieldEnergy(damage); // damage is negative value
+
+    // disable regeneration temporarily
+    EffectVar(0, target, effectNumber) = 0;
+
+    if(shieldEnergy < 1)
+    {
       return damage;
     }
     return 0;
 }
 
-func GetShieldEnergy() {
+func FxEnergyShieldTimer(object target, int effectNumber, int effectTime)
+{
+    if(!EffectVar(0, target, effectNumber))
+    {
+        EffectVar(0, target, effectNumber) = effectTime;
+    }
+
+    if(EffectVar(0, target, effectNumber) + PreRegenerateNoDamageTime() <= effectTime)
+    {
+        DoShieldEnergy(RegenerateAmount());
+    }
+}
+
+func DoShieldEnergy(int amount)
+{
+    return shieldEnergy = BoundBy(shieldEnergy + amount, 0, maxShieldEnergy);
+}
+
+func GetShieldEnergy()
+{
   return shieldEnergy;
 }
