@@ -22,7 +22,7 @@ public func RejectCollect(id idObject, object pObject) {
             return false;
         }
     }
-    return _inherited(...);
+    return _inherited(idObject, pObject);
 }
 
 /*------------------------------------------*\
