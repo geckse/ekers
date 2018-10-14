@@ -28,6 +28,7 @@ NoBurnDecay=1
 IncompleteActivity=1
 Oversize=1
 ContactCalls=1
+LineConnect=C4D_EnergyHolder
 
 [Physical]
 Energy=70000
