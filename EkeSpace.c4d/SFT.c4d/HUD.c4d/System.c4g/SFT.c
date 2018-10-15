@@ -4,12 +4,14 @@
 #appendto SF7A
 
 local itemMode;
+local shieldBar;
 local lifeBar;
 local ammoBar;
 local fuelBar;
 local hudMount;
 local maxFuel;
 local killHudFx;
+local newEnergy;
 
 func Recruitment()
 {
@@ -66,7 +68,12 @@ func CreateHud()
         SetObjDrawTransform(667,0,0,0,667,0,itemMode);
         itemMode->SetObjectLayer(hudMount);
     }
-
+    
+    if(!shieldBar) {
+        shieldBar = CreateObject(EB7A,0,0,owner);
+        SetClrModulation(RGBa(202,202,202,0), shieldBar);
+        shieldBar->SetObjectLayer(hudMount);
+    }
     if(!lifeBar) {
         lifeBar = CreateObject(EB7A,0,0,owner);
         SetClrModulation(RGBa(202,119,119,0), lifeBar);
@@ -107,6 +114,9 @@ func MoveHud()
     hudMount -> SetAction("Attach", this);
     itemMode -> SetAction("Attach", hudMount);
 
+    SetVertexXY(0, -8, hudOffsetY + 6,shieldBar);
+    shieldBar -> SetAction("Attach", hudMount);
+
     SetVertexXY(0, -8, hudOffsetY + 6,lifeBar);
     lifeBar -> SetAction("Attach", hudMount);
 
@@ -128,6 +138,7 @@ func HideHud()
     EnsureHud();
     SetVisibility(VIS_None, hudMount);
     SetVisibility(VIS_None, itemMode);
+    SetVisibility(VIS_None, shieldBar);
     SetVisibility(VIS_None, lifeBar);
     SetVisibility(VIS_None, ammoBar);
     SetVisibility(VIS_None, fuelBar);
@@ -139,6 +150,7 @@ func ShowHud()
     EnsureHud();
     SetVisibility(VIS_Owner | VIS_God, hudMount);
     SetVisibility(VIS_Owner | VIS_God, itemMode);
+    SetVisibility(VIS_Owner | VIS_God, shieldBar);
     SetVisibility(VIS_Owner | VIS_God, lifeBar);
     SetVisibility(VIS_Owner | VIS_God, ammoBar);
     SetVisibility(VIS_Owner | VIS_God, fuelBar);
@@ -158,9 +170,11 @@ func FxHudStart(object target, int effectNumber, int temp)
 func FxHudDamage(object target, int effectNumber, int damage, int cause)
 {
     EnsureHud();
-    var newEnergy = GetObjectVal("Energy") + damage;
+    newEnergy = GetObjectVal("Energy") + damage;
     newEnergy = BoundBy(100 * newEnergy / GetPhysical("Energy"), 0, 100);
+    newEnergy = newEnergy / 5 * 4;
     SetPhase(newEnergy + 1, lifeBar);
+    UpdateShieldBar();
     return damage;
 }
 
@@ -184,6 +198,19 @@ func SetAmmoBar(int ammo)
 
     return _inherited(ammo, ...);
 }
+
+func DoShieldEnergy(int amount)
+{
+    UpdateShieldBar();
+    return _inherited(amount, ...);
+}
+
+func UpdateShieldBar()
+{
+    var newShieldEnergy = shieldEnergy * 20 / maxShieldEnergy;
+    SetPhase(newEnergy + newShieldEnergy + 1, shieldBar);
+}
+
 
 func WeaponActivated()
 {

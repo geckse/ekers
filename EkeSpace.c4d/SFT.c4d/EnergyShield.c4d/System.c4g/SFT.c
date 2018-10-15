@@ -3,8 +3,8 @@
 #strict 2
 #appendto SF7A
 
-func PreRegenerateNoDamageTime() { return 180; }
-func RegenerateAmount() { return 1000; }
+func PreRegenerateNoDamageTime() { return 250; }
+func RegenerateAmount() { return 3500; }
 
 local maxShieldEnergy;
 local shieldEnergy;
