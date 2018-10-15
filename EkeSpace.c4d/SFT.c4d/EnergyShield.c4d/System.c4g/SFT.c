@@ -45,7 +45,7 @@ func FxEnergyShieldDamage(object target, int effectNumber, int damage, int cause
     EffectVar(0, target, effectNumber) = 0;
     
     // show cone
-    SetVisibility(VIS_All, cone);
+    // SetVisibility(VIS_All, cone);
 
     if(shieldEnergy < 1)
     {
