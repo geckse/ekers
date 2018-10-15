@@ -195,8 +195,8 @@ func HitCreature(victim)
       // nicht bei schweren (groﬂen) Lebewesen
       if (GetMass(victim) < 500)
       { 
-        // Opfer wegschleudern, wenn kein Energieschild
-        if(!victim->~GetShieldEnergy()) Fling(victim, direction * (3 + booster), -1 * booster);
+        // Opfer wegschleudern
+        Fling(victim, direction * (3 + booster), -1 * booster);
       }
     }
   }

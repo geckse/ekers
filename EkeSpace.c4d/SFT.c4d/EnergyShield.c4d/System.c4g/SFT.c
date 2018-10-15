@@ -12,7 +12,7 @@ local cone;
 
 func Initialize()
 {
-    maxShieldEnergy = 150000;
+    maxShieldEnergy = 25000;
     DoShieldEnergy(maxShieldEnergy);
     AddEffect("EnergyShield", this, 20, 10, this);
     
