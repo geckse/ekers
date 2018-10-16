@@ -184,20 +184,29 @@ protected func ControlDigDouble()
   return _inherited(...);
 }
 
-protected func ControlSpecial()
+func ControlSpecial()
 {
-  // ggf. Pistole wegstecken
-  if (FindContents(PT7A))
-  {
-    Holster();
-    return false;
-  }
-  // Inventar verschieben
-  ShiftContents(0, 0, 0, 1);
+    // ggf. Pistole wegstecken
+    if (FindContents(PT7A))
+    {
+        Holster();
+        return false;
+    }
+    
+    // ggf. Pisole ziehen
+    if(ContentsCount() < 2)
+    {
+        Holster();
+        return false;
+    }
+    
+    // Inventar verschieben
+    ShiftContents(0, 0, 0, 1);
 
-  // Bewaffnung prüfen
-  CheckArmed();
-  return true;
+    // Bewaffnung prüfen
+    CheckArmed();
+    
+    return true;
 }
 
 protected func ControlSpecialDouble()
