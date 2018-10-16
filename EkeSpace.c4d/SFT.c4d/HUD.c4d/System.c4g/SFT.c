@@ -68,7 +68,7 @@ func CreateHud()
         SetObjDrawTransform(667,0,0,0,667,0,itemMode);
         itemMode->SetObjectLayer(hudMount);
     }
-    
+
     if(!shieldBar) {
         shieldBar = CreateObject(EB7A,0,0,owner);
         SetClrModulation(RGBa(202,202,202,0), shieldBar);
@@ -171,8 +171,7 @@ func FxHudDamage(object target, int effectNumber, int damage, int cause)
 {
     EnsureHud();
     newEnergy = GetObjectVal("Energy") + damage;
-    newEnergy = BoundBy(100 * newEnergy / GetPhysical("Energy"), 0, 100);
-    newEnergy = newEnergy / 5 * 4;
+    newEnergy = BoundBy(80 * newEnergy / GetPhysical("Energy"), 0, 80);
     SetPhase(newEnergy + 1, lifeBar);
     UpdateShieldBar();
     return damage;
@@ -199,10 +198,11 @@ func SetAmmoBar(int ammo)
     return _inherited(ammo, ...);
 }
 
-func DoShieldEnergy(int amount)
+func DoShieldEnergy()
 {
+    var ret = _inherited(...);
     UpdateShieldBar();
-    return _inherited(amount, ...);
+    return ret;
 }
 
 func UpdateShieldBar()

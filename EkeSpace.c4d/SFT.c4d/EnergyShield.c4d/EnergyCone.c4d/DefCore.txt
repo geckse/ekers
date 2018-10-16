@@ -11,3 +11,4 @@ VertexX=0
 BlitMode=0
 NoSell=1
 ColorByOwner=1
+Rotate=1

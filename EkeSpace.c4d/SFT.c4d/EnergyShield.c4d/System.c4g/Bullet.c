@@ -1,6 +1,17 @@
 #strict 2
 #appendto BU7A
 
+local xStart;
+local yStart;
+
+func Launch()
+{
+    xStart = GetX();
+    yStart = GetY();
+
+    return _inherited(...);
+}
+
 func HitCreature(victim)
 {
     if(victim->~GetShieldEnergy())
@@ -14,7 +25,8 @@ func HitCreature(victim)
 
           // dem Opfer Energie abziehen
           DoEnergy(-punch, victim);
-        
+          victim->~HitShieldFrom(xStart, yStart);
+
           // Sound abspielen und Kugel entfernen
           Sound("BU_SoftHit*", 0, victim, 50);
           RemoveObject();

@@ -15,13 +15,13 @@ func Initialize()
     maxShieldEnergy = 25000;
     DoShieldEnergy(maxShieldEnergy);
     AddEffect("EnergyShield", this, 20, 10, this);
-    
+
     // energy cone
     var owner = GetOwner();
     cone = CreateObject(EC7A,0,0,owner);
     SetVisibility(VIS_None, cone);
     cone -> SetAction("Attach", this);
-    
+
     return _inherited(...);
 }
 
@@ -34,7 +34,7 @@ func FxEnergyShieldDamage(object target, int effectNumber, int damage, int cause
     {
         // hide cone
         SetVisibility(VIS_None, cone);
-        
+
         // return damage
         return damage;
     }
@@ -43,15 +43,12 @@ func FxEnergyShieldDamage(object target, int effectNumber, int damage, int cause
 
     // disable regeneration temporarily
     EffectVar(0, target, effectNumber) = 0;
-    
-    // show cone
-    // SetVisibility(VIS_All, cone);
 
     if(shieldEnergy < 1)
     {
         // hide cone
         SetVisibility(VIS_None, cone);
-        
+
         // return damage
         return damage;
     }
@@ -69,7 +66,7 @@ func FxEnergyShieldTimer(object target, int effectNumber, int effectTime)
     {
         // hide cone
         SetVisibility(VIS_None, cone);
-        
+
         // regen shield
         DoShieldEnergy(RegenerateAmount());
     }
@@ -83,4 +80,11 @@ func DoShieldEnergy(int amount)
 func GetShieldEnergy()
 {
   return shieldEnergy;
+}
+
+func HitShieldFrom(int x, int y)
+{
+    // show cone
+    SetVisibility(VIS_All, cone);
+    SetR(Angle(GetX(), GetY(), x, y) - 90, cone);
 }
