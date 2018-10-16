@@ -6,6 +6,7 @@
 #include JB4K
 
 local pistol;
+local ctrlSpclCmboCnt;
 
 protected func Initialize()
 {
@@ -193,10 +194,10 @@ func ControlSpecial()
         return false;
     }
     
-    // ggf. Pisole ziehen
-    if(ContentsCount() < 2)
+    // counter for special2 combo
+    if(ContentsCount() == 1)
     {
-        Holster();
+        ctrlSpclCmboCnt = FrameCounter();
         return false;
     }
     
@@ -217,6 +218,13 @@ protected func ControlSpecialDouble()
 
 protected func ControlSpecial2()
 {
+  // ggf. Pisole ziehen
+  if(ctrlSpclCmboCnt > FrameCounter() - 20)
+  {
+    Holster();
+    return false;
+  }
+
   // Steuerung an Inhaltsobjekt weitergeben
   if (Control2Contents("ControlSpecial2"))
   {
