@@ -1,6 +1,6 @@
 /* Neohexin */
 
-#strict
+#strict 2
 
 func Activate(object clonk)
 {
@@ -18,6 +18,9 @@ func Activate(object clonk)
     DoBreath(breath, clonk);
     DoEnergy(energy, clonk);
 
+    // refill shield energy
+    clonk->~DoShieldEnergy(1000000);
+      
     Sound("NH_Energy");
     RemoveObject();
   }
