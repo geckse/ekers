@@ -239,16 +239,7 @@ protected func FxJetbeltStop(object pTarget, int iEffectNumber) {
 
 public func IsReady()
 {
-  if(!GetFuel()) {
-    var gasoline = FindContents(GS7A, this);
-    if(gasoline) {
-      gasoline->Activate(this);
-    }
-    else {
-      return;
-    }
-  }
-  if(GetCommand() || this -> ~HeavySuit()) return;
+  if(!GetFuel() || GetCommand() || this -> ~HeavySuit()) return;
 
   if(GetAction() == "Jump"
   || GetAction() == "AssaultRifleJump"
