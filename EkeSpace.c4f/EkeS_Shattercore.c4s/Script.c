@@ -13,9 +13,9 @@ func Initialize() {
 
     // declare clonk respawn points
     clonkSpawns = [
-      [666, 509],
-      [469, 618],
-      [1029, 829]
+      [666 + 350, 509 - 60],
+      [469 + 350, 618 - 60],
+      [1029 + 350, 829 - 60]
     ];
     clonkSpawnsL = GetLength(clonkSpawns);
 
@@ -118,9 +118,9 @@ func CreateItemSpawns() {
     itemSpawnsL = GetLength(itemSpawns);
     
     // spawn points
-    CreateObject(IS7A,745,688);
-    CreateObject(IS7A,588,1039);
-    CreateObject(IS7A,509,299);
+    CreateObject(IS7A,745 + 350,688 - 60);
+    CreateObject(IS7A,588 + 350,1039 - 60);
+    CreateObject(IS7A,509 + 350,299 - 60);
 
 }
 
