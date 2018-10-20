@@ -8,7 +8,7 @@ local OldY;
 protected func Launch(object weapon, int dir, clonk)
 {
 
-         AddEffect("Tracing", this, 1, 1, this);
+    AddEffect("Tracing", this, 1, 1, this);
     OldX = GetX();
     OldY = GetY();
     return inherited(weapon, dir, clonk);
@@ -39,7 +39,7 @@ protected func Destruction()
     if(LastVictim)
         DrawLine(OldX, OldY, GetX(LastVictim), GetY());
     else
-      if(OldX + OldY > 0 && ObjectCount(TA1Z))
+      if(OldX + OldY > 0)
           DrawLine(OldX, OldY, GetX(), GetY());
     return true;
 }

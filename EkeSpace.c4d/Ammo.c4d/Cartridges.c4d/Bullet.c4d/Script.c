@@ -1,6 +1,6 @@
 /* Kugel */
 
-#strict
+#strict 2
 
 local xOld;
 local yOld;
@@ -102,8 +102,18 @@ func HitObject()
   // y-Abweichung der Kugel einbringen
   SetYDir(RandomX(-yVariation, yVariation) + shootingAxis * 180);
 
+  var notFree = false;
+
+  if(!PathFree2(xOld, yOld, GetX(), GetY()))
+  {
+    SetPosition(xOld, yOld);
+    direction = 0;
+    notFree = true;
+  }
+
   var x = xOld - GetX(); xOld = GetX();
   var y = yOld - GetY(); yOld = GetY();
+
 
   var a1 = Find_OnLine(x, y, 0, 0);
   var a2 = Find_NoContainer();
@@ -116,6 +126,11 @@ func HitObject()
     if (HitBalloon(victim))  return(1);
     if (HitTin(victim))      return(1);
   }
+
+  if(notFree)
+  {
+    Hit(true);
+  }
   return(0);
 }
 
@@ -125,9 +140,9 @@ func Splashing()
   return(1);
 }
 
-func Hit()
+func Hit(bool noObject)
 {
-  if (HitObject()) return;
+  if (!noObject && HitObject()) return;
 
   if (!GBackSolid(direction))
   {
@@ -176,12 +191,12 @@ func HitCreature(victim)
   var p2 = GetController(victim);
 
   if (ObjectCount(NF7A) && !Hostile(p1, p2, 1)) return(0); // kein Friendly Fire
-  if (!(GetOCF(victim) & OCF_Alive()))          return(0); // Opfer muﬂ noch leben
+  if (!(GetOCF(victim) & OCF_Alive))            return(0); // Opfer muﬂ noch leben
   if (GetID(victim) == ZAP1)                    return(0); // Zaps nicht beachten
 
   // Tiere werden h‰rter getroffen als Clonks
   var booster = 1;
-  if (!(GetOCF(victim) & OCF_CrewMember())) booster++;
+  if (!(GetOCF(victim) & OCF_CrewMember)) booster++;
 
   // dem Opfer Energie abziehen
   DoEnergy(-punch * booster, victim);
@@ -190,11 +205,11 @@ func HitCreature(victim)
   if (ObjectCount(SW7A))
   {
     // Piloten nicht vom Airbike reiﬂen
-    if (GetAction(victim) ne "AirbikeFly")
+    if (GetAction(victim) != "AirbikeFly")
     {
       // nicht bei schweren (groﬂen) Lebewesen
       if (GetMass(victim) < 500)
-      { 
+      {
         // Opfer wegschleudern
         Fling(victim, direction * (3 + booster), -1 * booster);
       }
@@ -251,9 +266,9 @@ func HitTin(victim)
   var b3 = !Hostile(GetController(), GetController(victim), 1);
 
   if (b1 && b2 && b3)                         return(0);
-  if (GetOCF(victim) & OCF_Alive())           return(0);
-  if (GetCategory(victim) & C4D_StaticBack()) return(0);
-  if (GetCategory(victim) & C4D_Structure())  return(0);
+  if (GetOCF(victim) & OCF_Alive)             return(0);
+  if (GetCategory(victim) & C4D_StaticBack)   return(0);
+  if (GetCategory(victim) & C4D_Structure)    return(0);
   if (PrivateCall(victim, "IsTree"))          return(0);
   if (!PrivateCall(victim, "Damage"))         return(0);
 
