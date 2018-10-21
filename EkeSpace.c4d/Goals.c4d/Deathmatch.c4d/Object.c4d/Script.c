@@ -3,6 +3,8 @@
 #strict
 #include MELE
 
+static deathmatchRule;
+
 local relaunchs;
 local kills;
 local selfkills;
@@ -10,6 +12,8 @@ local maxRelaunchs;
 
 protected func Initialize()
 {
+  deathmatchRule = 1;
+    
   relaunchs = CreateArray();
   kills = CreateArray();
   selfkills = CreateArray();
