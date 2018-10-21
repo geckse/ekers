@@ -12,7 +12,7 @@ func FxCheckStuck2Timer(object pTarget, int iEffectNumber, int iEffectTime)
 	if (!WildcardMatch(GetAction(pTarget), "*Walk")) return;
 
 	var d = GetDir(pTarget)*2 - 1;
-	if (!pTarget->GBackSolid(0, 4) && !pTarget->GBackSolid(d, 3) && pTarget->GBackSolid(d, 4))
+	if (!pTarget->GBackSolid(0, 10) && !pTarget->GBackSolid(0, 4) && !pTarget->GBackSolid(d, 3) && pTarget->GBackSolid(d, 4) && GetComDir(pTarget) != COMD_None)
 	{
 		SetPosition(GetX(pTarget), GetY(pTarget) - 1, pTarget);
 		ObjectSetAction(pTarget, "KneelDown");
