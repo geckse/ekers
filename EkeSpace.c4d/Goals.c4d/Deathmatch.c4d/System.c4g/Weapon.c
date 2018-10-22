@@ -9,7 +9,7 @@ func ControlShoot()
         if (GetEffect("Spawn", container))
         {
             Stop();
-            Message("<c 77adca>Spawnschutz</c>", container);
+            CustomMessage("<c 77adca>Spawnschutz</c>", container, GetOwner(container), 0, -15);
             return false;
         }   
     }
