@@ -1,6 +1,6 @@
 /* Equiem */
 
-#strict
+#strict 2
 
 static uziBird;
 static itemSpawns;
@@ -78,7 +78,7 @@ private func CreateUziBird()
   return(1);
 }
 
-func InitializeClonk(clonk)
+global func SpawnClonk(clonk)
 {
   SetPosition(Random(LandscapeWidth()), Random(100) + 25, clonk);
 
