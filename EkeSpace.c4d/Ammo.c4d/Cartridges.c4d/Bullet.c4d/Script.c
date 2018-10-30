@@ -104,6 +104,9 @@ func HitObject()
 
     var notFree = false;
 
+    var x = xOld - GetX();
+    var y = yOld - GetY();
+
     if(!PathFree2(xOld, yOld, GetX(), GetY()))
     {
         SetPosition(xOld, yOld);
@@ -111,14 +114,15 @@ func HitObject()
         notFree = true;
     }
 
-    var x = xOld - GetX(); xOld = GetX();
-    var y = yOld - GetY(); yOld = GetY();
+    xOld = GetX();
+    yOld = GetY();
 
 
     var a1 = Find_OnLine(x, y, 0, 0);
     var a2 = Find_NoContainer();
     var a3 = Find_Exclude(shooter);
     var a4 = Sort_Distance(x, y);
+
 
     for (var victim in FindObjects(a1, a2, a3, a4))
     {
@@ -129,7 +133,7 @@ func HitObject()
 
     if(notFree)
     {
-        Hit(true);
+        Hit(0, 0, true);
     }
     return(0);
 }
@@ -140,7 +144,7 @@ func Splashing()
     return(1);
 }
 
-func Hit(bool noObject)
+func Hit(int oldXDir, int oldYDir, bool noObject)
 {
     if (!noObject && HitObject()) return;
 
