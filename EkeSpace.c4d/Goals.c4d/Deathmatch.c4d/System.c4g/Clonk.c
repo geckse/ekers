@@ -8,10 +8,12 @@ func Initialize()
     // add spawn protection
     clonkCategory = GetCategory(this);
     AddEffect("SpawnProtection",this,20,1,this);
-    
+
+    var ret = _inherited(...);
+
     SpawnClonk(this);
-    
-    return _inherited(...);
+
+    return ret;
 }
 
 
