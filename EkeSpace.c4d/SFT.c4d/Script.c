@@ -294,51 +294,6 @@ private func Control2Harpoon(string command)
   if (harpoon) LocalN("ropeCommand", harpoon) = command;
 }
 
-protected func ContactLeft()
-{
-  // nicht weiter bei Kontakt am Spielfeldrand
-  if (!GetContact(0, -1, CNAT_Left)) return false;
-
-  FallDamage();
-  return _inherited(...);
-}
-
-protected func ContactRight()
-{
-  // nicht weiter bei Kontakt am Spielfeldrand
-  if (!GetContact(0, -1, CNAT_Right)) return false;
-
-  FallDamage();
-  return _inherited(...);
-}
-
-protected func ContactTop()
-{
-  FallDamage();
-  return _inherited(...);
-}
-
-protected func ContactBottom()
-{
-  FallDamage();
-  return _inherited(...);
-}
-
-private func FallDamage()
-{
-  // weiter nur wenn der Clonk noch lebt
-  if(!GetAlive()) return false;
-
-  var speed = Max(Abs(GetXDir()), Abs(GetYDir()));
-
-  if (speed >= 70)
-  {
-    DoEnergy((70 - speed) * 2);
-    Sound("Hurt*");
-  }
-  return true;
-}
-
 private func CheckArmed()
 {
   var weapon = Contents();
