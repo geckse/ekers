@@ -17,7 +17,7 @@ protected func Initialize()
     AddEffect("SellCheck", this, 1, 35, this);
 
     // always same physicals
-    SetPhysicals();
+    // SetPhysicals();
 
     // weiter mit überladener Funktion
     return _inherited(...);
