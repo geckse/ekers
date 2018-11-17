@@ -10,7 +10,7 @@ func Initialize() {
   SetSkyParallax(0, 100,70, 1,0);
 
   // declare spawning items
-  itemSpawns = [CA7A, OB7A, GB7A, NH7A, SG7A, MS7A, HG7A, GS7A];
+  itemSpawns = [CA7A, OB7A, GB7A, NH7A, SG7A, MS7A, HG7A, GS7A, RL7A, RB7A];
   itemSpawnsL = GetLength(itemSpawns);
 
   return(ScriptGo(1));
