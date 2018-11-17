@@ -1,38 +1,12 @@
 /* Lenkrakete */
 
-local launcher; // Raketenwerfer, aus dem die Rakete kommt
-local command;  // Steuerkommando, normalerweise vom SFT
-local target;   // Ziel, wird nur von der Flak übergeben
-local power;    // Stärke der Explosion
+local target;
+local random;
 
-#strict
+#strict 2
 
-func Launch(rocketLauncher, flakTarget)
+func Launch(rocketLauncher)
 {
-  launcher = rocketLauncher;
-  target = flakTarget;
-  
-  if (GetID(launcher) == RL7A)
-  {
-    // Rakete wird vom SFT gelenkt
-    command = "Straight";
-    power = 50;
-  }
-  if (GetID(launcher) == FK7A)
-  {
-    // Ziel verfolgen
-    command = "Follow";
-    power = 30;
-
-    // Raketen aus der Flak sehen anders aus
-    SetGraphics("TypeB");
-  }
-  if (!launcher)
-  {
-    // Fehlzündung durch Erschütterung
-    command = "Random";
-    power = 50;
-  }
   SetAction("Fly");
   Sound("JP_Launch");
   return(1);
@@ -40,72 +14,47 @@ func Launch(rocketLauncher, flakTarget)
 
 func Flying()
 {
-  if ((GetActTime() > 500) || (InLiquid()))
+  if((GetActTime() > 500) || (InLiquid()))
   {
-    if (GetID(launcher) == RL7A) LocalN("guiding", launcher) = 0;
     SetAction("Tumble");
     return(1);
   }
-  if (command == "Follow")   SetRDir(GetFollowRDir());
-  if (command == "Straight") SetRDir(0);
-  if (command == "Left")     SetRDir(-10);
-  if (command == "Right")    SetRDir(+10);
-  if (command == "Random")   SetRDir(BoundBy(RandomX(-10, 10) + GetRDir(), -25, 25));
-  if (command == "Explode")  return(BlowUp());
+
+  var offset = 10;
+  if(random)
+  {
+    SetRDir(BoundBy(RandomX(-10, 10) + GetRDir(), -25, 25));
+  }
+  else
+  {
+    if(GetActTime() < 3) offset += 20;
+
+    var victim = FindTargets(this, 400, 30, GetR())[0];
+    if(victim && (!target || ObjectDistance(victim) < ObjectDistance(target)))
+    {
+      target = victim;
+    }
+
+    if(target)
+    {
+      if(EkeFindVictim(-5, -10, 10, 20, this)) return(BlowUp());
+
+      var iDAngle = Angle(GetX(),GetY(),GetX(target),GetY(target));
+      var iAngle = GetR();
+
+      var iDiff = Normalize(iDAngle - iAngle,-180);
+      var iTurn = Min(Abs(iDiff),6);
+
+      SetR(iAngle+iTurn*((iDiff > 0)*2-1));
+    }
+  }
 
   SetXDir(Sin(GetR(), 50));
   SetYDir(-Cos(GetR(), 50));
 
-  if (target)
-  {
-    // Ziel eingeholt -> Sprengsatz zünden!
-    if (ObjectDistance(target) < 10) return(BlowUp());
-  }
-  else if (!LocalN("guiding", launcher))
-  {
-    if (EkeFindVictim(-5, -10, 10, 20)) return(BlowUp());
-  }
-  // Resttreibstoff dem fernsteuernden SFT anzeigen
-  else ShowFuelLevel();
-
-  var offset = 10;
-  if (launcher && GetActTime() < 3) offset += 20;
-  
   CreateSmokeFX(offset);
   CreateFireFX(offset - 5);
   return(1);
-}
-
-func ShowFuelLevel()
-{
-  var clonk = Contained(launcher);
- 
-  if (!clonk)                                              return;
-  if (GetComDir(clonk) != COMD_Stop())                     return;
-  if (!WildcardMatch(GetAction(clonk), "RocketLauncher*")) return;
-
-  clonk -> SetAmmoBar((500 - GetActTime()) / 5);
-}
-
-func GetFollowRDir()
-{
-  // geradeaus weiter fliegen
-  if (!target) return(0);
-
-  var x1 = GetX();
-  var y1 = GetY();
-  var x2 = GetX(target);
-  var y2 = GetY(target);
-
-  var angle1 = Angle(x1, y1, x2, y2);
-  var angle2 = GetR() - 180;
-  var angle3 = angle1 - angle2;
-
-  if (angle3 > 360) angle3 -= 360;
-  if (angle3 < 000) angle3 += 360;
-
-  angle3 = BoundBy(angle3, 90, 270);
-  return(Sin(angle3, -10));
 }
 
 func CreateSmokeFX(offset)
@@ -148,13 +97,13 @@ func CreateFireFX(offset)
 
 func Tumbling()
 {
-  if (InLiquid())
+  if(InLiquid())
   {
-    if (GetXDir() > 0)  SetXDir(GetXDir() - 1);
-    if (GetXDir() < 0)  SetXDir(GetXDir() + 1);
-    if (GetYDir() > 25) SetYDir(25);
+    if(GetXDir() > 0)  SetXDir(GetXDir() - 1);
+    if(GetXDir() < 0)  SetXDir(GetXDir() + 1);
+    if(GetYDir() > 25) SetYDir(25);
 
-    if (!Random(3)) Bubble();
+    if(!Random(3)) Bubble();
   }
   SetR(Angle(0, 0, GetXDir(), GetYDir()));
   return(1);
@@ -162,22 +111,23 @@ func Tumbling()
 
 func BlowUp()
 {
-  if (command)
+  if(GetAction() != "Idle")
   {
     // Sprengsatz zünden
-    Schedule("Explode(power)", 1);
+    Schedule("Explode(50)", 1);
   }
   else
   {
     // Fehlzündung
     Launch();
+    random = true;
   }
   return(1);
 }
 
 func Damage()
 {
-  if (GetDamage() < 1) return(1);
+  if(GetDamage() < 1) return(1);
   return(BlowUp());
 }
 
@@ -186,13 +136,7 @@ func Hit()
   return(BlowUp());
 }
 
-func Destruction()
-{
-  if (GetID(launcher) == RL7A) LocalN("guiding", launcher) = 0;
-  return(1);
-}
-
 func RejectEntrance()
 {
-  if (command) return(true);
+  if(GetAction() != "Idle") return(true);
 }

@@ -11,6 +11,7 @@ func Modes() { return [false]; }
 func Automatic() { return [false]; }
 func ShotDelay() { return [10]; }
 func StopDelay() { return ShotDelay(); }
+func ReloadTime() { return [false]; }
 func AmmoID() { return CA7A; }
 func AmmoUsage() { return [10]; }
 func MaxAmmo() { return 1000; }
@@ -26,6 +27,7 @@ func MuzzleFlashData() { return ["EkeMuzzleFlash2", 16, -1, 90, 85]; }
 static const WP7A_ShotDelayEffect = "ShotDelay";
 static const WP7A_AutoShootEffect = "AutoShoot";
 static const WP7A_ActiveEffect = "Active";
+static const WP7A_ReloadEffect = "Reload";
 
 // copy of current mode data for HUD and stuff
 local ammo; // current mode's ammo in percent
@@ -50,7 +52,7 @@ func Initialize()
 
 func ControlSpecial2(object clonk)
 {
-    if(ModeCount() <= 1)
+    if(ModeCount() <= 1 || IsReloading())
     {
         return false;
     }
@@ -231,11 +233,45 @@ func Activate(object clonk)
 
     Stop();
 
-    ammo = MaxAmmo();
-    UpdateAmmoBar();
+    if(!ReloadTime()[modeIndex])
+    {
+        ammo = MaxAmmo();
+        UpdateAmmoBar();
+    }
+    else
+    {
+        DeactivateWeapon();
+        AddEffect(WP7A_ReloadEffect, this, 1, 1, this);
+    }
 
     Sound(ReloadSound());
     return true;
+}
+
+func FxReloadTimer(object target, int effectNumber, int effectTime)
+{
+    var reloadTime = ReloadTime()[modeIndex];
+    if(effectTime >= reloadTime)
+    {
+        return FX_Execute_Kill;
+    }
+
+    ammo = MaxAmmo() * effectTime / reloadTime;
+    UpdateAmmoBar();
+}
+
+func FxReloadStop(object target, int effectNumber, int reason, bool temp)
+{
+    if(!temp)
+    {
+        ammo = MaxAmmo();
+        UpdateAmmoBar();
+    }
+}
+
+func IsReloading()
+{
+    return !!GetEffect(WP7A_ReloadEffect, this);
 }
 
 func IsShooting()
@@ -260,7 +296,8 @@ func ReadyToShoot(object clonk)
     return WildcardMatch(GetAction(clonk), Format("%s*", ActionString()))
         && Contents(0, clonk) == this
         && !Contained(clonk)
-        && !GetEffect(WP7A_ShotDelayEffect, this);
+        && !GetEffect(WP7A_ShotDelayEffect, this)
+        && !IsReloading();
 }
 
 func Shoot()

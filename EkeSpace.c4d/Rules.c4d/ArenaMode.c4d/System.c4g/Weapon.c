@@ -6,7 +6,11 @@
 \*------------------------------------*/
 func FxAmmoRegenTimer()
 {
-  AddAmmo(2);
+  if(!IsReloading())
+  {
+    AddAmmo(2);
+  }
+
   if(GetAmmoPercent() == 100) ActivateWeapon();
 }
 func Activated()

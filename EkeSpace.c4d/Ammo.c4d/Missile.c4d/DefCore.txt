@@ -14,3 +14,4 @@ VertexY=-6,6
 VertexFriction=100
 Collectible=1
 Rotate=1
+NoStabilize=1
