@@ -561,3 +561,13 @@ protected func Death()
     GameCallEx("ReportHomicide", GetKiller(), GetOwner(), GetID(this));
     return _inherited(...);
 }
+
+func ContactBottom()
+{
+    if(GetProcedure() == "SWIM")
+    {
+        SetAction("Walk");
+    }
+
+    return _inherited(...);
+}

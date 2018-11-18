@@ -19,7 +19,6 @@ Delay=15
 Facet=0,280,16,20,0,1
 NextAction=AssaultRifleWalk
 StartCall=CheckArmed
-InLiquidAction=AssaultRifleSwim
 
 [Action]
 Name=AssaultRifleJump
@@ -44,7 +43,6 @@ Delay=15
 Facet=0,300,16,20,0,1
 NextAction=PistolWalk
 StartCall=CheckArmed
-InLiquidAction=PistolSwim
 
 [Action]
 Name=PistolJump
@@ -69,7 +67,6 @@ Delay=15
 Facet=0,320,16,20,0,1
 NextAction=RocketLauncherWalk
 StartCall=CheckArmed
-InLiquidAction=RocketLauncherSwim
 
 [Action]
 Name=RocketLauncherJump
@@ -425,7 +422,6 @@ Delay=15
 Facet=0,340,16,21
 NextAction=FlamethrowerWalk
 StartCall=CheckArmed
-InLiquidAction=FlamethrowerSwim
 
 [Action]
 Name=FlamethrowerJump
@@ -450,7 +446,6 @@ Delay=15
 Facet=0,340,16,21
 NextAction=IcethrowerWalk
 StartCall=CheckArmed
-InLiquidAction=SwimIcethrower
 
 [Action]
 Name=IcethrowerJump
@@ -486,7 +481,6 @@ Delay=15
 Facet=0,361,16,20,0,2
 NextAction=ShotgunWalk
 StartCall=CheckArmed
-InLiquidAction=ShotgunSwim
 
 [Action]
 Name=ShotgunJump
