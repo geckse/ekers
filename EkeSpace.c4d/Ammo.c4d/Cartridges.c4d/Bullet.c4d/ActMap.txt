@@ -5,8 +5,3 @@ NextAction=Fly
 StartCall=HitObject
 Delay=1
 FacetBase=1
-InLiquidAction=Splash
-
-[Action]
-Name=Splash
-StartCall=Splashing

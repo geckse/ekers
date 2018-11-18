@@ -138,12 +138,6 @@ func HitObject()
     return(0);
 }
 
-func Splashing()
-{
-    RemoveObject();
-    return(1);
-}
-
 func Hit(int oldXDir, int oldYDir, bool noObject)
 {
     if (!noObject && HitObject()) return;
