@@ -1,21 +1,7 @@
 /* Bombenkiste */
 
-#strict
+#strict 2
+#include CA7A
 
-func Activate(object clonk)
-{
-  for (var i = 0; i < 2; i++) 
-  {
-    CreateContents(OB7A, clonk);
-  }
-  ShiftContents(clonk, true, OB7A);
-  Sound("SF_Process");
-  RemoveObject();
-  return(1);
-}
-
-func Hit()
-{
-  Sound("RockHit*");
-  return(1);
-}
+func SplitID() { return OB7A; }
+func SplitAmount() { return 2; }

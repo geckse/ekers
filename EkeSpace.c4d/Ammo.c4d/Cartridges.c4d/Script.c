@@ -1,21 +1,22 @@
 /* Patronen */
 
-#strict
+#strict 2
+
+func SplitID() { return PM7A; }
+func SplitAmount() { return 5; }
+func HitSound() { return "RockHit*"; }
 
 func Activate(object clonk)
 {
-  for (var i = 0; i < 5; i++) 
-  {
-    CreateContents(PM7A, clonk);
-  }
-  ShiftContents(clonk, true, PM7A);
+  CreateContents(SplitID(), clonk, SplitAmount());
+  ShiftContents(clonk, true, SplitID());
   Sound("SF_Process");
   RemoveObject();
-  return(1);
+  return true;
 }
 
 func Hit()
 {
-  Sound("RockHit*");
-  return(1);
+	Sound(HitSound());
+  return true;
 }
