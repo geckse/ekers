@@ -1,6 +1,7 @@
 /* Lenkrakete */
 
 local target;
+local targetFoundTime;
 local random;
 
 #strict 2
@@ -9,7 +10,7 @@ func Launch(rocketLauncher)
 {
   SetAction("Fly");
   Sound("JP_Launch");
-  return(1);
+  return 1;
 }
 
 func Flying()
@@ -17,7 +18,7 @@ func Flying()
   if((GetActTime() > 500) || (InLiquid()))
   {
     SetAction("Tumble");
-    return(1);
+    return 1;
   }
 
   var offset = 10;
@@ -29,21 +30,27 @@ func Flying()
   {
     if(GetActTime() < 3) offset += 20;
 
-    var victim = FindTargets(this, 400, 30, GetR())[0];
-    if(victim && (!target || ObjectDistance(victim) < ObjectDistance(target)))
+    if(targetFoundTime && FrameCounter() - targetFoundTime > 70)
     {
-      target = victim;
+      target = 0;
+    }
+    else if(!target)
+    {
+      if(target = FindTargets(this, 100, 10, GetR())[0])
+      {
+        targetFoundTime = FrameCounter();
+      }
     }
 
     if(target)
     {
-      if(EkeFindVictim(-5, -10, 10, 20, this)) return(BlowUp());
+      if(EkeFindVictim(-5, -10, 10, 20, this)) return BlowUp();
 
       var iDAngle = Angle(GetX(),GetY(),GetX(target),GetY(target));
       var iAngle = GetR();
 
       var iDiff = Normalize(iDAngle - iAngle,-180);
-      var iTurn = Min(Abs(iDiff),6);
+      var iTurn = Min(Abs(iDiff), 4);
 
       SetR(iAngle+iTurn*((iDiff > 0)*2-1));
     }
@@ -54,7 +61,7 @@ func Flying()
 
   CreateSmokeFX(offset);
   CreateFireFX(offset - 5);
-  return(1);
+  return 1;
 }
 
 func CreateSmokeFX(offset)
@@ -73,7 +80,7 @@ func CreateSmokeFX(offset)
   var cMax = RGBa(255, 255, 255, 200);
 
   CastParticles(n, a, l, x, y, sMin, sMax, cMin, cMax);
-  return(1);
+  return 1;
 }
 
 func CreateFireFX(offset)
@@ -92,7 +99,7 @@ func CreateFireFX(offset)
   var cMax = RGBa(255, 255, 150, 150);
 
   CastParticles(n, a, l, x, y, sMin, sMax, cMin, cMax);
-  return(1);
+  return 1;
 }
 
 func Tumbling()
@@ -106,7 +113,7 @@ func Tumbling()
     if(!Random(3)) Bubble();
   }
   SetR(Angle(0, 0, GetXDir(), GetYDir()));
-  return(1);
+  return 1;
 }
 
 func BlowUp()
@@ -114,7 +121,7 @@ func BlowUp()
   if(GetAction() != "Idle")
   {
     // Sprengsatz zünden
-    Schedule("Explode(50)", 1);
+    Schedule("Explode(30)", 1);
   }
   else
   {
@@ -122,21 +129,25 @@ func BlowUp()
     Launch();
     random = true;
   }
-  return(1);
+  return 1;
 }
 
 func Damage()
 {
-  if(GetDamage() < 1) return(1);
-  return(BlowUp());
+  if(GetDamage() < 1) return 1;
+
+  if(GetAction() == "Idle")
+  {
+    return BlowUp();
+  }
 }
 
 func Hit()
 {
-  return(BlowUp());
+  return BlowUp();
 }
 
 func RejectEntrance()
 {
-  if(GetAction() != "Idle") return(true);
+  if(GetAction() != "Idle") return true;
 }
