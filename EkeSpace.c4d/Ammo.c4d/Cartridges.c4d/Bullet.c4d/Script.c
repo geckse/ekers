@@ -144,7 +144,6 @@ func Hit(int oldXDir, int oldYDir, bool noObject)
 
     if (!GBackSolid(direction))
     {
-        RemoveObject();
         return(1);
     }
     var m = GetMaterial(direction);
@@ -278,4 +277,13 @@ func HitTin(victim)
     Sound("BU_TinHit*");
     RemoveObject();
     return(1);
+}
+
+// wird bei Kontakt von allen Seiten aufgerufen
+// ist nur Left weil das CNAT auf Left steht
+func ContactLeft()
+{
+    // beim normalen Aufruf von Hit aus der Engine wäre die Kugel schon entlang der Wand hoch oder hinunter geschlittert
+    // bei Contact noch nicht
+    Hit();
 }
