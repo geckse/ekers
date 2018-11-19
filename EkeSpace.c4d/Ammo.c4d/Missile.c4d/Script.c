@@ -36,7 +36,7 @@ func Flying()
     }
     else if(!target)
     {
-      if(target = FindTargets(this, 100, 10, GetR())[0])
+      if(target = FindTargets(this, 200, 30, GetR())[0])
       {
         targetFoundTime = FrameCounter();
       }
