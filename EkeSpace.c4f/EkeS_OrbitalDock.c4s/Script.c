@@ -29,7 +29,7 @@ func Script2(){
         var r = Random(itemSpawnsL);
 
         // half chance for specific items
-        if (itemSpawns[r] == SG7A || itemSpawns[r] == NH7A || itemSpawns[r] == GS7A) {
+        if (itemSpawns[r] == SG7A || itemSpawns[r] == NH7A || itemSpawns[r] == RL7A) {
             r = Random(itemSpawnsL);
         }
         CreateContents(itemSpawns[r], spwn);
