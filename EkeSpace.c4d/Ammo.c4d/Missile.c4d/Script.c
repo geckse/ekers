@@ -3,6 +3,7 @@
 local target;
 local targetFoundTime;
 local random;
+local aggro;
 
 #strict 2
 
@@ -30,19 +31,20 @@ func Flying()
   {
     if(GetActTime() < 3) offset += 20;
 
-    if(targetFoundTime && FrameCounter() - targetFoundTime > 70)
+    if(targetFoundTime && FrameCounter() - targetFoundTime > 30)
     {
       target = 0;
+      aggro = 1;
     }
     else if(!target)
     {
-      if(target = FindTargets(this, 200, 30, GetR())[0])
+      if(target = FindTargets(this, 200, 25, GetR())[0])
       {
         targetFoundTime = FrameCounter();
       }
     }
 
-    if(target)
+    if(target || aggro)
     {
       if(EkeFindVictim(-5, -10, 10, 20, this)) return BlowUp();
 
