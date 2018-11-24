@@ -134,10 +134,10 @@ func BlowUp()
 
 func Damage()
 {
-  if(GetDamage() < 1) return 1;
-
   if(GetAction() == "Idle")
   {
+    if(GetDamage() < 1) return 1;
+
     return BlowUp();
   }
 }
