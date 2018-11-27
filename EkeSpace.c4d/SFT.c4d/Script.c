@@ -25,7 +25,7 @@ protected func Initialize()
 
 func SetPhysicals()
 {
-    SetPhysical("Energy", 70000, PHYS_Temporary, this);
+    SetPhysical("Energy", 140000, PHYS_Temporary, this);
     SetPhysical("Breath", 250000, PHYS_Temporary, this);
     SetPhysical("Walk", 70000, PHYS_Temporary, this);
     SetPhysical("Jump", 40000, PHYS_Temporary, this);
