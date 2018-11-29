@@ -25,17 +25,36 @@ protected func Initialize()
 
 func SetPhysicals()
 {
-    var physicals = ["Energy", "Breath", "Walk", "Scale", "Hangle", "Dig", "Throw", "Push", "Fight", "Float", "CanScale", "CanHangle", "CanDig", "CanConstruct", "CanChop"];
+    var physicals = [
+        "Energy",
+        "Breath",
+        "Walk",
+        "Jump",
+        "Scale",
+        "Hangle",
+        "Dig",
+        "Swim",
+        "Throw",
+        "Push",
+        "Fight",
+        "Magic",
+        "Float",
+        "CanScale",
+        "CanHangle",
+        "CanDig",
+        "CanConstruct",
+        "CorrosionResist",
+        "BreatheWater"
+    ];
     var length = GetLength(physicals);
-    
+
     for(var i = 0; i < length; i++)
     {
         var value = GetDefCoreVal(physicals[i], "Physical");
         SetPhysical(physicals[i], value, PHYS_Temporary, this);
-        
-        var value = GetPhysical(physicals[i]);
-        DebugLog("%s : %d", physicals[i], value);
     }
+
+    DoEnergy(100);
     
     return 1;
 }
@@ -44,7 +63,7 @@ protected func Recruitment()
 {
     // richtigen Werte gleich zu Beginn
     SetAmmoBar(Contents() && Contents()->~GetAmmoPercent());
-    
+
     // weiter mit überladener Funktion
     return _inherited(...);
 }
