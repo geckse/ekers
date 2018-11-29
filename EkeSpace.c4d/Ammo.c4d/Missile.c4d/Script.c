@@ -35,7 +35,6 @@ func Flying()
 
         if(targetFoundTime && FrameCounter() - targetFoundTime > 30)
         {
-            aggro = target;
             target = 0;
         }
         else if(!target)
