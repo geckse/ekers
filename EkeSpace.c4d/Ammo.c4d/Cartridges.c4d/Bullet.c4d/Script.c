@@ -44,7 +44,7 @@ func Pistol()
     mAmount = 20;
     mLevel = 40;
     holeSize = 5;
-    punch = 10;
+    punch = 8;
 
     Sound("PT_Shoot*");
     return(1);
@@ -56,7 +56,7 @@ func Uzi()
     mAmount = 20;
     mLevel = 40;
     holeSize = 5;
-    punch = 5;
+    punch = 2;
 
     return(1);
 }
@@ -67,7 +67,7 @@ func AssaultRifle()
     mAmount = 50;
     mLevel = 50;
     holeSize = 8;
-    punch = 8;
+    punch = 4;
 
     return(1);
 }
@@ -78,7 +78,7 @@ func Airbike()
     mAmount = 50;
     mLevel = 50;
     holeSize = 8;
-    punch = 10;
+    punch = 5;
 
     return(1);
 }
@@ -89,7 +89,7 @@ func Shotgun()
     mAmount = 10;
     mLevel = 30;
     holeSize = 3;
-    punch = 4;
+    punch = 2;
 
     return(1);
 }
