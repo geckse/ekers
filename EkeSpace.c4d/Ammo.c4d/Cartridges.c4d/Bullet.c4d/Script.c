@@ -56,7 +56,7 @@ func Uzi()
     mAmount = 20;
     mLevel = 40;
     holeSize = 5;
-    punch = 2;
+    punch = 4;
 
     return(1);
 }
@@ -67,7 +67,7 @@ func AssaultRifle()
     mAmount = 50;
     mLevel = 50;
     holeSize = 8;
-    punch = 4;
+    punch = 6;
 
     return(1);
 }
@@ -78,7 +78,7 @@ func Airbike()
     mAmount = 50;
     mLevel = 50;
     holeSize = 8;
-    punch = 5;
+    punch = 8;
 
     return(1);
 }
@@ -89,7 +89,7 @@ func Shotgun()
     mAmount = 10;
     mLevel = 30;
     holeSize = 3;
-    punch = 2;
+    punch = 3;
 
     return(1);
 }
