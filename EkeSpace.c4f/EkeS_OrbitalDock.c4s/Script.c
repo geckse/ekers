@@ -27,11 +27,6 @@ func Script2(){
     for(var spwn in FindObjects(Find_ID(IS7A))) {
 
         var r = Random(itemSpawnsL);
-
-        // half chance for specific items
-        if (itemSpawns[r] == SG7A || itemSpawns[r] == NH7A || itemSpawns[r] == RL7A) {
-            r = Random(itemSpawnsL);
-        }
         CreateContents(itemSpawns[r], spwn);
    }
 }
