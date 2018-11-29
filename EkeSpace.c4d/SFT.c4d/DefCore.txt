@@ -31,7 +31,7 @@ ContactCalls=1
 LineConnect=C4D_EnergyHolder
 
 [Physical]
-Energy=140000
+Energy=70000
 Breath=250000
 Walk=70000
 Jump=40000

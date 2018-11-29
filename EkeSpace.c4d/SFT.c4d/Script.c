@@ -17,7 +17,7 @@ protected func Initialize()
     AddEffect("SellCheck", this, 1, 35, this);
 
     // always same physicals
-    // SetPhysicals();
+    SetPhysicals();
 
     // weiter mit überladener Funktion
     return _inherited(...);
@@ -25,24 +25,18 @@ protected func Initialize()
 
 func SetPhysicals()
 {
-    SetPhysical("Energy", 140000, PHYS_Temporary, this);
-    SetPhysical("Breath", 250000, PHYS_Temporary, this);
-    SetPhysical("Walk", 70000, PHYS_Temporary, this);
-    SetPhysical("Jump", 40000, PHYS_Temporary, this);
-    SetPhysical("Scale", 50000, PHYS_Temporary, this);
-    SetPhysical("Hangle", 60000, PHYS_Temporary, this);
-    SetPhysical("Dig", 40000, PHYS_Temporary, this);
-    SetPhysical("Swim", 90000, PHYS_Temporary, this);
-    SetPhysical("Throw", 50000, PHYS_Temporary, this);
-    SetPhysical("Push", 40000, PHYS_Temporary, this);
-    SetPhysical("Fight", 70000, PHYS_Temporary, this);
-    SetPhysical("Float", 200, PHYS_Temporary, this);
-    SetPhysical("CanScale", 1, PHYS_Temporary, this);
-    SetPhysical("CanHangle", 1, PHYS_Temporary, this);
-    SetPhysical("CanDig", 1, PHYS_Temporary, this);
-    SetPhysical("CanConstruct", 1, PHYS_Temporary, this);
-    SetPhysical("CanChop", 1, PHYS_Temporary, this);
-    DoEnergy(100, this);
+    var physicals = ["Energy", "Breath", "Walk", "Scale", "Hangle", "Dig", "Throw", "Push", "Fight", "Float", "CanScale", "CanHangle", "CanDig", "CanConstruct", "CanChop"];
+    var length = GetLength(physicals);
+    
+    for(var i = 0; i < length; i++)
+    {
+        var value = GetDefCoreVal(physicals[i], "Physical");
+        SetPhysical(physicals[i], value, PHYS_Temporary, this);
+        
+        var value = GetPhysical(physicals[i]);
+        DebugLog("%s : %d", physicals[i], value);
+    }
+    
     return 1;
 }
 
