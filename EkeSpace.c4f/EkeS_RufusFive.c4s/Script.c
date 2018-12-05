@@ -4,22 +4,18 @@
 
 static clonkSpawns;
 static clonkSpawnsL;
-static clonkCategory;
 
 static itemSpawns;
 static itemSpawnsL;
+static oldR;
 
 func Initialize() {
 
     // declare clonk respawn points
     clonkSpawns = [
-      [0207, 0538],
-      [1843, 0328],
       [1058, 0299],
-      [0750, 0699],
-      [1380, 0499],
-      [0580, 0499],
-      [1873, 0547]
+      [1380, 0438],
+      [0580, 0499]
     ];
     clonkSpawnsL = GetLength(clonkSpawns);
 
@@ -36,18 +32,22 @@ func Script1()
 }
 
 func Script2(){
-    
+
     // create items in spawn points
     for(var spwn in FindObjects(Find_ID(IS7A))) {
-        
-        var r = Random(itemSpawnsL);
-        
-        // half chance for specific items
-        if (itemSpawns[r] == SG7A || itemSpawns[r] == NH7A) {
-            r = Random(itemSpawnsL);
+
+        while(r == oldR || !r) var r = Random(itemSpawnsL);
+
+        if(itemSpawns[r] == NH7A || itemSpawns[r] == SG7A) {
+            if(!Random(2)) {
+                r = Random(itemSpawnsL);
+            }
         }
+
         CreateContents(itemSpawns[r], spwn);
-   }
+
+        oldR = r;
+    }
 }
 func Script120(){
      goto(2);
@@ -85,18 +85,14 @@ global func SpawnClonk(clonk)
 \*------------------------------------*/
 func CreateItemSpawns() {
 
-    // spawning items
-    itemSpawns = [CA7A, OB7A, GB7A, NH7A, SG7A, MS7A, HG7A, BB7A];
+    // declare spawning items
+    itemSpawns = [CA7A, OB7A, HG7A, NH7A, SG7A, PM7A];
     itemSpawnsL = GetLength(itemSpawns);
     
     // spawn points
     CreateObject(IS7A,1578,529);
-    CreateObject(IS7A,1070,537);
-    CreateObject(IS7A,711,224);
-    CreateObject(IS7A,370,529);
-    CreateObject(IS7A,1913,546);
     CreateObject(IS7A,663,688);
-    CreateObject(IS7A,1110,638);
+    CreateObject(IS7A,1110,647);
 
 }
 
@@ -115,13 +111,8 @@ func CreateEnvironment() {
     // stalactites
 	CreateObject(SL7A,1078,403 + 25);
 	CreateObject(SL7A,1054,398 + 25);
-	CreateObject(SL7A,381,192 + 25);
-	CreateObject(SL7A,436,194 + 25);
-	CreateObject(SL7A,459,190 + 25);
 	CreateObject(SL7A,697,571 + 25);
 	CreateObject(SL7A,618,593 + 25);
-	CreateObject(SL7A,1595,190 + 25);
-	CreateObject(SL7A,1640,169 + 25);
 	CreateObject(SL7A,1573,400 + 25);
     
 }
