@@ -207,9 +207,15 @@ func HitCreature(victim)
             // nicht bei schweren (groﬂen) Lebewesen
             if (GetMass(victim) < 500)
             {
-                // Opfer wegschleudern
                 var iYDir = -1 * booster;
-                if(shootingAxis) iYDir = shootingAxis * 2;
+                var action = GetAction(victim);
+                
+                // Schussachse nicht ber¸cksichtigen wenn Clonk auf dem Boden steht oder an der Decke hangelt
+                if (!WildcardMatch(action, "*Walk") && action != "FlatUp" && action != "Hangle") {
+                    if(shootingAxis) iYDir = shootingAxis * 2;
+                }
+                
+                // Opfer wegschleudern
                 Fling(victim, direction * (3 + booster), iYDir);
             }
         }
