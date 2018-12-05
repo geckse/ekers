@@ -4,10 +4,11 @@
 
 static clonkSpawns;
 static clonkSpawnsL;
+static clonkSpawnsR;
 
 static itemSpawns;
 static itemSpawnsL;
-static oldR;
+static itemSpawnsR;
 
 func Initialize() {
 
@@ -36,7 +37,7 @@ func Script2(){
     // create items in spawn points
     for(var spwn in FindObjects(Find_ID(IS7A))) {
 
-        while(r == oldR || !r) var r = Random(itemSpawnsL);
+        while(r == itemSpawnsR || !r) var r = Random(itemSpawnsL);
 
         if(itemSpawns[r] == NH7A || itemSpawns[r] == SG7A) {
             if(!Random(2)) {
@@ -46,7 +47,7 @@ func Script2(){
 
         CreateContents(itemSpawns[r], spwn);
 
-        oldR = r;
+        itemSpawnsR = r;
     }
 }
 func Script120(){
@@ -61,17 +62,11 @@ global func SpawnClonk(clonk)
     
     // move new clonk to random respawn point, avoid spawning by hostiles
     var r = Random(clonkSpawnsL);
-    for(var i = 1; i <= 4; i++) {
-        var a2 = Find_Hostile(GetController(clonk));
-        var a3 = Find_OCF(OCF_Alive);
-        var a4 = Find_NoContainer();
-        var a5 = Find_Distance(150, clonkSpawns[r][0], clonkSpawns[r][1]);
-        var hostile = FindObject2(a2, a3, a4, a5);
-        if(hostile) {
-            r = Random(clonkSpawnsL);
-        }
+    while(r == clonkSpawnsR) {
+        r = Random(clonkSpawnsL);
     }
     SetPosition(clonkSpawns[r][0], clonkSpawns[r][1], clonk);
+    clonkSpawnsR = r;
   
     // equip clonk
     var assaultRifle = CreateContents(AR7A, clonk);
