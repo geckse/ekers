@@ -208,14 +208,15 @@ func HitCreature(victim)
             if (GetMass(victim) < 500)
             {
                 var iYDir = -1 * booster;
-                var action = GetAction(victim);
+                var procedure = GetProcedure(victim);
                 
-                // Schussachse nicht berücksichtigen wenn Clonk auf dem Boden steht oder an der Decke hangelt
-                if (!WildcardMatch(action, "*Walk") && action != "FlatUp" && action != "Hangle") {
+                // Schussachse nicht berücksichtigen wenn Clonk steht oder klettert
+                if(procedure != "WALK" && procedure != "HANGLE" && procedure != "SCALE" && procedure != "KNEEL") {
                     if(shootingAxis) iYDir = shootingAxis * 2;
                 }
                 
                 // Opfer wegschleudern
+                DebugLog("%s", procedure);
                 Fling(victim, direction * (3 + booster), iYDir);
             }
         }
