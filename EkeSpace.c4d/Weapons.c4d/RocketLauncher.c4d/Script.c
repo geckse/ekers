@@ -7,8 +7,8 @@ func ActionString() { return "RocketLauncher"; }
 func NeedsActivation() { return true; }
 
 func ShotDelay() { return [30]; }
-func AmmoID() { return RB7A; }
-func AmmoUsage() { return [500]; }
+func AmmoID() { return MS7A; }
+func AmmoUsage() { return [1000]; }
 func ShotSound() { return ["RL_Shoot"]; }
 func ReloadSound() { return "RL_Reload"; }
 func EmptySound() { return ["PT_Empty"]; }
