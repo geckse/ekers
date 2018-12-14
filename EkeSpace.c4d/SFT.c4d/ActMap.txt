@@ -159,6 +159,7 @@ Length=16
 Delay=15
 Facet=0,80,16,20,0,1
 NextAction=Swim
+StartCall=CheckArmed
 
 [Action]
 Name=Hangle
