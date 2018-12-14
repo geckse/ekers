@@ -95,13 +95,6 @@ func CreateItemSpawns() {
     Environment
 \*------------------------------------*/
 func CreateEnvironment() {
-    
-    // Sky
-    //SetSkyParallax (0,17,19,0,0,0,0);
-
-    // Fog
-    //for(var i=0;i<90;++i)
-    //CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
 
     // stalactites
 	CreateObject(SL7A,1078,403 + 25);
