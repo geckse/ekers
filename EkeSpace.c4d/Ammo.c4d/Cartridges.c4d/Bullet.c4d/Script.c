@@ -5,6 +5,8 @@
 local xOld;
 local yOld;
 
+local oldYDir;
+
 local shooter;
 local direction;
 local flightTime;
@@ -27,11 +29,12 @@ func Launch(object weapon, int dir, clonk)
     shootingAxis = weapon->~GetShootingAxis();
 
     xOld = GetX();
-    yOld = GetY() + shootingAxis * 4;
+    yOld = GetY();
 
     shooter = clonk;
     direction = 2 * dir - 1;
 
+    oldYDir = shootingAxis * 180;
 
     SetXDir(direction * 400);
     SetAction("Fly");
@@ -100,19 +103,23 @@ func HitObject()
     if (flightTime > 5) RemoveObject();
 
     // y-Abweichung der Kugel einbringen
-    SetYDir(RandomX(-yVariation, yVariation) + shootingAxis * 180);
+    var yDir = RandomX(-yVariation, yVariation) + shootingAxis * 180;
+    SetYDir(yDir);
 
     var notFree = false;
 
-    var x = xOld - GetX();
-    var y = yOld - GetY();
-
-    if(!PathFree2(xOld, yOld, GetX(), GetY()))
+    var xBlocked, yBlocked;
+    if(PathBlockedPosition(xOld, yOld, xOld + 40 * direction, yOld + oldYDir / 10, xBlocked, yBlocked))
     {
-        SetPosition(xOld, yOld);
+        SetPosition(xBlocked, yBlocked);
         direction = 0;
         notFree = true;
     }
+
+    oldYDir = yDir;
+
+    var x = xOld - GetX();
+    var y = yOld - GetY();
 
     xOld = GetX();
     yOld = GetY();
@@ -209,12 +216,12 @@ func HitCreature(victim)
             {
                 var iYDir = -1 * booster;
                 var procedure = GetProcedure(victim);
-                
+
                 // Schussachse nicht berücksichtigen wenn Clonk steht oder hangelt
                 if(procedure != "WALK" && procedure != "HANGLE" && procedure != "KNEEL") {
                     if(shootingAxis) iYDir = shootingAxis * 2;
                 }
-                
+
                 // Opfer wegschleudern
                 Fling(victim, direction * (3 + booster), iYDir);
             }
@@ -283,13 +290,4 @@ func HitTin(victim)
     Sound("BU_TinHit*");
     RemoveObject();
     return(1);
-}
-
-// wird bei Kontakt von allen Seiten aufgerufen
-// ist nur Left weil das CNAT auf Left steht
-func ContactLeft()
-{
-    // beim normalen Aufruf von Hit aus der Engine wäre die Kugel schon entlang der Wand hoch oder hinunter geschlittert
-    // bei Contact noch nicht
-    Hit();
 }
