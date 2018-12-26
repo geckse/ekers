@@ -1,0 +1,9 @@
+GoalPoints=Goal
+Points=%d points
+TeamWon=%s wins!
+FlagCapturedBy=%s (%s) captured the flag of %s and now has %d points!
+FlagTakenBy=%s (%s) has the flag of %s!
+FlagRecoveredBy=%s (%s) got their own flag back!
+FlagLostBy=%s (%s) lost the opponent's flag!
+InfoSingular=Your team needs %d more point to win.
+InfoPlural=Your team needs %d more points to win.
