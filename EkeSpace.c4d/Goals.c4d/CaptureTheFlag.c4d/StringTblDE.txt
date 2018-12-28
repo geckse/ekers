@@ -1,0 +1,9 @@
+GoalPoints=Ziel
+Points=%d Punkte
+TeamWon=%s hat gewonnen!
+FlagCapturedBy=%s (%s) hat die Flagge von %s erfolgreich geklaut und hat damit nun %d Punkte!
+FlagTakenBy=%s (%s) hat die Flagge von %s!
+FlagRecoveredBy=%s (%s) hat die eigene Flagge wieder!
+FlagLostBy=%s (%s) hat die gegnerische Flagge fallen gelassen!
+InfoSingular=Es fehlt noch %d Punkt bis zum Sieg.
+InfoPlural=Es fehlen noch %d Punkte bis zum Sieg.
