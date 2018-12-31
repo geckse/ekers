@@ -6,6 +6,9 @@ static itemSpawns;
 static itemSpawnsL;
 static itemSpawnsR;
 
+static clonkSpawns;
+static clonkSpawns2;
+
 func Initialize() {
     // team IDs starten bei 1
     ctfRule->SetFlagPositions([0, [288, 464], [1428, 464]]);
@@ -16,27 +19,17 @@ func Initialize() {
     // item spawner erzeugen
     CreateItemSpawns();
 
-    return(ScriptGo(1));
-}
+    // clonk spawnpositionen festlegen
+    clonkSpawns = [
+        [224, 380],
+        [224, 530]
+    ];
+    clonkSpawns2 = [
+        [1493, 380],
+        [1493, 530]
+    ];
 
-func GetTeamStartPosition(iTeam, fY)
-{
-    if(iTeam==1) { if(!Random(2)){
-        if(!fY) return(288);
-        return(333);
-    } else {
-        if(!fY) return(316);
-        return(527);
-    }
-                 }
-    if(iTeam==2) { if(!Random(2)){
-        if(!fY) return(1402);
-        return(333);
-    } else {
-        if(!fY) return(1429);
-        return(527);
-    }
-                 }
+    return(ScriptGo(1));
 }
 
 func Script2(){
@@ -61,23 +54,46 @@ func Script120(){
     goto(2);
 }
 
-func InitializePlayer(iPlr) {
-    var clonk = GetCrew(iPlr);
-    var assaultRifle = CreateContents(AR7A, clonk);
-    assaultRifle->SetAmmoPercent(100);
-    CreateContents(HG7A, clonk,2);
-    SetPosition(GetTeamStartPosition(GetPlayerTeam(iPlr)),GetTeamStartPosition(GetPlayerTeam(iPlr),true),clonk);
+func GetClonkSpawn(iTeam) {
+
+    var r = Random(2)^((FrameCounter()/100)%2);
+
+    if(iTeam == 1) {
+
+        return clonkSpawns[r];
+    }
+    else {
+
+        return clonkSpawns2[r];
+    }
 }
 
-func RelaunchPlayer(iPlr){
-    var spawn = CreateObject(QRE1,GetTeamStartPosition(GetPlayerTeam(iPlr)),GetTeamStartPosition(GetPlayerTeam(iPlr),true),iPlr);
-    var clonk = CreateObject(SF7A,20,20,iPlr);
+func InitializePlayer(iPlr) {
+
+    var clonk = GetCrew(iPlr);
+
+    SpawnClonk(clonk, iPlr);
+}
+
+func RelaunchPlayer(iPlr) {
+
+    var clonk = CreateObject(SF7A);
+
+    SpawnClonk(clonk, iPlr);
+}
+
+func SpawnClonk(clonk, iPlr) {
+
+    var spawnPos = GetClonkSpawn(GetPlayerTeam(iPlr));
+
+    SetPosition(spawnPos[0], spawnPos[1], clonk);
     MakeCrewMember(clonk,iPlr);
     SetCursor(iPlr,clonk);
     clonk->~DoEnergy(100);
-    spawn->~Set(clonk,iPlr,1);
-    Enter(spawn,clonk);
-    return true;
+
+    var rifle = CreateContents(AR7A, clonk);
+
+    rifle->SetAmmoPercent(100);
 }
 
 /*------------------------------------*\
@@ -86,7 +102,7 @@ func RelaunchPlayer(iPlr){
 func CreateItemSpawns() {
 
     // declare spawning items
-    itemSpawns = [CA7A, OB7A, GB7A, NH7A, SG7A, GS7A, RL7A, RB7A];
+    itemSpawns = [CA7A, OB7A, CA7A, NH7A, SG7A, GS7A, RL7A, RB7A];
     itemSpawnsL = GetLength(itemSpawns);
 
     // spawn points
