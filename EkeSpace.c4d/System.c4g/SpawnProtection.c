@@ -39,14 +39,14 @@ global func FxSpawnProtectionTimer(target, effectNumber, effectTime)
 
     if(Contained(target)) return;
 
-    if(EffectVar(6, target, effectNumber))
-    {
-        Message("<c %x>%d</c>", target, GetPlrColorDw(GetOwner(target)), (EffectVar(5, target, effectNumber) - effectTime) / 35);
-    }
-
     if(effectTime > EffectVar(5, target, effectNumber))
     {
         return FX_Execute_Kill;
+    }
+
+    if(EffectVar(6, target, effectNumber))
+    {
+        Message("<c %x>%d</c>", target, GetPlrColorDw(GetOwner(target)), (EffectVar(5, target, effectNumber) - effectTime) / 35 + 1);
     }
 
     CreateParticle("PSpark",Cos(EffectVar(3,target,effectNumber),10),Sin(EffectVar(3,target,effectNumber),10),0,0,30,HSL(EffectVar(0,target,effectNumber),255,128));
@@ -80,6 +80,11 @@ global func FxSpawnProtectionStop(object target, int effectNumber, int reason, b
             }
 
             SetCursor(plr, target);
+        }
+
+        if(EffectVar(6, target, effectNumber))
+        {
+            Message("", target);
         }
     }
 }
