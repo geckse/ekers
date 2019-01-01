@@ -49,8 +49,8 @@ global func FxSpawnProtectionTimer(target, effectNumber, effectTime)
         Message("<c %x>%d</c>", target, GetPlrColorDw(GetOwner(target)), (EffectVar(5, target, effectNumber) - effectTime) / 35 + 1);
     }
 
-    CreateParticle("PSpark",Cos(EffectVar(3,target,effectNumber),10),Sin(EffectVar(3,target,effectNumber),10),0,0,30,HSL(EffectVar(0,target,effectNumber),255,128));
-    CreateParticle("PSpark",Cos(EffectVar(3,target,effectNumber)-180,10),Sin(EffectVar(3,target,effectNumber)-180,10),0,0,30,HSL(EffectVar(0,target,effectNumber),255,128));
+    target->CreateParticle("PSpark",Cos(EffectVar(3,target,effectNumber),10),Sin(EffectVar(3,target,effectNumber),10),0,0,30,HSL(EffectVar(0,target,effectNumber),255,128));
+    target->CreateParticle("PSpark",Cos(EffectVar(3,target,effectNumber)-180,10),Sin(EffectVar(3,target,effectNumber)-180,10),0,0,30,HSL(EffectVar(0,target,effectNumber),255,128));
     SetClrModulation(HSL(EffectVar(0,target,effectNumber),255,128),target);
 
     EffectVar(0,target,effectNumber)+=EffectVar(1,target,effectNumber);
