@@ -3,7 +3,7 @@
 #strict
 #include MELE
 
-static deathmatchRule;
+static goal_dm;
 
 local relaunchs;
 local kills;
@@ -12,20 +12,19 @@ local maxRelaunchs;
 
 protected func Initialize()
 {
-    deathmatchRule = 1;
-
     relaunchs = CreateArray();
     kills = CreateArray();
     selfkills = CreateArray();
 
     // Relaunchanzahl = Platzierungsanzahl
-    var goal;
-    if (goal = FindObject(GetID()))
+    if(goal_dm)
     {
-        LocalN("maxRelaunchs", goal) += 1;
+        LocalN("maxRelaunchs", goal_dm) += 1;
         return(RemoveObject());
     }
     maxRelaunchs = 1;
+
+    goal_dm = this;
 
     return _inherited(...);
 }
@@ -50,7 +49,7 @@ func InitializePlayer(player, x, y, base, team)
     DoScoreboardShow(1, player + 1);
 
     GameCall("InitializeClonk", GetCrew(player));
-    return(inherited(player, x, y, base, team));   
+    return(inherited(player, x, y, base, team));
 }
 
 func Activate(player)

@@ -5,7 +5,7 @@ local container;
 
 func ControlShoot()
 {
-    if(deathmatchRule)
+    if(goal_dm)
     {
         container = Contained();
         if (GetEffect("SpawnProtection", container))

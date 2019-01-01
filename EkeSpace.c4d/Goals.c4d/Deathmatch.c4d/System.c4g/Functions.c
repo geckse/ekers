@@ -5,7 +5,7 @@
 \*------------------------------------*/
 global func SpawnClonk(clonk)
 {
-    if(!deathmatchRule) return _inherited(clonk, ...);
+    if(!goal_dm) return _inherited(clonk, ...);
     
     // move new clonk to random respawn point, avoid spawning by hostiles
     var wipf = PlaceAnimal(WIPF);
