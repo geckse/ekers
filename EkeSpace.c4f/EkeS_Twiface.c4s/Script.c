@@ -80,6 +80,7 @@ func RelaunchPlayer(iPlr) {
     var clonk = CreateObject(SF7A, 0, 0, iPlr);
 
     SpawnClonk(clonk, iPlr);
+    clonk->AddSpawnProtection(215, true, true);
 }
 
 func SpawnClonk(clonk, iPlr) {
