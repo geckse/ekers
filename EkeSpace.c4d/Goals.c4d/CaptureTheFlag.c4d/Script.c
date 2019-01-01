@@ -3,7 +3,7 @@
 #strict 2
 #include MELE
 
-static ctfRule;
+static goal_ctf;
 
 local score;
 local targetScore;
@@ -14,14 +14,14 @@ static const SBRD_CTF_Goal = 2147483647;
 func Initialize()
 {
   // Zielpunktzahl = Platzierungsanzahl
-  if(ctfRule)
+  if(goal_ctf)
   {
-    ctfRule->IncreaseTargetScore();
+    goal_ctf->IncreaseTargetScore();
     return RemoveObject();
   }
 
   targetScore = 1;
-  ctfRule = this;
+  goal_ctf = this;
 
   score = [];
   flagPositions = [];

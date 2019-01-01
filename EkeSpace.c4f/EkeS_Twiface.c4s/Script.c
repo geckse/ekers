@@ -11,7 +11,7 @@ static clonkSpawns2;
 
 func Initialize() {
     // team IDs starten bei 1
-    ctfRule->SetFlagPositions([0, [288, 464], [1428, 464]]);
+    goal_ctf->SetFlagPositions([0, [288, 464], [1428, 464]]);
 
     // Sternenhimmel
     SetSkyParallax(0, 50,50, 1,0);

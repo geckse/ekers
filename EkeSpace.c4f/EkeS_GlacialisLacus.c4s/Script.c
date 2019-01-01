@@ -4,7 +4,7 @@
 
 func Initialize() {
   // team IDs starten bei 1
-  ctfRule->SetFlagPositions([0, [112, 375], [2288, 375]]);
+  goal_ctf->SetFlagPositions([0, [112, 375], [2288, 375]]);
   return(ScriptGo(1));
 }
 
