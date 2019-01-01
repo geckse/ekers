@@ -77,7 +77,7 @@ func InitializePlayer(iPlr) {
 
 func RelaunchPlayer(iPlr) {
 
-    var clonk = CreateObject(SF7A);
+    var clonk = CreateObject(SF7A, 0, 0, iPlr);
 
     SpawnClonk(clonk, iPlr);
 }
