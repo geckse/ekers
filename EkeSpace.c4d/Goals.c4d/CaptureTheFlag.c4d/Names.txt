@@ -1,2 +1,2 @@
-DE:Capture the Flag
-US:Capture the Flag
+DE:Neuer Objektordner
+US:New object folder

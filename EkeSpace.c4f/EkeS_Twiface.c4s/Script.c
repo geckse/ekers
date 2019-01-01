@@ -94,6 +94,8 @@ func SpawnClonk(clonk, iPlr) {
     var rifle = CreateContents(AR7A, clonk);
 
     rifle->SetAmmoPercent(100);
+    
+    SetController(NO_OWNER, clonk);
 }
 
 /*------------------------------------*\
