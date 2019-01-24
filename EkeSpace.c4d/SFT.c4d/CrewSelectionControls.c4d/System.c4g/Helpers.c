@@ -12,7 +12,7 @@ global func GetCrew(int plr, int index, bool includeHelpers)
 	var foundIndex = -1;
 	for(var i = 0; i < GetCrewCount(plr); ++i)
 	{
-		var crew = inherited(plr, index);
+		var crew = inherited(plr, i);
 		if(!crew || !crew->~IsCursorHelper())
 		{
 			if(++foundIndex == index)
@@ -117,12 +117,21 @@ global func CycleCursor(int player, bool backwards, object currentCursor)
 	}
 }
 
-global func SetCursor()
+global func SetCursor(int plr, object cursor)
 {
 	var oldStatus = DT_CursorChange_IgnoreChanges;
 	DT_CursorChange_IgnoreChanges = true;
-	var ret = inherited(...);
+	var ret = inherited(plr, cursor, ...);
 	DT_CursorChange_IgnoreChanges = oldStatus;
+
+	if(ret)
+	{
+		var last = DT_CursorChange_LastCursors[plr];
+		if((!last || !GetAlive(last)) && GetCrewIndex(cursor) >= 0)
+		{
+			DT_CursorChange_LastCursors[plr] = cursor;
+		}
+	}
 	return ret;
 }
 
