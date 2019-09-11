@@ -5,6 +5,10 @@
 #include CLNK
 #include JB4K
 
+static const ShootingAxis_Straight = 0;
+static const ShootingAxis_Downwards = 1;
+static const ShootingAxis_Upwards = -1;
+
 local pistol;
 local ctrlSpclCmboCnt;
 
@@ -55,7 +59,7 @@ func SetPhysicals()
     }
 
     DoEnergy(100);
-    
+
     return 1;
 }
 
@@ -305,16 +309,31 @@ protected func ControlCursorLeft()
     return true;
 }
 
-protected func ControlCursorMiddle()
+protected func ControlCursorLeftDouble()
 {
-    var owner = GetOwner();
-    DT_CursorChange_LastCursors[owner] = CycleCursor(owner, false, this);
-    return DT_CursorChange_NoTouch;
+    ControlCursorLeft();
+    return true;
+}
+
+protected func ControlCursorToggle()
+{
+    return true;
+}
+
+protected func ControlCursorToggleDouble()
+{
+    return true;
 }
 
 protected func ControlCursorRight()
 {
     ControlShoot(ShootingAxis_Downwards);
+    return true;
+}
+
+protected func ControlCursorRightDouble()
+{
+    ControlCursorRight();
     return true;
 }
 

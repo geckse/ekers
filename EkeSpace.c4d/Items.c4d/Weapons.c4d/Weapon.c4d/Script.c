@@ -446,6 +446,12 @@ func ControlThrow()
     return true;
 }
 
+func ControlCursorLeft() {
+    ControlShoot(ShootingAxis_Straight);
+    DebugLog("jau bruder");
+    return true;
+}
+
 func ControlShoot(object clonk, int axis)
 {
     if(!IsActive())

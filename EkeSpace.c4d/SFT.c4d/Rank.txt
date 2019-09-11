@@ -1,24 +1,48 @@
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+Rekrut
+Gefreiter
+Obergefreiter
+Hauptgefreiter
+Stabsgefreiter
+Oberstabsgefreiter
+Unteroffizier
+Stabsunteroffizier
+Feldwebel
+Oberfeldwebel
+Hauptfeldwebel
+Stabsfeldwebel
+Oberstabsfeldwebel
+Leutnant
+Oberleutnant
+Hauptmann
+Stabshauptmann
+Major
+Oberstleutnant
+Oberst
+Brigadegeneral
+Generalmajor
+Generalleutnant
+General
+The President's Man
+TPM Gefreiter
+TPM Obergefreiter
+TPM Hauptgefreiter
+TPM Stabsgefreiter
+TPM Oberstabsgefreiter
+TPM Unteroffizier
+TPM Stabsunteroffizier
+TPM Feldwebel
+TPM Oberfeldwebel
+TPM Hauptfeldwebel
+TPM Stabsfeldwebel
+TPM Oberstabsfeldwebel
+TPM Leutnant
+TPM Oberleutnant
+TPM Hauptmann
+TPM Stabshauptmann
+TPM Major
+TPM Oberstleutnant
+TPM Oberst
+TPM Brigadegeneral
+TPM Generalmajor
+TPM Generalleutnant
+TPM General
