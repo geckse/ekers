@@ -19,7 +19,7 @@ func UpdateAmmoBar()
 {
   var ammo = this->GetAmmoPercent() / 5;
   if(ammo) ammo = Format("%d", ammo);
-  SetGraphics(ammo, this, AC7A, GFX_Overlay, GFXOV_MODE_Picture);
+  SetGraphics(ammo || 0, this, AC7A, GFX_Overlay, GFXOV_MODE_Picture);
 
   return _inherited(...);
 }
