@@ -29,6 +29,7 @@ IncompleteActivity=1
 Oversize=1
 ContactCalls=1
 LineConnect=C4D_EnergyHolder
+HideHUDBars=Energy|MagicEnergy
 
 [Physical]
 Energy=70000

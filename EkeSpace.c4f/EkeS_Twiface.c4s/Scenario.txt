@@ -8,7 +8,6 @@ ForcedGfxMode=1
 [Definitions]
 Definition1=Objects.c4d
 Definition2=EkeSpace.c4d
-Definition3=EkeSpace.c4f
 
 [Game]
 StructNeedEnergy=0
