@@ -17,7 +17,7 @@ global func FxSpawnProtectionStart(object target, int effectNumber, int temp, in
         if(disableControls)
         {
             var plr = GetOwner(target);
-            for(var i = 0, crew; crew = GetCrew(plr, i, true); ++i)
+            for(var i = 0, crew; crew = GetCrew(plr, i); ++i)
             {
                 crew->SetCrewEnabled(false);
             }
@@ -74,7 +74,7 @@ global func FxSpawnProtectionStop(object target, int effectNumber, int reason, b
             target->SetCrewEnabled(true);
 
             var plr = GetOwner(target);
-            for(var i = 0, crew; crew = GetCrew(plr, i, true); ++i)
+            for(var i = 0, crew; crew = GetCrew(plr, i); ++i)
             {
                 crew->SetCrewEnabled(true);
             }
